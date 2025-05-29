@@ -1,24 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import Header from "./end-user/components/header/Header";
+import Footer from "./end-user/components/footer/Footer";
+import Home from "./end-user/pages/Home";
+import News from "./end-user/pages/News";
+import Article from "./end-user/pages/Article";
+
+// Define page groups by CSS Class style
+const enduser = ["/", "/news", "/pumps", "/ship-constructions", "/ship-stability", "/ship-type", "/other"];
+const admin = [];
+const superadmin = [];
+
+// Get CSS Class Style based on current path
+function getClassStyle(pathname) {
+  if (enduser.includes(pathname)) return "Enduser-App";
+  if (admin.includes(pathname)) return "Admin-App";
+  if (superadmin.includes(pathname)) return "Superadmin-App";
+}
 
 function App() {
+  const ClassStyle = getClassStyle(useLocation().pathname);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {/* Header Area */}
+      <Routes>
+        {/* Enduser Header */}
+        {["/", "/news", "/pumps", "/ship-constructions", "/ship-stability", "/ship-type", "/other"].map((path) => (
+          <Route key={path} path={path} element={<Header />} />
+        ))}
+      </Routes>
+
+      {/* Body Content */}
+      <div className={ClassStyle}>
+        <Routes>
+          {/* Enduser Body Content */}
+          <Route path="/" element={<Home />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/pumps" element={<Article />} />
+          <Route path="/ship-constructions" element={<Article />} />
+          <Route path="/ship-stability" element={<Article />} />
+          <Route path="/ship-type" element={<Article />} />
+          <Route path="/other" element={<Article />} />
+        </Routes>
+      </div>
+
+      {/* Footer Area */}
+      <Routes>
+        {/* Enduser Footer */}
+        {["/", "/news", "/pumps", "/ship-constructions", "/ship-stability", "/ship-type", "/other"].map((path) => (
+          <Route key={path} path={path} element={<Footer />} />
+        ))}
+      </Routes>
+    </>
   );
 }
 

@@ -1,0 +1,90 @@
+/* Navbar */
+.custom-navbar {
+  background-color: #1b3754 !important;
+}
+
+/* Logo */
+.navbar-App-logo {
+  width: 55px;
+}
+
+.custom-nav .nav-link,
+.custom-navbar .dropdown-toggle,
+.custom-navbar .dropdown-item {
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 22px;
+  transition: color 0.3s ease;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  background-color: #1b3754 !important;
+  border: 2px solid #ffffff;
+}
+
+.dropdown-item:hover {
+  background-color: transparent !important;
+}
+
+.dropdown-item.active {
+  background-color: transparent !important;
+}
+
+.dropdown-divider {
+  background-color: #ffffff;
+  height: 2px;
+}
+
+/* Hide the default dropdown icon */
+.caret-down .dropdown-toggle::after {
+  display: none !important;
+}
+
+/* Hover */
+.custom-nav .nav-link:hover,
+.custom-navbar .dropdown-toggle:hover,
+.custom-navbar .dropdown-item:hover {
+  color: #f3777b !important;
+}
+
+/* Active */
+.custom-nav .nav-link.active,
+.custom-navbar .dropdown.active > .dropdown-toggle {
+  color: #f3777b !important;
+}
+
+/* Search Bar */
+.search-input {
+  border-radius: 50px;
+  border: 2px solid #f3777b;
+}
+
+.search-input:focus {
+  border-color: #f3777b;
+  box-shadow: 0 0 0 0.1rem #f99a9d;
+}
+
+/* Remove clear icon */
+.search-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  color: #808080;
+  pointer-events: none;
+}
+
+ /* Navbar Toggle */
+.nav-toggle {
+  border-color: #f3777b;
+  color: #f99a9d;
+}
+
+.nav-toggle-icon {
+  color: #f3777b;
+}

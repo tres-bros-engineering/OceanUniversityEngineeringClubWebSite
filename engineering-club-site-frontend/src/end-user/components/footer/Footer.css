@@ -1,0 +1,57 @@
+.footer {
+  background-color: #1b3754 !important;
+}
+
+/* Footer Logos */
+.ocu-logo {
+  width: 120px;
+  margin-left: 5px;
+}
+
+.club-logo {
+  width: 100px;
+}
+
+/* Footer Navbar */
+.footer-text {
+  font-size: 17px;
+}
+
+.footer-nav .nav-link,
+.footer-navbar .dropdown-toggle,
+.footer-navbar .dropdown-item {
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 22px;
+  transition: color 0.3s ease;
+}
+
+/* Footer Dropdown */
+.dropdown-menu {
+  background-color: #1b3754 !important;
+  border: 2px solid #ffffff;
+}
+
+.dropdown-item:hover {
+  background-color: transparent !important;
+}
+
+.dropdown-item.active {
+  background-color: transparent !important;
+}
+
+.dropdown-divider {
+  background-color: #ffffff;
+  height: 2px;
+}
+
+/* Hide the default dropdown icon */
+.caret-down .dropdown-toggle::after {
+  display: none !important;
+}
+
+/* Contact us text */
+.contact-us-text {
+  font-weight: 700;
+  font-size: 22px;
+}
