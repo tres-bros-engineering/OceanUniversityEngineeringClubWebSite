@@ -20,7 +20,9 @@ const Footer = () => {
         <Row>
           <div className="col-lg text-center mt-4">
             <img src={clublogo} className="club-logo" alt="club-logo" />
-            <img src={oculogo} className="ocu-logo" alt="ocu-logo" />
+            <a href="https://ocu.ac.lk/" target="_blank">
+              <img src={oculogo} className="ocu-logo" alt="ocu-logo" />
+            </a>
           </div>
           <div className="col-lg-6 mt-lg-5 mt-2">
             <Navbar expand="lg" className="footer-navbar">
@@ -60,14 +62,14 @@ const Footer = () => {
           <div className="col-lg mt-lg-5 text-center mt-2">
             <div className="contact-us-text text-white">Contact Us</div>
             <div className="mt-2">
-              <a href="https://www.facebook.com/" target="_blank">
+              <a href="https://www.facebook.com/p/Engineering-Innovation-Club-Ocean-University-of-Sri-Lanka-100054277611108/" target="_blank">
                 <i className="bi bi-facebook fs-3 text-white me-5"></i>
               </a>
-              <a href="#" target="_blank">
-                <i className="bi bi-envelope-fill fs-3 text-white me-5"></i>
+              <a href="https://www.instagram.com/eic_ocu/" target="_blank">
+                <i className="bi bi-instagram fs-3 text-white me-5"></i>
               </a>
-              <a href="#" target="_blank">
-                <i className="bi bi-telephone-fill fs-3 text-white"></i>
+              <a href="https://lk.linkedin.com/company/engineering-innovation-club-ocean-university-of-sri-lanka" target="_blank">
+                <i className="bi bi-linkedin fs-3 text-white"></i>
               </a>
             </div>
           </div>

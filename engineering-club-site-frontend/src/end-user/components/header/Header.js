@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import logo from "../../../assets/logo.png";
 import "./Header.css";
 import Container from "react-bootstrap/Container";
