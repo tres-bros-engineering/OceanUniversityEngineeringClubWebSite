@@ -7,7 +7,11 @@ import Header from "./end-user/components/header/Header";
 import Footer from "./end-user/components/footer/Footer";
 import Home from "./end-user/pages/Home";
 import News from "./end-user/pages/News";
-import Article from "./end-user/pages/Article";
+import Pumps from "./end-user/pages/Pumps";
+import ShipConstructions from "./end-user/pages/ShipConstructions";
+import ShipStability from "./end-user/pages/ShipStability";
+import ShipType from "./end-user/pages/ShipType";
+import Other from "./end-user/pages/Other";
 
 // Define page groups by CSS Class style
 const enduser = ["/", "/news", "/pumps", "/ship-constructions", "/ship-stability", "/ship-type", "/other"];
@@ -40,11 +44,11 @@ function App() {
           {/* Enduser Body Content */}
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<News />} />
-          <Route path="/pumps" element={<Article />} />
-          <Route path="/ship-constructions" element={<Article />} />
-          <Route path="/ship-stability" element={<Article />} />
-          <Route path="/ship-type" element={<Article />} />
-          <Route path="/other" element={<Article />} />
+          <Route path="/pumps" element={<Pumps />} />
+          <Route path="/ship-constructions" element={<ShipConstructions />} />
+          <Route path="/ship-stability" element={<ShipStability />} />
+          <Route path="/ship-type" element={<ShipType />} />
+          <Route path="/other" element={<Other />} />
         </Routes>
       </div>
 
