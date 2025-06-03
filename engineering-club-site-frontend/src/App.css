@@ -1,14 +1,6 @@
 /* End User Class Style */
 .Enduser-App {
-  position: relative;
-  margin: 0;
-  padding: 0;
-  text-align: center;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   color: white;
 }
 
@@ -28,28 +20,12 @@
 
 /* Admin Class Style */
 .Admin-App {
-  position: relative;
-  margin: 0;
-  padding: 0;
-  text-align: center;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   color: white;
 }
 
 /* Super Admin Class Style */
 .Superadmin-App {
-  position: relative;
-  margin: 0;
-  padding: 0;
-  text-align: center;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   color: white;
 }
