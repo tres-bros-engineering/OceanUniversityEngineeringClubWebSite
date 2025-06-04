@@ -9,7 +9,7 @@ function Home() {
       <div className="my-3 shadow-lg">
         <Slider />
       </div>
-      <h1>Home</h1>
+      <h1>Welcome to The Home Page</h1>
     </>
   );
 }
