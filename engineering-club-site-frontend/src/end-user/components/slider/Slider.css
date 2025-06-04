@@ -29,3 +29,8 @@
   background-color: #f3777b;
 }
 
+/* Slider buttons */
+.bi-chevron-left:hover, .bi-chevron-right:hover {
+  color: #f3777b;
+}
+

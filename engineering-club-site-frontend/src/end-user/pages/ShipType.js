@@ -1,4 +1,3 @@
-import React from "react";
 import UseTitleName from "../../components/UseTitleName";
 
 function ShipType() {
