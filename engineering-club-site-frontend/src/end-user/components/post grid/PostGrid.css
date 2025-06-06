@@ -1,0 +1,15 @@
+.post-grid-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.post-grid-post {
+  transition: transform 0.5s ease, background-color 0.5s ease;
+}
+
+.post-grid-post:hover {
+  background-color: #1b3754;
+  transform: scale(1.02);
+}

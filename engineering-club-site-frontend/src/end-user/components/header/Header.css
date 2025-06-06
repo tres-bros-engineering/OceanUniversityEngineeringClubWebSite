@@ -1,6 +1,8 @@
 /* Navbar */
 .custom-navbar {
   background-color: #1b3754 !important;
+  position: relative;
+  z-index: 1;
 }
 
 /* Logo */

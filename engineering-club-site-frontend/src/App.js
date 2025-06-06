@@ -13,6 +13,8 @@ import ShipStability from "./end-user/pages/ShipStability";
 import ShipType from "./end-user/pages/ShipType";
 import Other from "./end-user/pages/Other";
 import NotFound from "./end-user/pages/NotFound";
+import { useEffect } from "react";
+import ScrollAnimation from "./end-user/components/scroll animation/ScrollAnimation";
 
 // Define page groups by CSS Class style
 const enduser = ["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other"];
@@ -29,6 +31,11 @@ function getClassStyle(pathname) {
 
 function App() {
   const ClassStyle = getClassStyle(useLocation().pathname);
+
+  // Scroll Animation
+  useEffect(() => {
+    ScrollAnimation();
+  }, []);
 
   return (
     <>

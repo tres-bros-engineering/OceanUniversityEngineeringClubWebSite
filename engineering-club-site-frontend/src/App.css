@@ -2,6 +2,8 @@
 .Enduser-App {
   min-height: 100vh;
   color: white;
+  position: relative;
+  z-index: 0;
 }
 
 .Enduser-App::before {
@@ -11,10 +13,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("assets/enduser-background-img.jpg");
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.55)
+    ),
+    url("assets/enduser-background-img.jpg");
   background-size: cover;
   background-position: center;
-  opacity: 75%;
   z-index: -1;
 }
 

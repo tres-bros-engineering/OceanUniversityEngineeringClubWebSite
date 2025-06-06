@@ -2,60 +2,39 @@ import { Container } from "react-bootstrap";
 import "./Slider.css";
 import FormatDate from "../../../components/FormatDate";
 
-const Slider = () => {
-  const posts = [
-    {
-      id: 1,
-      title: "First Post",
-      img: "https://wallpaperset.com/w/full/2/f/a/311285.jpg",
-      date: "2025-06-04"
-    },
-    {
-      id: 2,
-      title: "Second Post",
-      img: "https://static.vecteezy.com/system/resources/previews/023/847/162/non_2x/the-panoramic-view-of-a-generic-military-aircraft-carrier-ship-with-ai-generated-free-photo.jpg",
-      date: "2025-06-03",
-    },
-    {
-      id: 3,
-      title: "Third Post",
-      img: "https://wallpapers.com/images/hd/navy-background-d4k44xj51v6u22et.jpg",
-      date: "2025-06-02"
-    },
-  ];
-
+const Slider = ({ posts }) => {
   return (
     <Container fluid>
-      <div id="carouselExampleCaptions" className="carousel slide">
+      <div
+        id="carouselExampleCaptions"
+        className="carousel slide"
+        data-bs-ride="carousel"
+        data-bs-interval="3000"
+        data-bs-pause="hover"
+      >
+        {/* Carousel Indicators */}
         <div className="carousel-indicators">
-          <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="0"
-            className="active"
-            aria-current="true"
-            aria-label="Slide 1"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="2"
-            aria-label="Slide 3"
-          ></button>
+          {posts.slice(0, 10).map((post, index) => (
+            <button
+              key={post.id}
+              type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide-to={index}
+              className={index === 0 ? "active" : ""}
+              aria-current={index === 0 ? "true" : undefined}
+              aria-label={`Slide ${index + 1}`}
+            ></button>
+          ))}
         </div>
-        <div className="carousel-inner">
-          {posts.map((post, index) => (
+
+        {/* Carousel Items */}
+        <div className="carousel-inner bg-black">
+          {posts.slice(0, 10).map((post, index) => (
             <div
               key={post.id}
               className={`carousel-item ${index === 0 ? "active" : ""}`}
             >
-              <img src={post.img} className="d-block" alt="..." />
+              <img src={post.img} className="d-block rounded" alt="..." />
               <div className="carousel-caption text-start pb-5">
                 <h2>{post.title}</h2>
                 <h6>
