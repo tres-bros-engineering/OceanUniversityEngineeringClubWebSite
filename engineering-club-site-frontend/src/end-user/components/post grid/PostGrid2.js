@@ -1,17 +1,13 @@
-//This post grid is used for home page
+//This post grid is used for news and article page
 import { Container, Row } from "react-bootstrap";
 import FormatDate from "../../../components/FormatDate";
 import "./PostGrid.css";
 
-const PostGrid = ({ posts, category }) => {
+const PostGrid2 = ({ posts }) => {
   return (
     <Container fluid>
       <div>
-        <h2 className="mb-0 px-2 text-black bg-white rounded-top d-inline-block">{category}</h2>
-        <div className="divider pt-1 bg-white rounded-end"></div>
-      </div>
-      <div className="my-3">
-        {posts.slice(0, 4).map((post) => (
+        {posts.map((post) => (
           <Row
             key={post.id}
             className="border border-white mx-2 mb-3 py-2 rounded post-grid-post"
@@ -38,4 +34,4 @@ const PostGrid = ({ posts, category }) => {
   );
 };
 
-export default PostGrid;
+export default PostGrid2;
