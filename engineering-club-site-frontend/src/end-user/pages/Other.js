@@ -1,10 +1,14 @@
 import UseTitleName from "../../components/UseTitleName";
+import posts from "../../PostData.json";
+import PostGrid2 from "../components/post grid/PostGrid2";
 
 function Other() {
-  UseTitleName("Other | OCU Engineering Club")
+  UseTitleName("Other | OCU Engineering Club");
 
   return (
-    <h1>Welcome to The Other Page.</h1>
+    <div>
+      <PostGrid2 posts={posts} />
+    </div>
   );
 }
 

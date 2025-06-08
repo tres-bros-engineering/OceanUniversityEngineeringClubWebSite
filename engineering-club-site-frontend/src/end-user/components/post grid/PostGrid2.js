@@ -44,13 +44,13 @@ const PostGrid2 = ({ posts }) => {
       </div>
       {/* Pagination */}
       <div className="text-center my-4">
-        <button type="button" className="btn btn-light btn-sm px-2 me-1 mb-1" onClick={prePage}><span className="bi bi-arrow-left"></span></button>
+        <button type="button" className={`btn btn-light btn-sm px-2 me-1 mb-1 ${currentPage === 1 ? "d-none" : ""}`} onClick={prePage}><span className="bi bi-arrow-left"></span></button>
         {numbers.map((no, index) => (
           <button type="button" className={`btn btn-light btn-sm px-3 me-1 mb-1 ${currentPage === no ? "active" : ""}`} key={index} onClick={() => changeCPage(no)}>
             {no}
           </button>
         ))}
-        <button type="button" className="btn btn-light btn-sm px-2 mb-1" onClick={nextPage}><span className="bi bi-arrow-right"></span></button>
+        <button type="button" className={`btn btn-light btn-sm px-2 mb-1 ${currentPage === npage ? "d-none" : ""}`} onClick={nextPage}><span className="bi bi-arrow-right"></span></button>
       </div>
     </Container>
   );

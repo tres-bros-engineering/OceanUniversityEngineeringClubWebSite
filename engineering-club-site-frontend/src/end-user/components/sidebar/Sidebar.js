@@ -16,7 +16,7 @@ const Sidebar = () => {
           Follow Us
         </h2>
         <div className="divider pt-1 bg-white rounded-end"></div>
-        <div className="text-center mt-3">
+        <div className="text-center my-3">
           <a
             href="https://www.facebook.com/p/Engineering-Innovation-Club-Ocean-University-of-Sri-Lanka-100054277611108/"
             target="_blank"

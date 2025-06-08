@@ -15,6 +15,7 @@ import Other from "./end-user/pages/Other";
 import NotFound from "./end-user/pages/NotFound";
 import { useEffect } from "react";
 import ScrollAnimation from "./end-user/components/scroll animation/ScrollAnimation";
+import Article from "./end-user/components/layout/Article";
 
 // Define page groups by CSS Class style
 const enduser = ["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other"];
@@ -42,7 +43,7 @@ function App() {
       {/* Header Area */}
       <Routes>
         {/* Enduser Header */}
-        {["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other", "*"].map((path) => (
+        {["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other"].map((path) => (
           <Route key={path} path={path} element={<Header />} />
         ))}
       </Routes>
@@ -53,11 +54,15 @@ function App() {
           {/* Enduser Body Content */}
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<News />} />
-          <Route path="/article/pumps" element={<Pumps />} />
-          <Route path="/article/ship-constructions" element={<ShipConstructions />} />
-          <Route path="/article/ship-stability" element={<ShipStability />} />
-          <Route path="/article/ship-type" element={<ShipType />} />
-          <Route path="/article/other" element={<Other />} />
+
+          {/* Nested Inside Article Layout */}
+          <Route element={<Article />}>
+            <Route path="/article/pumps" element={<Pumps />} />
+            <Route path="/article/ship-constructions" element={<ShipConstructions />} />
+            <Route path="/article/ship-stability" element={<ShipStability />} />
+            <Route path="/article/ship-type" element={<ShipType />} />
+            <Route path="/article/other" element={<Other />} />
+          </Route>
 
           {/* 404 Not Found */}
           <Route path="*" element={<NotFound />} />
@@ -67,7 +72,7 @@ function App() {
       {/* Footer Area */}
       <Routes>
         {/* Enduser Footer */}
-        {["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other", "*"].map((path) => (
+        {["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other"].map((path) => (
           <Route key={path} path={path} element={<Footer />} />
         ))}
       </Routes>

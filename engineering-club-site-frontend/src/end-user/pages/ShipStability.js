@@ -1,10 +1,14 @@
 import UseTitleName from "../../components/UseTitleName";
+import posts from "../../PostData.json";
+import PostGrid2 from "../components/post grid/PostGrid2";
 
 function ShipStability() {
-  UseTitleName("Ship Stability | OCU Engineering Club")
+  UseTitleName("Ship Stability | OCU Engineering Club");
 
   return (
-    <h1>Welcome to The Ship Stability Page.</h1>
+    <div>
+      <PostGrid2 posts={posts} />
+    </div>
   );
 }
 
