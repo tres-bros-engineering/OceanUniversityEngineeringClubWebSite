@@ -1,10 +1,10 @@
 import { Container, Row } from "react-bootstrap";
-import UseTitleName from "../../components/UseTitleName";
-import Slider from "../components/slider/Slider";
-import PostGrid from "../components/post grid/PostGrid";
-import posts from "../../PostData.json";
+import UseTitleName from "../../utils/UseTitleName";
+import Slider from "../../components/enduser/slider/Slider";
+import PostGrid from "../../components/enduser/post grid/PostGrid";
+import posts from "../../data/PostData.json";
 
-function Home() {
+const Home = () => {
   UseTitleName("OCU Engineering Club");
 
   // Filter posts by category

@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 import "./Slider.css";
-import FormatDate from "../../../components/FormatDate";
+import FormatDate from "../../../utils/FormatDate";
 
 const Slider = ({ posts }) => {
   return (

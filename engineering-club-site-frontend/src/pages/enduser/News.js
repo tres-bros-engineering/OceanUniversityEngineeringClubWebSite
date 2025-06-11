@@ -1,11 +1,11 @@
 import { Container, Row } from "react-bootstrap";
-import UseTitleName from "../../components/UseTitleName";
-import Slider from "../components/slider/Slider";
-import PostGrid2 from "../components/post grid/PostGrid2";
-import Sidebar from "../components/sidebar/Sidebar";
-import posts from "../../PostData.json";
+import UseTitleName from "../../utils/UseTitleName";
+import Slider from "../../components/enduser/slider/Slider";
+import PostGrid2 from "../../components/enduser/post grid/PostGrid2";
+import Sidebar from "../../components/enduser/sidebar/Sidebar";
+import posts from "../../data/PostData.json";
 
-function News() {
+const News = () => {
   UseTitleName("News | OCU Engineering Club");
 
   // Filter posts by category

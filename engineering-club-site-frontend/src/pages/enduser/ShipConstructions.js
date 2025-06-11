@@ -1,8 +1,8 @@
-import UseTitleName from "../../components/UseTitleName";
-import posts from "../../PostData.json";
-import PostGrid2 from "../components/post grid/PostGrid2";
+import UseTitleName from "../../utils/UseTitleName";
+import posts from "../../data/PostData.json";
+import PostGrid2 from "../../components/enduser/post grid/PostGrid2";
 
-function ShipConstructions() {
+const ShipConstructions = () => {
   UseTitleName("Ship Constructions | OCU Engineering Club");
 
   // Filter posts by category

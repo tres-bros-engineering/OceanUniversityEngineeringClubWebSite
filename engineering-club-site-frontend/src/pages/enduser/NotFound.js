@@ -1,9 +1,9 @@
 import { Container, Row } from "react-bootstrap";
-import NotFoundAnimation from "../../components/animation/NotFoundAnimation";
-import UseTitleName from "../../components/UseTitleName";
+import NotFoundAnimation from "../../utils/animation/NotFoundAnimation";
+import UseTitleName from "../../utils/UseTitleName";
 import { useNavigate } from "react-router-dom";
 
-function NotFound() {
+const NotFound = () => {
   UseTitleName("Page Not Found | OCU Engineering Club");
 
   const navigate = useNavigate();

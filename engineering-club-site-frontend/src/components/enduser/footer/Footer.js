@@ -42,9 +42,14 @@ const Footer = () => {
                   drop="up"
                   className="mx-5 caret-down"
                 >
-                  <NavDropdown.Item as={NavLink} to="/article/pumps">Pumps</NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to="/article/pumps">
+                    Pumps
+                  </NavDropdown.Item>
                   <NavDropdown.Divider className="d-none d-lg-block" />
-                  <NavDropdown.Item as={NavLink} to="/article/ship-constructions">
+                  <NavDropdown.Item
+                    as={NavLink}
+                    to="/article/ship-constructions"
+                  >
                     Ship Constructions
                   </NavDropdown.Item>
                   <NavDropdown.Divider className="d-none d-lg-block" />
@@ -52,9 +57,13 @@ const Footer = () => {
                     Ship Stability
                   </NavDropdown.Item>
                   <NavDropdown.Divider className="d-none d-lg-block" />
-                  <NavDropdown.Item as={NavLink} to="/article/ship-type">Ship Type</NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to="/article/ship-type">
+                    Ship Type
+                  </NavDropdown.Item>
                   <NavDropdown.Divider className="d-none d-lg-block" />
-                  <NavDropdown.Item as={NavLink} to="/article/other">Other</NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to="/article/other">
+                    Other
+                  </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar>
@@ -62,13 +71,19 @@ const Footer = () => {
           <div className="col-lg mt-lg-5 text-center mt-2">
             <div className="contact-us-text text-white">Contact Us</div>
             <div className="mt-2">
-              <a href="https://www.facebook.com/p/Engineering-Innovation-Club-Ocean-University-of-Sri-Lanka-100054277611108/" target="_blank">
+              <a
+                href="https://www.facebook.com/p/Engineering-Innovation-Club-Ocean-University-of-Sri-Lanka-100054277611108/"
+                target="_blank"
+              >
                 <i className="bi bi-facebook fs-3 text-white me-5"></i>
               </a>
               <a href="https://www.instagram.com/eic_ocu/" target="_blank">
                 <i className="bi bi-instagram fs-3 text-white me-5"></i>
               </a>
-              <a href="https://lk.linkedin.com/company/engineering-innovation-club-ocean-university-of-sri-lanka" target="_blank">
+              <a
+                href="https://lk.linkedin.com/company/engineering-innovation-club-ocean-university-of-sri-lanka"
+                target="_blank"
+              >
                 <i className="bi bi-linkedin fs-3 text-white"></i>
               </a>
             </div>
@@ -76,12 +91,8 @@ const Footer = () => {
         </Row>
         <Row>
           <div className="text-center text-white mb-1 fst-italic footer-text mt-3 mt-lg-0">
-            <div>
-              © {currentYear} - All Rights Reserved
-            </div>
-            <div>
-              Design & Development by Tres Bros Website Makers
-            </div>
+            <div>© {currentYear} - All Rights Reserved</div>
+            <div>Design & Development by Tres Bros Website Makers</div>
           </div>
         </Row>
       </Container>

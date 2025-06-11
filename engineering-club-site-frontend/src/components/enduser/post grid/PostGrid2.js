@@ -1,6 +1,6 @@
 //This post grid (with pagination) is used for news and article pages
 import { Container, Row } from "react-bootstrap";
-import FormatDate from "../../../components/FormatDate";
+import FormatDate from "../../../utils/FormatDate";
 import "./PostGrid.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

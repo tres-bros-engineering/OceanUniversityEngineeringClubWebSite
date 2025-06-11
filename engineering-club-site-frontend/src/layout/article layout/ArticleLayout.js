@@ -1,15 +1,12 @@
 // This is a page layout for all article pages
 import { Container, Row } from "react-bootstrap";
-import "./Article.css";
-import UseTitleName from "../../../components/UseTitleName";
-import Slider from "../slider/Slider";
-import Sidebar from "../sidebar/Sidebar";
-import posts from "../../../PostData.json";
+import "./ArticleLayout.css";
+import Slider from "../../components/enduser/slider/Slider";
+import Sidebar from "../../components/enduser/sidebar/Sidebar";
+import posts from "../../data/PostData.json";
 import { Outlet, NavLink } from "react-router-dom";
 
-function Article() {
-  UseTitleName("Article | OCU Engineering Club");
-
+const Article = () => {
   // Filter posts by category
   const articlePosts = posts.filter(post => post.category);
 

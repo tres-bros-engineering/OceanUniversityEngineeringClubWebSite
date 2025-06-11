@@ -1,6 +1,6 @@
 import { Container, Row } from "react-bootstrap";
 import PostGrid3 from "../post grid/PostGrid3";
-import posts from "../../../PostData.json";
+import posts from "../../../data/PostData.json";
 
 const Sidebar = () => {
   return (

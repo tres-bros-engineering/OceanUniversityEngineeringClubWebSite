@@ -1,6 +1,6 @@
 //This post grid is used for sidebar
 import { Container, Row } from "react-bootstrap";
-import FormatDate from "../../../components/FormatDate";
+import FormatDate from "../../../utils/FormatDate";
 import "./PostGrid.css";
 import { useNavigate } from "react-router-dom";
 

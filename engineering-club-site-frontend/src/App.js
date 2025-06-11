@@ -1,38 +1,21 @@
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
-import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import Header from "./end-user/components/header/Header";
-import Footer from "./end-user/components/footer/Footer";
-import Home from "./end-user/pages/Home";
-import News from "./end-user/pages/News";
-import Pumps from "./end-user/pages/Pumps";
-import ShipConstructions from "./end-user/pages/ShipConstructions";
-import ShipStability from "./end-user/pages/ShipStability";
-import ShipType from "./end-user/pages/ShipType";
-import Other from "./end-user/pages/Other";
-import NotFound from "./end-user/pages/NotFound";
+import Home from "./pages/enduser/Home";
+import News from "./pages/enduser/News";
+import Pumps from "./pages/enduser/Pumps";
+import ShipConstructions from "./pages/enduser/ShipConstructions";
+import ShipStability from "./pages/enduser/ShipStability";
+import ShipType from "./pages/enduser/ShipType";
+import Other from "./pages/enduser/Other";
+import NotFound from "./pages/enduser/NotFound";
 import { useEffect } from "react";
-import ScrollAnimation from "./end-user/components/scroll animation/ScrollAnimation";
-import Article from "./end-user/components/layout/Article";
+import ScrollAnimation from "./utils/ScrollAnimation";
+import ArticleLayout from "./layout/article layout/ArticleLayout";
+import EndUserLayout from "./layout/EndUserLayout";
 
-// Define page groups by CSS Class style
-const enduser = ["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other"];
-const admin = [];
-const superadmin = [];
-
-// Get CSS Class Style based on current path
-function getClassStyle(pathname) {
-  if (enduser.includes(pathname)) return "Enduser-App";
-  if (admin.includes(pathname)) return "Admin-App";
-  if (superadmin.includes(pathname)) return "Superadmin-App";
-  return "Enduser-App";
-}
-
-function App() {
-  const ClassStyle = getClassStyle(useLocation().pathname);
-
+const App = () => {
   // Scroll Animation
   useEffect(() => {
     ScrollAnimation();
@@ -40,25 +23,19 @@ function App() {
 
   return (
     <>
-      {/* Header Area */}
       <Routes>
-        {/* Enduser Header */}
-        {["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other", "*"].map((path) => (
-          <Route key={path} path={path} element={<Header />} />
-        ))}
-      </Routes>
-
-      {/* Body Content */}
-      <div className={ClassStyle}>
-        <Routes>
-          {/* Enduser Body Content */}
+        {/* Enduser Routes */}
+        <Route element={<EndUserLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<News />} />
 
           {/* Nested Inside Article Layout */}
-          <Route element={<Article />}>
+          <Route element={<ArticleLayout />}>
             <Route path="/article/pumps" element={<Pumps />} />
-            <Route path="/article/ship-constructions" element={<ShipConstructions />} />
+            <Route
+              path="/article/ship-constructions"
+              element={<ShipConstructions />}
+            />
             <Route path="/article/ship-stability" element={<ShipStability />} />
             <Route path="/article/ship-type" element={<ShipType />} />
             <Route path="/article/other" element={<Other />} />
@@ -66,18 +43,10 @@ function App() {
 
           {/* 404 Not Found */}
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
-
-      {/* Footer Area */}
-      <Routes>
-        {/* Enduser Footer */}
-        {["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other", "*"].map((path) => (
-          <Route key={path} path={path} element={<Footer />} />
-        ))}
+        </Route>
       </Routes>
     </>
   );
-}
+};
 
 export default App;
