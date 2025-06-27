@@ -1,15 +1,18 @@
 import { Container, Row } from "react-bootstrap";
 import PostGrid3 from "../post grid/PostGrid3";
-import posts from "../../../data/PostData.json";
+import posts from "../../../data/db.json";
 
 const Sidebar = () => {
+  const popularPosts = [...posts.article, ...posts.news].filter(post => post.like).sort((a, b) => b.like - a.like);
+  const latestPosts = [...posts.article, ...posts.news].sort((a, b) => new Date(b.date) - new Date(a.date));
+
   return (
     <Container fluid className="p-0 m-0 d-none d-lg-block">
       <div data-aos="fade-up">
-        <PostGrid3 posts={posts} category={"Popular Post"} />
+        <PostGrid3 posts={popularPosts} category={"Popular Post"} />
       </div>
       <div className="mt-5" data-aos="fade-up">
-        <PostGrid3 posts={posts} category={"Latest Post"} />
+        <PostGrid3 posts={latestPosts} category={"Latest Post"} />
       </div>
       <div className="mt-5 container-fluid" data-aos="fade-up">
         <h2 className="mb-0 px-2 text-black bg-white rounded-top d-inline-block">

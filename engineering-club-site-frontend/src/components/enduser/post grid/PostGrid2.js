@@ -32,7 +32,7 @@ const PostGrid2 = ({ posts }) => {
                 <span className="bi bi-clock"></span>
                 <span className="ms-1">{FormatDate(post.date)}</span>
               </p>
-              <p className="text-justify my-1">
+              <p className="my-1" style={{ textAlign: "justify" }}>
                 {post.body.length > 150
                   ? post.body.slice(0, 150) + "..."
                   : post.body}
@@ -41,7 +41,7 @@ const PostGrid2 = ({ posts }) => {
                 type="button"
                 class="btn btn-outline-light btn-sm mt-1"
                 onClick={() =>
-                  navigate(formatUrlPath(post.category, post.title))
+                  navigate(formatUrlPath(post.category, post.title), {state: { id: post.id }})
                 }
               >
                 <span>Read More</span>

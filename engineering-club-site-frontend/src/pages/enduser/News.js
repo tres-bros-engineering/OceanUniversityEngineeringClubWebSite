@@ -3,13 +3,13 @@ import UseTitleName from "../../utils/UseTitleName";
 import Slider from "../../components/enduser/slider/Slider";
 import PostGrid2 from "../../components/enduser/post grid/PostGrid2";
 import Sidebar from "../../components/enduser/sidebar/Sidebar";
-import posts from "../../data/PostData.json";
+import posts from "../../data/db.json";
 
 const News = () => {
   UseTitleName("News | OCU Engineering Club");
 
   // Filter posts by category
-  const newsPosts = posts.filter(post => !post.category);
+  const newsPosts = posts.news.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <>

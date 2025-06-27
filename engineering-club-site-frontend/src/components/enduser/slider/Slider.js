@@ -1,6 +1,7 @@
 import { Container } from "react-bootstrap";
 import "./Slider.css";
 import FormatDate from "../../../utils/FormatDate";
+import { NavLink } from "react-router-dom";
 
 const Slider = ({ posts }) => {
   return (
@@ -30,19 +31,25 @@ const Slider = ({ posts }) => {
         {/* Carousel Items */}
         <div className="carousel-inner bg-black">
           {posts.slice(0, 10).map((post, index) => (
-            <div
-              key={post.id}
-              className={`carousel-item ${index === 0 ? "active" : ""}`}
+            <NavLink
+              to={formatUrlPath(post.category, post.title)}
+              state={{ id: post.id }}
+              className="carousel-item-link"
             >
-              <img src={post.img} className="d-block rounded" alt="..." />
-              <div className="carousel-caption text-start pb-5">
-                <h2>{post.title}</h2>
-                <h6>
-                  <span class="bi bi-clock"></span>
-                  <span className="ms-2">{FormatDate(post.date)}</span>
-                </h6>
+              <div
+                key={post.id}
+                className={`carousel-item ${index === 0 ? "active" : ""}`}
+              >
+                <img src={post.img} className="d-block rounded" alt="..." />
+                <div className="carousel-caption text-start pb-5">
+                  <h2>{post.title}</h2>
+                  <h6>
+                    <span class="bi bi-clock"></span>
+                    <span className="ms-2">{FormatDate(post.date)}</span>
+                  </h6>
+                </div>
               </div>
-            </div>
+            </NavLink>
           ))}
         </div>
         <button
@@ -52,8 +59,8 @@ const Slider = ({ posts }) => {
           data-bs-slide="prev"
         >
           <span
-            className="bi bi-chevron-left"
-            style={{ fontSize: "3rem" }}
+            className="bi bi-arrow-left-short"
+            style={{ fontSize: "5rem" }}
             aria-hidden="true"
           ></span>
           <span className="visually-hidden">Previous</span>
@@ -65,8 +72,8 @@ const Slider = ({ posts }) => {
           data-bs-slide="next"
         >
           <span
-            className="bi bi-chevron-right"
-            style={{ fontSize: "3rem" }}
+            className="bi bi-arrow-right-short"
+            style={{ fontSize: "5rem" }}
             aria-hidden="true"
           ></span>
           <span className="visually-hidden">Next</span>
@@ -74,6 +81,20 @@ const Slider = ({ posts }) => {
       </div>
     </Container>
   );
+
+  // To Format the title and category as Pathname
+  function formatUrlPath(category, title) {
+    if (!category) {
+      return "/news/" + title.toLowerCase().replace(/\s+/g, "-");
+    } else {
+      return (
+        "/article/" +
+        category.toLowerCase().replace(/\s+/g, "-") +
+        "/" +
+        title.toLowerCase().replace(/\s+/g, "-")
+      );
+    }
+  }
 };
 
 export default Slider;

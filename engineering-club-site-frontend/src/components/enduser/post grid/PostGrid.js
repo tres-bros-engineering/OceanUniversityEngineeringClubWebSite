@@ -9,12 +9,12 @@ const PostGrid = ({ posts, category }) => {
 
   return (
     <Container fluid>
-      <div>
-        <h2 className="mb-0 px-2 text-black bg-white rounded-top d-inline-block">
+      <h2>
+        <div className="px-2 text-black bg-white rounded-top d-inline-block">
           {category}
-        </h2>
+        </div>
         <div className="divider pt-1 bg-white rounded-end"></div>
-      </div>
+      </h2>
       <div className="my-3">
         {posts.slice(0, 6).map((post) => (
           <Row
@@ -30,7 +30,7 @@ const PostGrid = ({ posts, category }) => {
                 <span className="bi bi-clock"></span>
                 <span className="ms-1">{FormatDate(post.date)}</span>
               </p>
-              <p className="text-justify my-1">
+              <p className="my-1" style={{ textAlign: "justify" }}>
                 {post.body.length > 150
                   ? post.body.slice(0, 150) + "..."
                   : post.body}
@@ -39,7 +39,7 @@ const PostGrid = ({ posts, category }) => {
                 type="button"
                 class="btn btn-outline-light btn-sm mt-1"
                 onClick={() =>
-                  navigate(formatUrlPath(post.category, post.title))
+                  navigate(formatUrlPath(post.category, post.title), {state: { id: post.id }})
                 }
               >
                 <span>Read More</span>

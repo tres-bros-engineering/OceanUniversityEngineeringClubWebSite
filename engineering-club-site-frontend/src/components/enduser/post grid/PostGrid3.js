@@ -9,12 +9,12 @@ const PostGrid3 = ({ posts, category }) => {
 
   return (
     <Container fluid>
-      <div>
-        <h2 className="mb-0 px-2 text-black bg-white rounded-top d-inline-block">
+      <h2>
+        <div className="px-2 text-black bg-white rounded-top d-inline-block">
           {category}
-        </h2>
+        </div>
         <div className="divider pt-1 bg-white rounded-end"></div>
-      </div>
+      </h2>
       <div className="my-3">
         {posts.slice(0, 4).map((post) => (
           <Row
@@ -34,7 +34,7 @@ const PostGrid3 = ({ posts, category }) => {
                 type="button"
                 class="btn btn-outline-light btn-sm"
                 onClick={() =>
-                  navigate(formatUrlPath(post.category, post.title))
+                  navigate(formatUrlPath(post.category, post.title), {state: { id: post.id }})
                 }
               >
                 <span>Read More</span>

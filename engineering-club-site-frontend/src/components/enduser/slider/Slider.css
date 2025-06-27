@@ -4,12 +4,18 @@
   object-fit: cover;
   opacity: 90%;
   object-position: center center;
-  transition: transform 0.5s ease;
 }
 
-.carousel-item img:hover {
-  transform: scale(1.02);
+.carousel-item {
+  cursor: pointer;
+  transition: transform 0.5s ease, filter 0.5s ease;
 }
+
+.carousel-item:hover {
+  transform: scale(1.02);
+  filter: brightness(0.9);
+}
+
 
 @media (max-width: 991.98px) {
   .carousel-item img {
@@ -36,7 +42,17 @@
 }
 
 /* Slider buttons */
-.bi-chevron-left:hover, .bi-chevron-right:hover {
+.bi-arrow-left-short, .bi-arrow-right-short {
+  color: #ffffff;
+  background-color: #000000;
+  border-radius: 10%;
+}
+
+.bi-arrow-left-short:hover, .bi-arrow-right-short:hover {
   color: #f3777b;
 }
 
+.carousel-control-prev,
+.carousel-control-next {
+  opacity: 1 !important;
+}

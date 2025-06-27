@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import ScrollAnimation from "./utils/ScrollAnimation";
 import ArticleLayout from "./layout/article layout/ArticleLayout";
 import EndUserLayout from "./layout/EndUserLayout";
+import Post from "./pages/enduser/Post";
 
 const App = () => {
   // Scroll Animation
@@ -40,6 +41,9 @@ const App = () => {
             <Route path="/article/ship-type" element={<ShipType />} />
             <Route path="/article/other" element={<Other />} />
           </Route>
+
+          <Route path="/news/:titleSlug" element={<Post />} />
+          <Route path="/article/:categorySlug/:titleSlug" element={<Post />} />
 
           {/* 404 Not Found */}
           <Route path="*" element={<NotFound />} />
