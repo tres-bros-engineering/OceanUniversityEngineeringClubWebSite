@@ -1,22 +1,27 @@
 import { useLocation, useParams } from "react-router-dom";
 import FormatDate from "../../utils/FormatDate";
-import posts from "../../data/db.json";
+import { useData } from "../../utils/DataContext";
 import NotFound from "./NotFound";
 import { Container, Row } from "react-bootstrap";
 import Sidebar from "../../components/enduser/sidebar/Sidebar";
 import Comment from "../../components/enduser/comment/Comment";
+import UseTitleName from "../../utils/UseTitleName";
 
 const Post = () => {
+  const { articles, news, comments } = useData();
+
   const { titleSlug } = useParams();
   const location = useLocation();
   const postId = location.state?.id;
 
   // Fallback logic to find post
   const post = postId
-    ? [...posts.article, ...posts.news].find((p) => p.id === postId)
-    : [...posts.article, ...posts.news].find(
+    ? [...articles, ...news].find((p) => p.id === postId)
+    : [...articles, ...news].find(
         (p) => p.title.toLowerCase().replace(/\s+/g, "-") === titleSlug
       );
+
+  UseTitleName((post?.title) + " | OCU Engineering Club");
 
   return (
     <>
@@ -34,13 +39,13 @@ const Post = () => {
               <div className="mt-1 mb-4 fw-bold">
                 <span className="me-4"><i className="bi bi-hand-thumbs-up"></i> {post.like}</span>
                 <span className="me-4"><i className="bi bi-hand-thumbs-down"></i> {post.dislike}</span>
-                {post.category && (<span className="me-4"><i className="bi bi-chat-text"></i> {posts.comment.filter((comment) => comment.article_id === post.id).length}</span>)}
+                {post.category && (<span className="me-4"><i className="bi bi-chat-text"></i> {comments.filter((comment) => comment.article_id === post.id).length}</span>)}
                 <span><i className="bi bi-eye"></i> 2000</span>
               </div>
               <img src={post.img} className="rounded w-100" alt="..." />
               <p className="mt-4" style={{ textAlign: "justify", whiteSpace: "pre-wrap" }}>{post.body}</p>
               {/* Comment Section */}
-              {post.category && <div className="mt-5"><Comment post_id={post.id} /></div>}
+              {post.category && <div className="mt-5" data-aos="fade-up"><Comment post_id={post.id} /></div>}
             </div>
 
             {/* Sidebar */}

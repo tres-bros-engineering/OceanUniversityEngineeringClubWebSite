@@ -1,0 +1,10 @@
+.form-group input,
+.form-group textarea {
+  border: 2px solid #f3777b;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #f3777b;
+  box-shadow: 0 0 0 0.1rem #f99a9d;
+}
