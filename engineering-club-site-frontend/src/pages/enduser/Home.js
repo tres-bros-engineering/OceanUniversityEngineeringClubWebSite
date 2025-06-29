@@ -2,20 +2,21 @@ import { Container, Row } from "react-bootstrap";
 import UseTitleName from "../../utils/UseTitleName";
 import Slider from "../../components/enduser/slider/Slider";
 import PostGrid from "../../components/enduser/post grid/PostGrid";
-import posts from "../../data/db.json";
+import { useData } from "../../utils/DataContext";
 
 const Home = () => {
   UseTitleName("OCU Engineering Club");
+  const { articles, news } = useData();
 
   // Filter posts by category
-  const sliderPosts = [...posts.article, ...posts.news].sort((a, b) => new Date(b.date) - new Date(a.date));
-  const newsPosts = posts.news.sort((a, b) => new Date(b.date) - new Date(a.date));
-  const pumpsPosts = posts.article.filter(post => post.category === "Pumps").sort((a, b) => new Date(b.date) - new Date(a.date));
-  const shipConstructionsPosts = posts.article.filter(post => post.category === "Ship Constructions").sort((a, b) => new Date(b.date) - new Date(a.date));
-  const shipStabilityPosts = posts.article.filter(post => post.category === "Ship Stability").sort((a, b) => new Date(b.date) - new Date(a.date));
-  const shipTypePosts = posts.article.filter(post => post.category === "Ship Type").sort((a, b) => new Date(b.date) - new Date(a.date));
-  const otherPosts = posts.article.filter(post => post.category === "Other").sort((a, b) => new Date(b.date) - new Date(a.date));
-  const latestArticlePosts = posts.article.sort((a, b) => new Date(b.date) - new Date(a.date));
+  const sliderPosts = [...articles, ...news].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const newsPosts = news.sort((a, b) => new Date(b.date) - new Date(a.date));
+  const pumpsPosts = articles.filter(post => post.category === "Pumps").sort((a, b) => new Date(b.date) - new Date(a.date));
+  const shipConstructionsPosts = articles.filter(post => post.category === "Ship Constructions").sort((a, b) => new Date(b.date) - new Date(a.date));
+  const shipStabilityPosts = articles.filter(post => post.category === "Ship Stability").sort((a, b) => new Date(b.date) - new Date(a.date));
+  const shipTypePosts = articles.filter(post => post.category === "Ship Type").sort((a, b) => new Date(b.date) - new Date(a.date));
+  const otherPosts = articles.filter(post => post.category === "Other").sort((a, b) => new Date(b.date) - new Date(a.date));
+  const latestArticlePosts = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <>

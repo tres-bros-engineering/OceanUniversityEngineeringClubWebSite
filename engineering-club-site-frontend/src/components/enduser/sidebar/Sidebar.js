@@ -1,10 +1,13 @@
 import { Container, Row } from "react-bootstrap";
 import PostGrid3 from "../post grid/PostGrid3";
-import posts from "../../../data/db.json";
+import { useData } from "../../../utils/DataContext";
 
 const Sidebar = () => {
-  const popularPosts = [...posts.article, ...posts.news].filter(post => post.like).sort((a, b) => b.like - a.like);
-  const latestPosts = [...posts.article, ...posts.news].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const { articles, news } = useData();
+
+  // Filter posts by category
+  const popularPosts = [...articles, ...news].filter(post => post.like).sort((a, b) => b.like - a.like);
+  const latestPosts = [...articles, ...news].sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <Container fluid className="p-0 m-0 d-none d-lg-block">

@@ -15,6 +15,7 @@ import ScrollAnimation from "./utils/ScrollAnimation";
 import ArticleLayout from "./layout/article layout/ArticleLayout";
 import EndUserLayout from "./layout/EndUserLayout";
 import Post from "./pages/enduser/Post";
+import { DataProvider } from "./utils/DataContext";
 
 const App = () => {
   // Scroll Animation
@@ -24,31 +25,33 @@ const App = () => {
 
   return (
     <>
-      <Routes>
-        {/* Enduser Routes */}
-        <Route element={<EndUserLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/news" element={<News />} />
+      <DataProvider>
+        <Routes>
+          {/* Enduser Routes */}
+          <Route element={<EndUserLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/news" element={<News />} />
 
-          {/* Nested Inside Article Layout */}
-          <Route element={<ArticleLayout />}>
-            <Route path="/article/pumps" element={<Pumps />} />
-            <Route
-              path="/article/ship-constructions"
-              element={<ShipConstructions />}
-            />
-            <Route path="/article/ship-stability" element={<ShipStability />} />
-            <Route path="/article/ship-type" element={<ShipType />} />
-            <Route path="/article/other" element={<Other />} />
+            {/* Nested Inside Article Layout */}
+            <Route element={<ArticleLayout />}>
+              <Route path="/article/pumps" element={<Pumps />} />
+              <Route
+                path="/article/ship-constructions"
+                element={<ShipConstructions />}
+              />
+              <Route path="/article/ship-stability" element={<ShipStability />} />
+              <Route path="/article/ship-type" element={<ShipType />} />
+              <Route path="/article/other" element={<Other />} />
+            </Route>
+
+            <Route path="/news/:titleSlug" element={<Post />} />
+            <Route path="/article/:categorySlug/:titleSlug" element={<Post />} />
+
+            {/* 404 Not Found */}
+            <Route path="*" element={<NotFound />} />
           </Route>
-
-          <Route path="/news/:titleSlug" element={<Post />} />
-          <Route path="/article/:categorySlug/:titleSlug" element={<Post />} />
-
-          {/* 404 Not Found */}
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+        </Routes>
+      </DataProvider>
     </>
   );
 };
