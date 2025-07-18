@@ -16,6 +16,7 @@ import ArticleLayout from "./layout/article layout/ArticleLayout";
 import EndUserLayout from "./layout/EndUserLayout";
 import Post from "./pages/enduser/Post";
 import { DataProvider } from "./utils/DataContext";
+import SearchResults from "./pages/enduser/SearchResults";
 
 const App = () => {
   // Scroll Animation
@@ -46,6 +47,8 @@ const App = () => {
 
             <Route path="/news/:titleSlug" element={<Post />} />
             <Route path="/article/:categorySlug/:titleSlug" element={<Post />} />
+
+            <Route path="/search-results" element={<SearchResults />} />
 
             {/* 404 Not Found */}
             <Route path="*" element={<NotFound />} />

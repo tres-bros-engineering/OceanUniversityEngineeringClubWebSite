@@ -1,4 +1,4 @@
-import { Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import PostGrid3 from "../post grid/PostGrid3";
 import { useData } from "../../../utils/DataContext";
 
@@ -6,7 +6,7 @@ const Sidebar = () => {
   const { articles, news } = useData();
 
   // Filter posts by category
-  const popularPosts = [...articles, ...news].filter(post => post.like).sort((a, b) => b.like - a.like);
+  const popularPosts = [...articles, ...news].filter(post => post.views).sort((a, b) => b.views - a.views);
   const latestPosts = [...articles, ...news].sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (

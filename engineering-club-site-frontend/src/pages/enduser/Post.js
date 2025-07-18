@@ -14,12 +14,11 @@ const Post = () => {
   const location = useLocation();
   const postId = location.state?.id;
 
-  // Fallback logic to find post
-  const post = postId
-    ? [...articles, ...news].find((p) => p.id === postId)
-    : [...articles, ...news].find(
-        (p) => p.title.toLowerCase().replace(/\s+/g, "-") === titleSlug
-      );
+  // Check the title to find post
+  const checkPost = articles.find((p) => p.title.toLowerCase().replace(/\s+/g, "-") === titleSlug)
+    || news.find((p) => p.title.toLowerCase().replace(/\s+/g, "-") === titleSlug);
+
+  const post = checkPost?.id === postId ? checkPost : null;
 
   UseTitleName((post?.title) + " | OCU Engineering Club");
 
@@ -34,13 +33,11 @@ const Post = () => {
               <div className="mt-1 fw-bold">
                 <span className="me-4"><i className="bi bi-clock"></i> {FormatDate(post.date)}</span>
                 <span className="me-4"><i className="bi bi-person-circle"></i> {post.author}</span>
-                {post.category && (<span><i className="bi bi-tags"></i> {post.category}</span>)}
+                {post.category ? (<span><i className="bi bi-tags"></i> {post.category}</span>) : (<span><i className="bi bi-tags"></i> News</span>)}
               </div>
               <div className="mt-1 mb-4 fw-bold">
-                <span className="me-4"><i className="bi bi-hand-thumbs-up"></i> {post.like}</span>
-                <span className="me-4"><i className="bi bi-hand-thumbs-down"></i> {post.dislike}</span>
-                {post.category && (<span className="me-4"><i className="bi bi-chat-text"></i> {comments.filter((comment) => comment.article_id === post.id).length}</span>)}
-                <span><i className="bi bi-eye"></i> 2000</span>
+                <span className="me-4"><i className="bi bi-eye"></i> {post.views}</span>
+                {post.category && (<span><i className="bi bi-chat-text"></i> {comments.filter((comment) => comment.article_id === post.id).length}</span>)}
               </div>
               <img src={post.img} className="rounded w-100" alt="..." />
               <p className="mt-4" style={{ textAlign: "justify", whiteSpace: "pre-wrap" }}>{post.body}</p>

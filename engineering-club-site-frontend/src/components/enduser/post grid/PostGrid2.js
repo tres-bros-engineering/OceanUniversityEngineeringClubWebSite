@@ -1,9 +1,10 @@
 //This post grid (with pagination) is used for news and article pages
-import { Container, Row } from "react-bootstrap";
+import { Container, NavLink, Row } from "react-bootstrap";
 import FormatDate from "../../../utils/FormatDate";
 import "./PostGrid.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import NoPostFoundAnimation from "../../../utils/animation/NoPostFoundAnimation";
 
 const PostGrid2 = ({ posts }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,76 +15,96 @@ const PostGrid2 = ({ posts }) => {
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <Container fluid>
       <div>
-        {posts.slice(firstIndex, lastIndex).map((post) => (
-          <Row
-            key={post.id}
-            className="border border-white mx-2 mb-3 py-2 rounded post-grid-post"
-          >
-            <div className="col-lg-4">
-              <img src={post.img} className="rounded post-grid-img" alt="..." />
+        {posts.length > 0 ? (
+          posts.slice(firstIndex, lastIndex).map((post) => (
+            <Row
+              key={post.id}
+              className="border border-white mx-2 mb-3 py-2 rounded post-grid-post"
+            >
+              <div className="col-lg-4">
+                <img
+                  src={post.img}
+                  className="rounded post-grid-img"
+                  alt="..."
+                />
+              </div>
+              <div className="col-lg-8">
+                <h4 className="mb-0">{post.title}</h4>
+                <p>
+                  <span className="bi bi-clock"></span>
+                  <span className="ms-1">{FormatDate(post.date)}</span>
+                </p>
+                <p className="my-1" style={{ textAlign: "justify" }}>
+                  {post.body.length > 150
+                    ? post.body.slice(0, 150) + "..."
+                    : post.body}
+                </p>
+                <button
+                  type="button"
+                  class="btn btn-outline-light btn-sm mt-1"
+                  onClick={() =>
+                    navigate(formatUrlPath(post.category, post.title), {
+                      state: { id: post.id },
+                    })
+                  }
+                >
+                  <span>Read More</span>
+                  <span className="bi bi-arrow-right ms-1"></span>
+                </button>
+              </div>
+            </Row>
+          ))
+        ) : (
+          <>
+            <div className="d-flex justify-content-center">
+              <NoPostFoundAnimation />
             </div>
-            <div className="col-lg-8">
-              <h4 className="mb-0">{post.title}</h4>
-              <p>
-                <span className="bi bi-clock"></span>
-                <span className="ms-1">{FormatDate(post.date)}</span>
-              </p>
-              <p className="my-1" style={{ textAlign: "justify" }}>
-                {post.body.length > 150
-                  ? post.body.slice(0, 150) + "..."
-                  : post.body}
-              </p>
-              <button
-                type="button"
-                class="btn btn-outline-light btn-sm mt-1"
-                onClick={() =>
-                  navigate(formatUrlPath(post.category, post.title), {state: { id: post.id }})
-                }
-              >
-                <span>Read More</span>
-                <span className="bi bi-arrow-right ms-1"></span>
-              </button>
-            </div>
-          </Row>
-        ))}
+            {location.pathname === "/search-results" ? (
+              <h4 className="text-center mb-5">No Result Found!</h4>
+            ) : (
+              <h4 className="text-center mb-4">No Post Found!</h4>
+            )}
+          </>
+        )}
       </div>
+
       {/* Pagination */}
-      <div className="d-flex justify-content-center my-4">
-        <button
-          type="button"
-          className={`btn btn-light btn-sm px-2 me-1 mb-1 ${
-            currentPage === 1 ? "d-none" : ""
-          }`}
-          onClick={prePage}
-        >
-          <span className="bi bi-arrow-left"></span>
-        </button>
-        {numbers.map((no, index) => (
-          <button
-            type="button"
-            className={`btn btn-light btn-sm px-3 me-1 mb-1 ${
-              currentPage === no ? "active" : ""
+      {posts.length > 0 && (
+        <div className="d-flex justify-content-center my-4">
+          <NavLink
+            className={`pagination-btn px-2 mb-1 mx-2 ${
+              currentPage === 1 ? "d-none" : ""
             }`}
-            key={index}
-            onClick={() => changeCPage(no)}
+            onClick={prePage}
           >
-            {no}
-          </button>
-        ))}
-        <button
-          type="button"
-          className={`btn btn-light btn-sm px-2 mb-1 ${
-            currentPage === npage ? "d-none" : ""
-          }`}
-          onClick={nextPage}
-        >
-          <span className="bi bi-arrow-right"></span>
-        </button>
-      </div>
+            <span className="bi bi-chevron-left"></span>
+          </NavLink>
+          {numbers.map((no, index) => (
+            <NavLink
+              className={`pagination-btn px-2 mb-1 mx-2 ${
+                currentPage === no ? "active disabled opacity-100" : ""
+              }`}
+              key={index}
+              onClick={() => changeCPage(no)}
+            >
+              {no}
+            </NavLink>
+          ))}
+          <NavLink
+            className={`pagination-btn px-2 mb-1 mx-2 ${
+              currentPage === npage ? "d-none" : ""
+            }`}
+            onClick={nextPage}
+          >
+            <span className="bi bi-chevron-right"></span>
+          </NavLink>
+        </div>
+      )}
     </Container>
   );
 

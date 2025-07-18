@@ -1,11 +1,11 @@
 import logo from "../../../assets/logo.png";
 import "./Header.css";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink, useLocation } from "react-router-dom";
+import Search from "../search/Search";
 
 const Header = () => {
   const location = useLocation();
@@ -33,7 +33,7 @@ const Header = () => {
                 as={NavLink}
                 to="/news"
                 className={`mx-5 ${
-                  location.pathname === "/news" ? "active" : ""
+                  location.pathname.startsWith("/news/") ? "active" : ""
                 }`}
               >
                 News
@@ -46,11 +46,7 @@ const Header = () => {
                 }
                 id="navbarScrollingDropdown"
                 className={`ms-5 caret-down ${
-                  location.pathname === "/article/pumps" ||
-                  location.pathname === "/article/ship-constructions" ||
-                  location.pathname === "/article/ship-stability" ||
-                  location.pathname === "/article/ship-type" ||
-                  location.pathname === "/article/other"
+                  location.pathname.startsWith("/article/")
                     ? "active"
                     : ""
                 }`}
@@ -76,15 +72,11 @@ const Header = () => {
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <Form className="d-flex position-relative mb-2 mb-lg-0">
-              <Form.Control
-                type="search"
-                placeholder="Search..."
-                className="me-2 search-input pe-2"
-                aria-label="Search"
-              />
-              <i className="bi bi-search search-icon pe-2"></i>
-            </Form>
+
+            {/* Search Function */}
+            <div className="mb-2 mb-lg-0">
+              <Search />
+            </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>

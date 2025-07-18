@@ -63,31 +63,6 @@
   color: #f3777b !important;
 }
 
-/* Search Bar */
-.search-input {
-  border-radius: 50px;
-  border: 2px solid #f3777b;
-}
-
-.search-input:focus {
-  border-color: #f3777b;
-  box-shadow: 0 0 0 0.1rem #f99a9d;
-}
-
-/* Remove clear icon */
-.search-input::-webkit-search-cancel-button {
-  display: none;
-}
-
-.search-icon {
-  position: absolute;
-  top: 50%;
-  right: 16px;
-  transform: translateY(-50%);
-  color: #808080;
-  pointer-events: none;
-}
-
  /* Navbar Toggle */
 .nav-toggle {
   border-color: #f3777b;

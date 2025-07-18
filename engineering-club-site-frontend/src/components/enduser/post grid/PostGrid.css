@@ -15,13 +15,17 @@
 }
 
 /* Pagination Buttons */
-.btn-light:hover{
-  background-color: #ffffff;
-  border-color: #ffffff;
+.pagination-btn .bi-chevron-left:hover, .pagination-btn .bi-chevron-right:hover {
+  color: #ffffff;
 }
 
-.btn-light.active{
+.pagination-btn {
+  color: #ffffff;
+  border-radius: 50%;
+}
+
+.pagination-btn.active {
   background-color: #f3777b;
   color: #ffffff;
-  border-color: #f3777b;
+  border-radius: 50%;
 }
