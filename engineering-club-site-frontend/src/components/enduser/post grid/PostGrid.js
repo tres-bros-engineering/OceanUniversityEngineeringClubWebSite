@@ -61,7 +61,7 @@ const PostGrid = ({ posts, category }) => {
             <div className="d-flex justify-content-center">
               <NoPostFoundAnimation />
             </div>
-            <h4 className="text-center mb-4">No Post Found!</h4>
+            <h4 className="text-center mb-4">No Posts Found!</h4>
           </>
         )}
       </div>

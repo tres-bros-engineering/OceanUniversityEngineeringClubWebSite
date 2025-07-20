@@ -65,9 +65,9 @@ const PostGrid2 = ({ posts }) => {
               <NoPostFoundAnimation />
             </div>
             {location.pathname === "/search-results" ? (
-              <h4 className="text-center mb-5">No Result Found!</h4>
+              <h4 className="text-center mb-5">No Results Found!</h4>
             ) : (
-              <h4 className="text-center mb-4">No Post Found!</h4>
+              <h4 className="text-center mb-4">No Posts Found!</h4>
             )}
           </>
         )}

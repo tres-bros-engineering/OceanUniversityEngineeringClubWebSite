@@ -6,6 +6,7 @@ import PostGrid2 from "../../components/enduser/post grid/PostGrid2";
 import { useData } from "../../utils/DataContext";
 import { useLocation } from "react-router-dom";
 import Search from "../../components/enduser/search/Search";
+import { useEffect, useState } from "react";
 
 const SearchResults = () => {
   UseTitleName("Search Results | OCU Engineering Club");
@@ -13,26 +14,35 @@ const SearchResults = () => {
 
   const location = useLocation();
   const { searchResult } = location.state || {};
+  const [postResults, setPostResults] = useState([]);
 
   // Filter posts by search result
-  var postResults;
+  useEffect(() => {
+    if (!searchResult) {
+      setPostResults([]);
+      return;
+    }
 
-  if (
-    searchResult.toLowerCase() === "article" ||
-    searchResult.toLowerCase() === "articles"
-  ) {
-    postResults = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
-  } else if (searchResult.toLowerCase() === "news") {
-    postResults = news.sort((a, b) => new Date(b.date) - new Date(a.date));
-  } else {
-    postResults = [...articles, ...news]
-      .filter((post) =>
-        `${post.title} ${post.category}`
-          .toLowerCase()
-          .includes(searchResult.toLowerCase())
-      )
-      .sort((a, b) => new Date(b.date) - new Date(a.date));
-  }
+    const lowerSearch = searchResult.toLowerCase().trim();
+
+    let results = [];
+
+    if (["article", "articles"].includes(lowerSearch)) {
+      results = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (lowerSearch === "news") {
+      results = news.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else {
+      results = [...articles, ...news]
+        .filter((post) =>
+          `${post.title} ${post.category}`
+            .toLowerCase()
+            .includes(lowerSearch)
+        )
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+
+    setPostResults(results);
+  }, [searchResult, articles, news]);
 
   return (
     <>
