@@ -6,8 +6,8 @@ const Sidebar = () => {
   const { articles, news } = useData();
 
   // Filter posts by category
-  const popularPosts = [...articles, ...news].filter(post => post.views).sort((a, b) => b.views - a.views);
-  const latestPosts = [...articles, ...news].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const popularPosts = [...articles, ...news].filter(post => post.views && post.publish).sort((a, b) => b.views - a.views);
+  const latestPosts = [...articles, ...news].filter(post => post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <Container fluid className="p-0 m-0 d-none d-lg-block">

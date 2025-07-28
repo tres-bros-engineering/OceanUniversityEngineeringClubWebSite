@@ -17,6 +17,15 @@ import EndUserLayout from "./layout/EndUserLayout";
 import Post from "./pages/enduser/Post";
 import SearchResults from "./pages/enduser/SearchResults";
 import { DataProvider } from "./utils/DataContext";
+import AdminLayout from "./layout/AdminLayout";
+import AdminHome from "./pages/admin/AdminHome";
+import ArticleManage from "./pages/admin/ArticleManage";
+import NewsManage from "./pages/admin/NewsManage";
+import AdminProfile from "./pages/admin/AdminProfile";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminForgotPassword from "./pages/admin/AdminForgotPassword";
+import CreateArticle from "./pages/admin/CreateArticle";
+import EditArticle from "./pages/admin/EditArticle";
 
 const App = () => {
   // Scroll Animation
@@ -58,6 +67,18 @@ const App = () => {
 
             {/* 404 Not Found */}
             <Route path="*" element={<NotFound />} />
+          </Route>
+
+          {/* Admin Routes */}
+          <Route element={<AdminLayout />}>
+            <Route path="/admin" element={<AdminLogin />} />
+            <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
+            <Route path="/admin/home" element={<AdminHome />} />
+            <Route path="/admin/article-manage" element={<ArticleManage />} />
+            <Route path="/admin/news-manage" element={<NewsManage />} />
+            <Route path="/admin/profile" element={<AdminProfile />} />
+            <Route path="/admin/create-article" element={<CreateArticle />} />
+            <Route path="/admin/article-manage/:idSlug" element={<EditArticle />} />
           </Route>
         </Routes>
       </DataProvider>

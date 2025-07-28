@@ -7,7 +7,7 @@ const Other = () => {
   const { articles } = useData();
 
   // Filter posts by category
-  const otherPosts = articles.filter(post => post.category === "Other").sort((a, b) => new Date(b.date) - new Date(a.date));
+  const otherPosts = articles.filter(post => post.category === "Other" && post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <div>

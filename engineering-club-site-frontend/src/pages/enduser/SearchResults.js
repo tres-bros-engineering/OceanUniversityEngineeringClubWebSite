@@ -26,13 +26,13 @@ const SearchResults = () => {
       let results = [];
 
       if (["article", "articles"].includes(lowerSearch)) {
-        results = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+        results = articles.filter(post => post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
       } else if (lowerSearch === "news") {
-        results = news.sort((a, b) => new Date(b.date) - new Date(a.date));
+        results = news.filter(post => post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
       } else {
         results = [...articles, ...news]
           .filter((post) =>
-            `${post.title} ${post.category}`.toLowerCase().includes(lowerSearch)
+            `${post.title} ${post.category}`.toLowerCase().includes(lowerSearch) && post.publish
           )
           .sort((a, b) => new Date(b.date) - new Date(a.date));
       }

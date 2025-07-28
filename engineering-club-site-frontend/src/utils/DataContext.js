@@ -90,7 +90,7 @@ export const DataProvider = ({ children }) => {
 
   return (
     <DataContext.Provider 
-      value={{ articles, news, comments, getComment, isPendingArticles, 
+      value={{ articles, news, comments, getArticle, getNews, getComment, isPendingArticles, 
         isPendingNews, isPendingComments, errorArticles, errorNews, errorComments 
       }}
     >

@@ -1,20 +1,20 @@
 /* Search Bar */
-.search-input {
+.search-component .search-input {
   border-radius: 50px;
   border: 2px solid #f3777b;
 }
 
-.search-input:focus {
+.search-component .search-input:focus {
   border-color: #f3777b;
   box-shadow: 0 0 0 0.1rem #f99a9d;
 }
 
 /* Remove clear icon */
-.search-input::-webkit-search-cancel-button {
+.search-component .search-input::-webkit-search-cancel-button {
   display: none;
 }
 
-.search-icon {
+.search-component .search-icon {
   position: absolute;
   top: 50%;
   right: 16px;

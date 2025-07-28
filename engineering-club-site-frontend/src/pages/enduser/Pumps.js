@@ -7,7 +7,7 @@ const Pumps = () => {
   const { articles } = useData();
 
   // Filter posts by category
-  const pumpsPosts = articles.filter(post => post.category === "Pumps").sort((a, b) => new Date(b.date) - new Date(a.date));
+  const pumpsPosts = articles.filter(post => post.category === "Pumps" && post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <div>

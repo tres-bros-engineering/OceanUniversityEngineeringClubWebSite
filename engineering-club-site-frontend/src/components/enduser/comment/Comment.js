@@ -41,11 +41,6 @@ const Comment = ({ post_id }) => {
         setCommentName("");
         setCommentEmail("");
         setCommentBody("");
-
-        // Hide it
-        setTimeout(() => {
-          setSuccessMsg(false);
-        }, 1000);
       })
       .catch((err) => {
         console.log(err.message);
@@ -57,11 +52,11 @@ const Comment = ({ post_id }) => {
   const comment = comments.filter((comment) => comment.article_id === post_id);
 
   return (
-    <>
-      {/* Display success msg or error msg */}
+    <div className="comment-component">
+      {/* Display success msg */}
       {successMsg && (
         <div class="alert alert-success" role="alert">
-          Comment added successfully!
+          The comment has been added successfully.
         </div>
       )}
 
@@ -84,9 +79,10 @@ const Comment = ({ post_id }) => {
                   value={commentName}
                   onChange={(e) => setCommentName(e.target.value)}
                   placeholder="Enter Your Name"
+                  onInvalid={(e) => e.target.setCustomValidity('Please enter your name')}
+                  onInput={(e) => e.target.setCustomValidity('')}
                   required
                 />
-                <div class="invalid-feedback">Please provide your name.</div>
               </div>
               <div class="form-group col-lg-6 mt-3 mt-lg-0">
                 <input
@@ -96,6 +92,8 @@ const Comment = ({ post_id }) => {
                   value={commentEmail}
                   onChange={(e) => setCommentEmail(e.target.value)}
                   placeholder="Enter Your Email"
+                  onInvalid={(e) => e.target.setCustomValidity('Please enter your email')}
+                  onInput={(e) => e.target.setCustomValidity('')}
                   required
                 />
               </div>
@@ -108,6 +106,8 @@ const Comment = ({ post_id }) => {
                 value={commentBody}
                 onChange={(e) => setCommentBody(e.target.value)}
                 placeholder="Enter Your Comment..."
+                onInvalid={(e) => e.target.setCustomValidity('Please enter your comment')}
+                onInput={(e) => e.target.setCustomValidity('')}
                 required
               />
             </div>
@@ -165,7 +165,7 @@ const Comment = ({ post_id }) => {
           <h6>No comments yet. Be the first to share your thoughts!</h6>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

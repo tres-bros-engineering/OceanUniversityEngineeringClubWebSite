@@ -5,22 +5,22 @@
 }
 
 /* Footer Logos */
-.ocu-logo {
+.footer .ocu-logo {
   width: 120px;
 }
 
-.club-logo {
+.footer .club-logo {
   width: 100px;
 }
 
 /* Footer Navbar */
-.footer-text {
+.footer .footer-text {
   font-size: 17px;
 }
 
-.footer-nav .nav-link,
-.footer-navbar .dropdown-toggle,
-.footer-navbar .dropdown-item {
+.footer .footer-nav .nav-link,
+.footer .footer-navbar .dropdown-toggle,
+.footer .footer-navbar .dropdown-item {
   color: #ffffff !important;
   font-weight: 700;
   font-size: 22px;
@@ -28,38 +28,38 @@
 }
 
 /* Footer Dropdown */
-.dropdown-menu {
+.footer .dropdown-menu {
   background-color: #1b3754 !important;
   border: 2px solid #ffffff;
 }
 
 @media (max-width: 991.98px) {
-  .dropdown-menu {
+  .footer .dropdown-menu {
     border: 0px;
     padding-top: 0px;
   }
 }
 
-.dropdown-item:hover {
+.footer .dropdown-item:hover {
   background-color: transparent !important;
 }
 
-.dropdown-item.active {
+.footer .dropdown-item.active {
   background-color: transparent !important;
 }
 
-.dropdown-divider {
+.footer .dropdown-divider {
   background-color: #ffffff;
   height: 2px;
 }
 
 /* Hide the default dropdown icon */
-.caret-down .dropdown-toggle::after {
+.footer .caret-down .dropdown-toggle::after {
   display: none !important;
 }
 
 /* Contact us text */
-.contact-us-text {
+.footer .contact-us-text {
   font-weight: 700;
   font-size: 22px;
 }

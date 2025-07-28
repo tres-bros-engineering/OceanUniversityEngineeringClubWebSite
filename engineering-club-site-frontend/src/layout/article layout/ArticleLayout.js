@@ -10,11 +10,11 @@ const Article = () => {
   const { articles } = useData();
 
   // Filter posts by category
-  const articlePosts = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+  const articlePosts = articles.filter(post => post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <>
-      <Container fluid className="p-0 m-0">
+      <Container fluid className="p-0 m-0 article-layout">
         <Row className="p-0 m-0">
           <div className="my-3 p-0" data-aos="fade-up">
             <Slider posts={articlePosts} />

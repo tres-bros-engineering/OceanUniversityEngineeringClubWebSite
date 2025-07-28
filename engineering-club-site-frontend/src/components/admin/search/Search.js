@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import "./Search.css";
 
-const Search = () => {
+const Search = ({ url }) => {
   const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,7 +12,7 @@ const Search = () => {
     e.preventDefault();
     if (!searchTerm.trim()) return;
 
-    navigate("/search-results", {
+    navigate(url, {
       state: { searchResult: searchTerm },
     });
 
@@ -20,7 +20,7 @@ const Search = () => {
   };
 
   return (
-    <div className="search-component">
+    <div className="search-component-admin">
       <form className="d-flex position-relative" onSubmit={handleSearch}>
         <Form.Control
           type="search"

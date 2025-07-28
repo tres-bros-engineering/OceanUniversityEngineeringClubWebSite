@@ -10,7 +10,7 @@ const PostGrid3 = ({ posts, category }) => {
   const navigate = useNavigate();
 
   return (
-    <Container fluid>
+    <Container fluid className="post-grid">
       <h2>
         <div className="px-2 text-black bg-white rounded-top d-inline-block">
           {category}

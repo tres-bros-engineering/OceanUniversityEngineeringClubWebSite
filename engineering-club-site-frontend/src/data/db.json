@@ -8,7 +8,8 @@
       "date": "2025-06-21",
       "body": "Marine engineers classify ships based on their function and design, ranging from cargo carriers to passenger vessels. Each ship type serves a specific purpose, requiring tailored engineering solutions to optimize performance and safety. Understanding the variety of ships is fundamental for professionals in the maritime industry.\n\nCargo ships are the backbone of global trade, designed to carry goods in bulk or containers across oceans. Tankers transport liquids like oil and chemicals, and their design must address safety and environmental concerns. Passenger ships, including ferries and cruise liners, prioritize comfort and amenities alongside safety features.\n\nAdvances in shipbuilding technologies have led to hybrid vessels and specialized ships for research and military use. Engineers continue to innovate, balancing efficiency with environmental regulations and operational demands. Knowledge of ship types aids in navigation, maintenance, and maritime logistics planning.",
       "author": "Capt. Michael Fernando",
-      "views": 2020
+      "views": 2020,
+      "publish": true
     },
     {
       "id": "2",
@@ -18,7 +19,8 @@
       "date": "2025-06-19",
       "body": "Pumps play a critical role in marine engineering by managing fluids across various ship systems. From bilge water removal to ballast control, the efficient functioning of pumps ensures vessel safety and operational effectiveness. Different pump types are selected based on flow rate, pressure, and the nature of the fluid.\n\nCommon pumps on ships include centrifugal pumps, which use rotational energy to move fluids, and positive displacement pumps that transfer fluid by trapping a fixed volume. Gear pumps and screw pumps are often used for viscous liquids, while reciprocating pumps provide high pressure for specialized tasks.\n\nMaintaining pumps involves regular inspection for wear and corrosion, especially due to harsh marine environments. Innovations in pump design improve energy efficiency and reliability, contributing to greener and more cost-effective maritime operations.",
       "author": "Eng. Dineth Perera",
-      "views": 1500
+      "views": 1500,
+      "publish": true
     },
     {
       "id": "3",
@@ -28,7 +30,8 @@
       "date": "2025-06-16",
       "body": "Ship stability is essential for preventing capsizing and ensuring safe navigation in varying sea conditions. It involves the ship’s ability to return to an upright position after being tilted by waves, wind, or loading conditions. Marine engineers apply principles of buoyancy, center of gravity, and metacentric height to assess stability.\n\nDesigning a stable ship requires careful calculation of weight distribution and hull form. Stability can be dynamic, affected by changing cargo or ballast, necessitating real-time monitoring and adjustments during voyages. Safety regulations demand rigorous testing and certification to validate stability standards.\n\nTechnological advancements, including computer modeling and sensor integration, aid engineers in predicting and maintaining optimal stability. This enhances the safety of crew, cargo, and the environment by minimizing risks associated with unstable vessels.",
       "author": "Prof. Tharaka Silva",
-      "views": 2000
+      "views": 2000,
+      "publish": true
     },
     {
       "id": "4",
@@ -38,7 +41,8 @@
       "date": "2025-06-14",
       "body": "Ship construction has evolved significantly with advances in materials and fabrication methods. Modern techniques emphasize modular construction, which allows different sections of a ship to be built simultaneously and later assembled. This approach reduces build time and enhances quality control.\n\nThe use of high-strength steel and corrosion-resistant alloys improves the durability and lifespan of vessels. Welding technology advancements have replaced traditional riveting, providing stronger and more watertight joints. Automation and robotics also play an increasing role in shipyards, improving precision and worker safety.\n\nEnvironmental considerations drive innovation in ship design and construction. Engineers focus on reducing emissions and fuel consumption through hull optimization and alternative propulsion systems. Compliance with international standards ensures new ships meet stringent safety and ecological requirements.",
       "author": "Eng. Thisara Rajapaksa",
-      "views": 1800
+      "views": 1800,
+      "publish": true
     },
     {
       "id": "5",
@@ -48,7 +52,8 @@
       "date": "2025-06-12",
       "body": "Marine engineering is rapidly evolving with the integration of digital technologies and sustainable practices. Smart sensors, artificial intelligence, and big data analytics are transforming vessel monitoring, predictive maintenance, and navigation safety. These innovations increase efficiency and reduce operational costs.\n\nRenewable energy sources and eco-friendly fuels are gaining traction to comply with stricter environmental regulations. Hybrid propulsion systems and energy recovery technologies help minimize the carbon footprint of ships. Engineers are also exploring wave and tidal energy conversion for onboard power generation.\n\nCollaboration across industry stakeholders is vital to address challenges such as cybersecurity and regulatory compliance. Training programs are evolving to equip marine engineers with skills to manage complex digital systems and promote innovation in sustainable maritime operations.",
       "author": "Dr. Minoli Jayawardena",
-      "views": 1250
+      "views": 1250,
+      "publish": true
     }
   ],
   "news": [
@@ -59,7 +64,8 @@
       "date": "2025-06-22",
       "body": "The global marine engineering community is preparing for a major conference in Singapore focused on innovation and sustainability in shipbuilding and oceanography. Experts and industry leaders will share insights on the latest technologies and regulatory frameworks.\n\nWorkshops will cover topics such as green propulsion systems, autonomous vessels, and marine environmental protection. The event aims to foster collaboration between academia, industry, and policymakers to advance maritime technology.\n\nDelegates will also have opportunities for networking, exhibitions of cutting-edge marine equipment, and discussions on career development in marine engineering fields. This conference is a significant milestone in promoting sustainable maritime growth worldwide.",
       "author": "Lahiru Perera",
-      "views": 1650
+      "views": 1650,
+      "publish": true
     },
     {
       "id": "2",
@@ -68,7 +74,8 @@
       "date": "2025-06-24",
       "body": "The Ministry of Marine Affairs of Sri Lanka has introduced a cutting-edge naval design program aimed at fostering innovation among young engineers. The initiative includes training in advanced naval architecture, ship modeling, and simulation software.\n\nThis program aligns with the country’s goals to enhance its shipbuilding capabilities and develop a skilled workforce capable of designing competitive vessels. Partnerships with leading universities and shipyards are part of the strategic plan.\n\nStudents and professionals enrolling in this program will gain hands-on experience with modern technologies and exposure to international maritime standards. The program is expected to boost Sri Lanka’s presence in the global marine engineering sector.",
       "author": "Chamali Ranasinghe",
-      "views": 1350
+      "views": 1350,
+      "publish": true
     },
     {
       "id": "3",
@@ -77,7 +84,8 @@
       "date": "2025-06-19",
       "body": "In a historic moment, the Port of Colombo welcomed South Asia’s first hybrid-powered cargo ship. This vessel combines traditional fuel engines with electric propulsion to reduce emissions and improve fuel efficiency.\n\nThe ship’s arrival marks a milestone in the region’s efforts to adopt sustainable shipping practices. Officials highlighted the environmental benefits and the potential for future hybrid and electric vessels in commercial fleets.\n\nMarine engineers are closely monitoring the ship’s performance to gather data for future improvements. This event underscores the maritime industry’s commitment to balancing economic growth with ecological responsibility.",
       "author": "Samantha Dias",
-      "views": 1250
+      "views": 1250,
+      "publish": true
     },
     {
       "id": "4",
@@ -86,7 +94,8 @@
       "date": "2025-06-17",
       "body": "A team of marine engineering students recently won a prestigious global competition for their innovative ballast water treatment system. Their design emphasizes environmental safety and cost-effectiveness, addressing a major challenge in maritime transport.\n\nThe competition featured teams from universities worldwide, showcasing advancements in marine technology and sustainability. The students impressed judges with their practical approach and comprehensive testing.\n\nThis achievement highlights the growing talent in marine engineering education and the importance of nurturing innovation to meet industry challenges. The winning team plans to collaborate with industry partners to further develop their system.",
       "author": "Ruwan Perera",
-      "views": 950
+      "views": 950,
+      "publish": true
     },
     {
       "id": "5",
@@ -95,7 +104,8 @@
       "date": "2025-06-12",
       "body": "A new state-of-the-art research vessel has been commissioned to support deep-sea exploration and marine environmental studies. Equipped with AI-driven sensors and advanced navigation systems, the vessel represents a leap forward in maritime research capabilities.\n\nThe vessel will enable scientists to conduct long-duration missions, collecting critical data on ocean ecosystems, climate change effects, and underwater geology. Collaboration with international research institutions will maximize its scientific output.\n\nMarine engineers designed the ship to be energy-efficient and highly maneuverable, meeting modern standards for safety and sustainability. The launch ceremony emphasized the vessel’s role in advancing knowledge and protecting marine environments.",
       "author": "Isuri de Alwis",
-      "views": 2580
+      "views": 2580,
+      "publish": true
     }
   ],
   "comment": [
@@ -178,6 +188,30 @@
       "name": "Harsha Gunasekara",
       "email": "harshagunasekara@gmail.com",
       "comment": "Well written and very clear."
+    },
+    {
+      "id": "95bf",
+      "article_id": "b0c8",
+      "date": "2025-07-28T17:19:22.568Z",
+      "name": "Malaka Fernando",
+      "email": "malakafdo@gmail.com",
+      "comment": "Wow!"
+    },
+    {
+      "id": "57b5",
+      "article_id": "08c9",
+      "date": "2025-07-28T17:59:17.433Z",
+      "name": "Malaka Fernando",
+      "email": "malakafdo@gmail.com",
+      "comment": "Wow!"
+    },
+    {
+      "id": "626c",
+      "article_id": "08c9",
+      "date": "2025-07-28T18:00:49.755Z",
+      "name": "Malaka Fernando",
+      "email": "malakafdo@gmail.com",
+      "comment": "w"
     }
   ]
 }

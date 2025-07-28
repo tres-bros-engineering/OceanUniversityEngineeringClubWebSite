@@ -8,7 +8,7 @@ const Slider = ({ posts }) => {
   return (
     <>
       {posts.length > 0 && (
-        <Container fluid>
+        <Container fluid className="slider">
           <div
             id="carouselExampleCaptions"
             className="carousel slide"

@@ -1,0 +1,41 @@
+/* Navbar */
+.header-admin .custom-navbar {
+  background-color: #def3f6 !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* Logo */
+.header-admin .navbar-App-logo {
+  width: 55px;
+}
+
+.header-admin .custom-nav .nav-link,
+.header-admin .nav-link {
+  color: #000000 !important;
+  font-weight: 700;
+  font-size: 22px;
+  transition: color 0.3s ease;
+}
+
+/* Hover */
+.header-admin .custom-nav .nav-link:hover,
+.header-admin .nav-link:hover {
+  color: #00798e !important;
+}
+
+/* Active */
+.header-admin .custom-nav .nav-link.active,
+.header-admin .custom-nav .nav-link.active {
+  color: #00798e !important;
+}
+
+ /* Navbar Toggle */
+.header-admin .nav-toggle {
+  border-color: #00798e;
+  color: #0cb7d5;
+}
+
+.header-admin .nav-toggle-icon {
+  color: #00798e;
+}

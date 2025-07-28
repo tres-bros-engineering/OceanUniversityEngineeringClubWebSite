@@ -1,0 +1,24 @@
+/* Input fields */
+/* Login Page */
+.admin-login .form-group input {
+  border-radius: 50px;
+  border: 2px solid #00798e;
+  width: 320px;
+}
+
+/* Create Article */
+.admin-manage-posts .form-group input,
+.admin-manage-posts .form-group textarea,
+.admin-manage-posts .form-group select {
+  border: 2px solid #00798e;
+}
+
+.admin-login .form-group input:focus {
+  border-color: #00798e;
+  box-shadow: 0 0 0 0.1rem #0cb7d5;
+}
+
+/* Logo */
+.admin-login img {
+  width: 180px;
+}

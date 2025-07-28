@@ -1,0 +1,24 @@
+/* Search Bar */
+.search-component-admin .search-input {
+  border-radius: 50px;
+  border: 2px solid #00798e;
+}
+
+.search-component-admin .search-input:focus {
+  border-color: #00798e;
+  box-shadow: 0 0 0 0.1rem #0cb7d5;
+}
+
+/* Remove clear icon */
+.search-component-admin .search-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search-component-admin .search-icon {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  color: #808080;
+  pointer-events: none;
+}

@@ -10,7 +10,7 @@ const PostGrid = ({ posts, category }) => {
   const navigate = useNavigate();
 
   return (
-    <Container fluid className="post-grid">
+    <Container fluid className="post-grid-admin">
       <h2>
         <div className="px-2 text-black bg-white rounded-top d-inline-block">
           {category}
@@ -19,7 +19,7 @@ const PostGrid = ({ posts, category }) => {
       </h2>
       <div className="my-3">
         {posts.length > 0 ? (
-          posts?.slice(0, 6).map((post, index) => (
+          posts?.slice(0, 10).map((post, index) => (
             <Row
               key={index}
               className="border border-white mx-2 mb-3 py-2 rounded post-grid-post"

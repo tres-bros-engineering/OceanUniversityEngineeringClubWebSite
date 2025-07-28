@@ -9,14 +9,14 @@ const Home = () => {
   const { articles, news } = useData();
 
   // Filter posts by category
-  const sliderPosts = [...articles, ...news].sort((a, b) => new Date(b.date) - new Date(a.date));
-  const newsPosts = news.sort((a, b) => new Date(b.date) - new Date(a.date));
-  const pumpsPosts = articles.filter(post => post.category === "Pumps").sort((a, b) => new Date(b.date) - new Date(a.date));
-  const shipConstructionsPosts = articles.filter(post => post.category === "Ship Constructions").sort((a, b) => new Date(b.date) - new Date(a.date));
-  const shipStabilityPosts = articles.filter(post => post.category === "Ship Stability").sort((a, b) => new Date(b.date) - new Date(a.date));
-  const shipTypePosts = articles.filter(post => post.category === "Ship Type").sort((a, b) => new Date(b.date) - new Date(a.date));
-  const otherPosts = articles.filter(post => post.category === "Other").sort((a, b) => new Date(b.date) - new Date(a.date));
-  const latestArticlePosts = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+  const sliderPosts = [...articles, ...news].filter(post => post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
+  const newsPosts = news.filter(post => post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
+  const pumpsPosts = articles.filter(post => post.category === "Pumps" && post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
+  const shipConstructionsPosts = articles.filter(post => post.category === "Ship Constructions" && post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
+  const shipStabilityPosts = articles.filter(post => post.category === "Ship Stability" && post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
+  const shipTypePosts = articles.filter(post => post.category === "Ship Type" && post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
+  const otherPosts = articles.filter(post => post.category === "Other" && post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
+  const latestArticlePosts = articles.filter(post => post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <>

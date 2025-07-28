@@ -1,0 +1,14 @@
+.footer-admin {
+  background-color: #def3f6 !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* Footer Logos */
+.footer-admin .ocu-logo {
+  width: 120px;
+}
+
+.footer-admin .club-logo {
+  width: 100px;
+}

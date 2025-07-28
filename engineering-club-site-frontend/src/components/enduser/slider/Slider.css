@@ -1,4 +1,4 @@
-.carousel-item img {
+.slider .carousel-item img {
   width: 100%;
   height: 550px;
   object-fit: cover;
@@ -6,25 +6,24 @@
   object-position: center center;
 }
 
-.carousel-item {
+.slider .carousel-item {
   cursor: pointer;
   transition: transform 0.5s ease, filter 0.5s ease;
 }
 
-.carousel-item:hover {
+.slider .carousel-item:hover {
   transform: scale(1.02);
   filter: brightness(0.9);
 }
 
-
 @media (max-width: 991.98px) {
-  .carousel-item img {
+  .slider .carousel-item img {
     height: 400px;
   }
 }
 
 /* Dark Dot */
-.carousel-indicators [data-bs-target] {
+.slider .carousel-indicators [data-bs-target] {
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -36,21 +35,23 @@
 }
 
 /* Active Dot */
-.carousel-indicators .active {
+.slider .carousel-indicators .active {
   opacity: 1;
   background-color: #f3777b;
 }
 
 /* Slider buttons */
-.bi-chevron-left, .bi-chevron-right {
+.slider .bi-chevron-left,
+.slider .bi-chevron-right {
   color: #ffffff;
 }
 
-.bi-chevron-left:hover, .bi-chevron-right:hover {
+.slider .bi-chevron-left:hover,
+.slider .bi-chevron-right:hover {
   color: #f3777b;
 }
 
-.carousel-control-prev,
-.carousel-control-next {
+.slider .carousel-control-prev,
+.slider .carousel-control-next {
   opacity: 1 !important;
 }

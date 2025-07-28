@@ -10,7 +10,7 @@ const News = () => {
   const { news } = useData();
 
   // Filter posts by category
-  const newsPosts = news.sort((a, b) => new Date(b.date) - new Date(a.date));
+  const newsPosts = news.filter(post => post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <>

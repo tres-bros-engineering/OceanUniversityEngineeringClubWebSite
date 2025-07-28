@@ -39,7 +39,7 @@ const PostGrid2 = ({ posts }) => {
   }
 
   return (
-    <Container fluid className="post-grid">
+    <Container fluid className="post-grid-admin">
       <div>
         {posts.length > 0 ? (
           posts?.slice(firstIndex, lastIndex).map((post, index) => (

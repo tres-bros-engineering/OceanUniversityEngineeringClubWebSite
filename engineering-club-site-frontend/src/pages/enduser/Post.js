@@ -19,7 +19,7 @@ const Post = () => {
   
   return (
     <>
-      {post ? (
+      {post.publish && post ? (
         <Container fluid className="p-0 m-0">
           <Row className="p-0 m-0 my-4">
             {/* Post Layout */}

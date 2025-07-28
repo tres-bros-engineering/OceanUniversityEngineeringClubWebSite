@@ -18,23 +18,23 @@ const EndUserLayout = () => {
 
       {/* The animation shown after an error occurs */}
       {(errorArticles || errorNews || errorComments) && (
-        <div className="d-flex flex-column justify-content-center align-items-center vh-100">
+        <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
           <ErrorAnimation />
-          <h4>Something Went Wrong!</h4>
+          <h4>Something went wrong!</h4>
         </div>
       )}
 
       {/* The animation shown before fetching data */}
       {(isPendingArticles || isPendingNews || isPendingComments) && (
-        <div className="d-flex flex-column justify-content-center align-items-center vh-100">
+        <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
           <LoaderAnimation />
           <h4 className="mt-3">Loading...</h4>
         </div>
       )}
 
-      {/* Home page */}
+      {/* page */}
       {(!errorArticles && !errorNews && !errorComments) && (!isPendingArticles && !isPendingNews && !isPendingComments) && (
-        <main>
+        <main className="min-vh-100">
           <Outlet />
         </main>
       )}
