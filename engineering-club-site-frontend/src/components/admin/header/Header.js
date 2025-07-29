@@ -49,6 +49,15 @@ const Header = () => {
               </Nav.Link>
               <Nav.Link
                 as={NavLink}
+                to="/admin/comment-manage"
+                className={`mx-5 ${
+                  location.pathname === "/admin/comment-manage" ? "active" : ""
+                }`}
+              >
+                Comment Manage
+              </Nav.Link>
+              <Nav.Link
+                as={NavLink}
                 to="/admin/profile"
                 className={`mx-5 d-lg-none ${
                   location.pathname === "/admin/profile" ? "active" : ""

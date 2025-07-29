@@ -4,15 +4,34 @@ import UseTitleName from "../../utils/UseTitleName";
 import { Container, Row } from "react-bootstrap";
 import Search from "../../components/admin/search/Search";
 import FormatDate from "../../utils/FormatDate";
+import { useState } from "react";
+import ApiRoutes from "../../api/ApiRoutes";
 
 const NewsManage = () => {
   UseTitleName("News Manage | OCU Engineering Club");
-  const { news } = useData();
+  const { news, getNews } = useData();
   const naviagate = useNavigate();
+
+  const [successMsg, setSuccessMsg] = useState(false);
+
+  // Delete news
+  const deleteNews = (id) => {
+    fetch(ApiRoutes.NEWS + "/" + id, {
+      method: "DELETE",
+    })
+      .then(() => {
+        setSuccessMsg(true);
+        getNews();
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setSuccessMsg(false);
+      });
+  };
 
   return (
     <>
-      <Container fluid className="p-0 m-0 px-1 px-lg-5" data-aos="fade-up">
+      <Container fluid className="p-0 m-0 px-1 px-lg-5 pb-5 pt-2" data-aos="fade-up">
         <Row className="p-0 m-0 mt-4">
           <h1 className="col-lg col-6">News Manage</h1>
           <div className="col-lg-2 col-6">
@@ -32,7 +51,16 @@ const NewsManage = () => {
             <Search url={"/admin/news-manage"} />
           </div>
         </Row>
-        <Row className="px-3 pt-3 pb-0 m-0 mt-3 rounded bg-black border border-white">
+
+        {/* Display success msg */}
+        {successMsg && (
+          <div class="alert alert-success" role="alert">
+            The news has been deleted successfully.
+          </div>
+        )}
+
+        {/* News Table */}
+        <Row className="px-3 pt-3 pb-0 m-0 mt-3 rounded bg-black border border-white table-responsive">
           <table className="table table-bordered border-black rounded overflow-hidden text-center">
             <thead>
               <tr>
@@ -92,7 +120,7 @@ const NewsManage = () => {
                           naviagate("/admin/news-manage/" + n.id)
                         }
                       ></i>
-                      <i className="btn bi bi-trash3" style={{ border: 0 }}></i>
+                      <i className="btn bi bi-trash3" style={{ border: 0 }} onClick={() => deleteNews(n.id)}></i>
                     </td>
                   </tr>
                 ))}
