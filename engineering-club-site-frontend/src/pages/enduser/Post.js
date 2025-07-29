@@ -27,7 +27,20 @@ const Post = () => {
               <h2>{post.title}</h2>
               <div className="mt-1 fw-bold">
                 <span className="me-4"><i className="bi bi-clock"></i> {FormatDate(post.date)}</span>
-                <span className="me-4"><i className="bi bi-person-circle"></i> {post.author}</span>
+                {/* Profile icon */}
+                <div className="d-inline-block">
+                  <div
+                    className="d-flex justify-content-center align-items-center rounded-circle text-black fw-semibold bg-white"
+                    style={{
+                      width: "18px",
+                      height: "18px",
+                      fontSize: "15px"
+                    }}
+                  >
+                    {post.author.charAt(0)}
+                  </div>
+                </div>
+                <span className="me-4"> {post.author}</span>
                 {post.category ? (<span><i className="bi bi-tags"></i> {post.category}</span>) : (<span><i className="bi bi-tags"></i> News</span>)}
               </div>
               <div className="mt-1 mb-4 fw-bold">
