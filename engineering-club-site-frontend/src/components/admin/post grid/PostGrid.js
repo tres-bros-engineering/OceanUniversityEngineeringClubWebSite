@@ -5,6 +5,7 @@ import "./PostGrid.css";
 import { useNavigate } from "react-router-dom";
 import NoPostFoundAnimation from "../../../utils/animation/NoPostFoundAnimation";
 import PostUrlFormat from "../../../utils/PostUrlFormat";
+import truncate from 'truncate-html'
 
 const PostGrid = ({ posts, category }) => {
   const navigate = useNavigate();
@@ -37,11 +38,9 @@ const PostGrid = ({ posts, category }) => {
                   <span className="bi bi-clock"></span>
                   <span className="ms-1">{FormatDate(post.date)}</span>
                 </p>
-                <p className="my-1" style={{ textAlign: "justify" }}>
-                  {post.body.length > 150
-                    ? post.body.slice(0, 150) + "..."
-                    : post.body}
-                </p>
+                <div className="my-1 rich-text-display" style={{ textAlign: "justify" }}>
+                  {truncate(post.body, 150, { stripTags: true })}
+                </div>
                 <button
                   type="button"
                   className="btn btn-outline-light btn-sm mt-1"

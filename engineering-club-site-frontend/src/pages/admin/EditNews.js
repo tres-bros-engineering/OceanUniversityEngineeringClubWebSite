@@ -4,6 +4,8 @@ import "./Admin.css";
 import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const EditNews = () => {
   const navigate = useNavigate();
@@ -16,8 +18,31 @@ const EditNews = () => {
   UseTitleName(n?.title + " | OCU Engineering Club");
 
   const [title, setTitle] = useState(n?.title);
+  const [image, setImage] = useState(n?.img);
   const [publish, setPublish] = useState(n?.publish);
   const [body, setBody] = useState(n?.body);
+
+  // Modules for rich text editor 
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ align: [] }],
+      ['link', 'image', 'video'],
+    ],
+  };
+
+  // Get Image 
+  const getImage = (e) => {
+    const img = e.target.files[0];
+
+    if (img && img.type.startsWith("image/")) {
+      setImage(URL.createObjectURL(img));
+    } else {
+      setImage("");
+    }
+  };
 
   // Update news
   const handleSubmit = (e) => {
@@ -25,6 +50,7 @@ const EditNews = () => {
 
     const news = {
       title: title,
+      img: image,
       body: body,
       publish: publish,
     };
@@ -67,13 +93,44 @@ const EditNews = () => {
               required
             />
           </div>
-          <div class="form-group my-3">
-            <input
-              type="file"
-              class="form-control"
-              id="image"
-              accept="image/*"
-            />
+          {/* Image Upload Area */}
+          <div
+            class="rounded my-3 p-2 bg-white w-100 h-100"
+            style={{ border: "2px solid #00798e" }}
+          >
+            <div
+              className="p-3 rounded w-100 h-100"
+              style={{ border: "2px dashed #00798e" }}
+            >
+              {image ? (
+                <div className="d-flex justify-content-center mb-2">
+                  <img
+                    src={image}
+                    style={{ width: "250px" }}
+                    className="rounded"
+                  />
+                </div>
+              ) : (
+                <div className="text-center">
+                  <i
+                    class="bi bi-cloud-arrow-up-fill mb-2"
+                    style={{ color: "#00798e", fontSize: "100px" }}
+                  ></i>
+                </div>
+              )}
+              <div className="d-flex justify-content-center">
+                <label for="image-upload" class="custom-image-upload">
+                  Image Upload
+                </label>
+                <input
+                  type="file"
+                  id="image-upload"
+                  accept="image/*"
+                  onChange={getImage}
+                  required={image === ""}
+                />
+              </div>
+            </div>
           </div>
           <div className="form-group mb-3">
             <select
@@ -93,18 +150,15 @@ const EditNews = () => {
               <option value="false">No</option>
             </select>
           </div>
-          <div class="form-group">
-            <textarea
-              class="form-control"
-              id="body"
-              rows="10"
-              placeholder="News Body..."
+          {/* Rich Text Editor */}
+          <div>
+            <ReactQuill
+              className="rich-text-editor"
+              modules={modules}
+              theme="snow"
               value={body}
-              onChange={(e) => setBody(e.target.value)}
-              onInvalid={(e) =>
-                e.target.setCustomValidity("Please enter your news body")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
+              onChange={setBody}
+              placeholder="Write something..."
               required
             />
           </div>

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NoPostFoundAnimation from "../../../utils/animation/NoPostFoundAnimation";
 import PostUrlFormat from "../../../utils/PostUrlFormat";
+import truncate from 'truncate-html'
 
 const PostGrid2 = ({ posts }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,19 +25,19 @@ const PostGrid2 = ({ posts }) => {
       setCurrentPage(currentPage - 1);
       window.scrollTo(0, 0);
     }
-  }
+  };
 
   const changeCPage = (id) => {
     setCurrentPage(id);
     window.scrollTo(0, 0);
-  }
+  };
 
   const nextPage = () => {
     if (currentPage !== npage) {
       setCurrentPage(currentPage + 1);
       window.scrollTo(0, 0);
     }
-  }
+  };
 
   return (
     <Container fluid className="post-grid">
@@ -60,11 +61,9 @@ const PostGrid2 = ({ posts }) => {
                   <span className="bi bi-clock"></span>
                   <span className="ms-1">{FormatDate(post.date)}</span>
                 </p>
-                <p className="my-1" style={{ textAlign: "justify" }}>
-                  {post.body.length > 150
-                    ? post.body.slice(0, 150) + "..."
-                    : post.body}
-                </p>
+                <div className="my-1 rich-text-display" style={{ textAlign: "justify" }}>
+                  {truncate(post.body, 300, { stripTags: true })}
+                </div>
                 <button
                   type="button"
                   class="btn btn-outline-light btn-sm mt-1"

@@ -74,7 +74,19 @@ const Header = () => {
               location.pathname === "/admin/profile" ? "active" : ""
             }`}
           >
-            <i className="bi bi-person-circle fs-1"></i>
+            <div className="d-inline-block">
+              <div
+                className={`d-flex justify-content-center align-items-center rounded-circle fw-semibold
+                  ${location.pathname === "/admin/profile" ? "profile-icon" : "text-white bg-black"}`}
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  fontSize: "20px",
+                }}
+              >
+                {"A"}
+              </div>
+            </div>
           </Nav.Link>
         </Container>
       </Navbar>

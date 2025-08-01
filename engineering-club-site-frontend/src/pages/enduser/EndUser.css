@@ -1,0 +1,10 @@
+.rich-text-display img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.rich-text-display iframe {
+  width: 100%;
+  height: 250px;
+  border-radius: 5px;
+}
