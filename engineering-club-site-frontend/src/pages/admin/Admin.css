@@ -13,9 +13,49 @@
   border: 2px solid #00798e;
 }
 
+.admin-manage-posts .form-group input:focus,
+.admin-manage-posts .form-group textarea:focus,
+.admin-manage-posts .form-group select:focus {
+  border-color: #00798e;
+  box-shadow: 0 0 0 0.1rem #0cb7d5;
+}
+
+/* Rich text editor  */
+.admin-manage-posts .rich-text-editor {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 2px solid #00798e;
+}
+
+/* Text editor area */
+.admin-manage-posts .rich-text-editor .ql-container {
+  border: none;
+  border-radius: 0 0 8px 8px;
+  height: 400px;
+  color: #000000;
+}
+
+/* Toolbar */
+.admin-manage-posts .rich-text-editor .ql-toolbar {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
 .admin-login .form-group input:focus {
   border-color: #00798e;
   box-shadow: 0 0 0 0.1rem #0cb7d5;
+}
+
+/* Input image file */
+.admin-manage-posts input[type="file"] {
+  display: none;
+}
+
+.admin-manage-posts .custom-image-upload {
+  background: #000000;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
 }
 
 /* Logo */

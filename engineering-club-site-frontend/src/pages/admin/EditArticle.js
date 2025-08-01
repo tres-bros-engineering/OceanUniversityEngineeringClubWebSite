@@ -4,6 +4,8 @@ import "./Admin.css";
 import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const EditArticle = () => {
   const navigate = useNavigate();
@@ -17,8 +19,32 @@ const EditArticle = () => {
 
   const [title, setTitle] = useState(article?.title);
   const [category, setCategory] = useState(article?.category);
+  const [image, setImage] = useState(article?.img);
   const [publish, setPublish] = useState(article?.publish);
   const [body, setBody] = useState(article?.body);
+
+  // Modules for rich text editor 
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ align: [] }],
+      ['link', 'image', 'video'],
+      ['clean'],
+    ],
+  };
+
+  // Get Image 
+  const getImage = (e) => {
+    const img = e.target.files[0];
+
+    if (img && img.type.startsWith("image/")) {
+      setImage(URL.createObjectURL(img));
+    } else {
+      setImage("");
+    }
+  };
 
   // Update article
   const handleSubmit = (e) => {
@@ -27,6 +53,7 @@ const EditArticle = () => {
     const article = {
       title: title,
       category: category,
+      img: image,
       body: body,
       publish: publish,
     };
@@ -90,13 +117,44 @@ const EditArticle = () => {
               <option value="Other">Other</option>
             </select>
           </div>
-          <div class="form-group mb-3">
-            <input
-              type="file"
-              class="form-control"
-              id="image"
-              accept="image/*"
-            />
+          {/* Image Upload Area */}
+          <div
+            class="rounded mb-3 p-2 bg-white w-100 h-100"
+            style={{ border: "2px solid #00798e" }}
+          >
+            <div
+              className="p-3 rounded w-100 h-100"
+              style={{ border: "2px dashed #00798e" }}
+            >
+              {image ? (
+                <div className="d-flex justify-content-center mb-2">
+                  <img
+                    src={image}
+                    style={{ width: "250px" }}
+                    className="rounded"
+                  />
+                </div>
+              ) : (
+                <div className="text-center">
+                  <i
+                    class="bi bi-cloud-arrow-up-fill mb-2"
+                    style={{ color: "#00798e", fontSize: "100px" }}
+                  ></i>
+                </div>
+              )}
+              <div className="d-flex justify-content-center">
+                <label for="image-upload" class="custom-image-upload">
+                  Image Upload
+                </label>
+                <input
+                  type="file"
+                  id="image-upload"
+                  accept="image/*"
+                  onChange={getImage}
+                  required={image === ""}
+                />
+              </div>
+            </div>
           </div>
           <div className="form-group mb-3">
             <select
@@ -116,18 +174,15 @@ const EditArticle = () => {
               <option value="false">No</option>
             </select>
           </div>
-          <div class="form-group">
-            <textarea
-              class="form-control"
-              id="body"
-              rows="10"
-              placeholder="Article Body..."
+          {/* Rich Text Editor */}
+          <div>
+            <ReactQuill
+              className="rich-text-editor"
+              modules={modules}
+              theme="snow"
               value={body}
-              onChange={(e) => setBody(e.target.value)}
-              onInvalid={(e) =>
-                e.target.setCustomValidity("Please enter your article body")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
+              onChange={setBody}
+              placeholder="Write something..."
               required
             />
           </div>

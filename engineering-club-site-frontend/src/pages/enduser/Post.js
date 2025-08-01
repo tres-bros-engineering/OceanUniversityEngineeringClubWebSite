@@ -6,6 +6,8 @@ import Sidebar from "../../components/enduser/sidebar/Sidebar";
 import Comment from "../../components/enduser/comment/Comment";
 import UseTitleName from "../../utils/UseTitleName";
 import { useData } from "../../utils/DataContext";
+import "./EndUser.css";
+import parse from 'html-react-parser';
 
 const Post = () => {
   const { titleSlug } = useParams();
@@ -32,9 +34,9 @@ const Post = () => {
                   <div
                     className="d-flex justify-content-center align-items-center rounded-circle text-black fw-semibold bg-white"
                     style={{
-                      width: "18px",
-                      height: "18px",
-                      fontSize: "15px"
+                      width: "20px",
+                      height: "20px",
+                      fontSize: "14px"
                     }}
                   >
                     {post.author.charAt(0)}
@@ -48,7 +50,7 @@ const Post = () => {
                 {post.category && (<span><i className="bi bi-chat-text"></i> {comments.filter((comment) => comment.article_id === post.id).length}</span>)}
               </div>
               <img src={post.img} className="rounded w-100" alt="..." />
-              <p className="mt-4" style={{ textAlign: "justify", whiteSpace: "pre-wrap" }}>{post.body}</p>
+              <div className="mt-4 rich-text-display" style={{ textAlign: "justify" }}>{parse(post.body)}</div>
               {/* Comment Section */}
               {post.category && <div className="mt-5" data-aos="fade-up"><Comment post_id={post.id} /></div>}
             </div>

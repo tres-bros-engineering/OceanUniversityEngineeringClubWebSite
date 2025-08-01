@@ -1,17 +1,17 @@
 import { Container, Row } from "react-bootstrap";
 import UseTitleName from "../../utils/UseTitleName";
-import Search from "../../components/admin/search/Search";
 import { useData } from "../../utils/DataContext";
 import FormatDate from "../../utils/FormatDate";
-import { useNavigate } from "react-router-dom";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
+import Form from "react-bootstrap/Form";
+import "../../components/admin/search/Search.css";
 
 const CommentManage = () => {
   UseTitleName("Comment Manage | OCU Engineering Club");
   const { articles, comments, getComment } = useData();
-  const naviagate = useNavigate();
 
+  const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete comment
@@ -31,11 +31,25 @@ const CommentManage = () => {
 
   return (
     <>
-      <Container fluid className="p-0 m-0 px-1 px-lg-5 pb-5 pt-2" data-aos="fade-up">
+      <Container
+        fluid
+        className="p-0 m-0 px-1 px-lg-5 pb-5 pt-2"
+        data-aos="fade-up"
+      >
         <Row className="p-0 m-0 mt-4">
           <h1 className="col-lg">Comment Manage</h1>
           <div className="col-lg-2">
-            <Search url={"/admin/comment-manage"} />
+            <div className="search-component-admin d-flex position-relative">
+              <Form.Control
+                type="search"
+                placeholder="Search..."
+                className="me-2 search-input pe-2"
+                aria-label="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <i className="bi bi-search search-icon pe-2"></i>
+            </div>
           </div>
         </Row>
 
@@ -51,6 +65,13 @@ const CommentManage = () => {
           <table className="table table-bordered border-black rounded overflow-hidden text-center">
             <thead>
               <tr>
+                <th
+                  className="text-white"
+                  style={{ backgroundColor: "#00798eff" }}
+                  scope="col"
+                >
+                  No.
+                </th>
                 <th
                   className="text-white"
                   style={{ backgroundColor: "#00798eff" }}
@@ -97,10 +118,27 @@ const CommentManage = () => {
             </thead>
             <tbody>
               {comments
+                .filter((comment) => {
+                  return searchTerm === ""
+                    ? comment
+                    : comment.name.toLowerCase().includes(searchTerm) ||
+                        comment.email.toLowerCase().includes(searchTerm) ||
+                        articles
+                          .find((article) => article.id === comment.article_id)
+                          ?.title.toLowerCase()
+                          .includes(searchTerm);
+                })
                 .sort((a, b) => new Date(b.date) - new Date(a.date))
                 ?.map((comment, index) => (
                   <tr key={index}>
-                    <td className="text-start">{articles.find((article) => article.id === comment.article_id)?.title}</td>
+                    <td>{index + 1}</td>
+                    <td className="text-start">
+                      {
+                        articles.find(
+                          (article) => article.id === comment.article_id
+                        )?.title
+                      }
+                    </td>
                     <td>{FormatDate(comment.date)}</td>
                     <td className="text-start">{comment.name}</td>
                     <td className="text-start">{comment.email}</td>

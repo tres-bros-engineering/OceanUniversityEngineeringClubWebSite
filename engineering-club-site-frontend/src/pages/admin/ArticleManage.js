@@ -1,17 +1,19 @@
 import { Container, Row } from "react-bootstrap";
 import UseTitleName from "../../utils/UseTitleName";
-import Search from "../../components/admin/search/Search";
 import { useData } from "../../utils/DataContext";
 import FormatDate from "../../utils/FormatDate";
 import { useNavigate } from "react-router-dom";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
+import Form from "react-bootstrap/Form";
+import "../../components/admin/search/Search.css";
 
 const ArticleManage = () => {
   UseTitleName("Article Manage | OCU Engineering Club");
   const { articles, getArticle } = useData();
   const naviagate = useNavigate();
 
+  const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete article
@@ -31,7 +33,11 @@ const ArticleManage = () => {
 
   return (
     <>
-      <Container fluid className="p-0 m-0 px-1 px-lg-5 pb-5 pt-2" data-aos="fade-up">
+      <Container
+        fluid
+        className="p-0 m-0 px-1 px-lg-5 pb-5 pt-2"
+        data-aos="fade-up"
+      >
         <Row className="p-0 m-0 mt-4">
           <h1 className="col-lg col-6">Article Manage</h1>
           <div className="col-lg-2 col-6">
@@ -48,7 +54,17 @@ const ArticleManage = () => {
             </button>
           </div>
           <div className="col-lg-2">
-            <Search url={"/admin/article-manage"} />
+            <div className="search-component-admin d-flex position-relative">
+              <Form.Control
+                type="search"
+                placeholder="Search..."
+                className="me-2 search-input pe-2"
+                aria-label="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <i className="bi bi-search search-icon pe-2"></i>
+            </div>
           </div>
         </Row>
 
@@ -64,6 +80,20 @@ const ArticleManage = () => {
           <table className="table table-bordered border-black rounded overflow-hidden text-center">
             <thead>
               <tr>
+                <th
+                  className="text-white"
+                  style={{ backgroundColor: "#00798eff" }}
+                  scope="col"
+                >
+                  No.
+                </th>
+                <th
+                  className="text-white"
+                  style={{ backgroundColor: "#00798eff" }}
+                  scope="col"
+                >
+                  Image
+                </th>
                 <th
                   className="text-white"
                   style={{ backgroundColor: "#00798eff" }}
@@ -110,9 +140,23 @@ const ArticleManage = () => {
             </thead>
             <tbody>
               {articles
+                .filter((article) => {
+                  return searchTerm === ""
+                    ? article
+                    : article.title.toLowerCase().includes(searchTerm) ||
+                        article.category.toLowerCase().includes(searchTerm);
+                })
                 .sort((a, b) => new Date(b.date) - new Date(a.date))
                 ?.map((article, index) => (
                   <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>
+                      <img
+                        src={article.img}
+                        style={{ width: "100px" }}
+                        className="rounded"
+                      />
+                    </td>
                     <td className="text-start">{article.title}</td>
                     <td>{FormatDate(article.date)}</td>
                     <td className="text-start">{article.category}</td>

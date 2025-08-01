@@ -30,6 +30,11 @@
   color: #00798e !important;
 }
 
+.header-admin .profile-icon {
+  background: #00798e;
+  color: #ffffff;
+}
+
  /* Navbar Toggle */
 .header-admin .nav-toggle {
   border-color: #00798e;

@@ -146,6 +146,7 @@ const Comment = ({ post_id }) => {
                     style={{
                       width: "40px",
                       height: "40px",
+                      fontSize: "20px",
                     }}
                   >
                     {comment.name.charAt(0)}
