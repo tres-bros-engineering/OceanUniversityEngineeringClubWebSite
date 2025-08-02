@@ -22,7 +22,7 @@ const Post = () => {
   return (
     <>
       {post.publish && post ? (
-        <Container fluid className="p-0 m-0">
+        <Container fluid className="p-0 m-0 pb-2">
           <Row className="p-0 m-0 my-4">
             {/* Post Layout */}
             <div className="col-lg-8 ps-4" data-aos="fade-up">
@@ -50,7 +50,7 @@ const Post = () => {
                 {post.category && (<span><i className="bi bi-chat-text"></i> {comments.filter((comment) => comment.article_id === post.id).length}</span>)}
               </div>
               <img src={post.img} className="rounded w-100" alt="..." />
-              <div className="mt-4 rich-text-display" style={{ textAlign: "justify" }}>{parse(post.body)}</div>
+              <div className="mt-4 rich-text-display">{parse(post.body)}</div>
               {/* Comment Section */}
               {post.category && <div className="mt-5" data-aos="fade-up"><Comment post_id={post.id} /></div>}
             </div>

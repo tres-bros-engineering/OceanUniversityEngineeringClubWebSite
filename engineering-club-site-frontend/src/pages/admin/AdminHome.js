@@ -4,16 +4,16 @@ import PostGrid from "../../components/admin/post grid/PostGrid";
 import { useData } from "../../utils/DataContext";
 import Search from "../../components/admin/search/Search";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import PostGrid2 from "../../components/admin/post grid/PostGrid2";
 
 const AdminHome = () => {
-  UseTitleName("Home | OCU Engineering Club");
   const { articles, news } = useData();
 
-  const location = useLocation();
-  const { searchResult } = location.state || {};
   const [postResults, setPostResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Title name
+  searchTerm.trim() === "" ? UseTitleName("Home | OCU Engineering Club") : UseTitleName("'" + searchTerm + "'" + " | OCU Engineering Club");
 
   // Filter posts
   const latestNewsPosts = news.filter(post => post.publish).sort(
@@ -25,32 +25,18 @@ const AdminHome = () => {
 
   // Filter posts by search result
   useEffect(() => {
-    if (!searchResult) {
-      setPostResults(
-        [...articles, ...news].sort(
-          (a, b) => new Date(b.date) - new Date(a.date)
-        )
-      );
+    if (["article", "articles"].includes(searchTerm.toLowerCase())) {
+      setPostResults(articles.sort((a, b) => new Date(b.date) - new Date(a.date)));
+    } else if (searchTerm.toLowerCase() === "news") {
+      setPostResults(news.sort((a, b) => new Date(b.date) - new Date(a.date)));
     } else {
-      const lowerSearch = searchResult.toLowerCase().trim();
-
-      let results = [];
-
-      if (["article", "articles"].includes(lowerSearch)) {
-        results = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
-      } else if (lowerSearch === "news") {
-        results = news.sort((a, b) => new Date(b.date) - new Date(a.date));
-      } else {
-        results = [...articles, ...news]
-          .filter((post) =>
-            `${post.title} ${post.category}`.toLowerCase().includes(lowerSearch)
-          )
-          .sort((a, b) => new Date(b.date) - new Date(a.date));
-      }
-
-      setPostResults(results);
+      setPostResults([...articles, ...news]
+        .filter((post) =>
+          `${post.title} ${post.category}`.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        .sort((a, b) => new Date(b.date) - new Date(a.date)));
     }
-  }, [searchResult]);
+  },[searchTerm]);
 
   return (
     <>
@@ -59,9 +45,9 @@ const AdminHome = () => {
           <h1>Welcome Admin!</h1>
         </Row>
         <div className="ms-4 ms-lg-0 mt-2 d-lg-flex justify-content-end me-4">
-          <Search url={"/admin/home"} />
+          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
-        {!searchResult ? (
+        {searchTerm.trim() === "" ? (
           <Row className="p-0 m-0 my-4">
             <div className="col-lg-6" data-aos="fade-left">
               <PostGrid posts={latestArticlePosts} category="Latest Article" />
@@ -75,7 +61,7 @@ const AdminHome = () => {
             <div data-aos="fade-up">
               <h2>
                 <div className="text-white">
-                  Search Results for: {searchResult}
+                  Search Results for: {searchTerm}
                 </div>
                 <div className="divider pt-1 bg-white rounded-end"></div>
               </h2>

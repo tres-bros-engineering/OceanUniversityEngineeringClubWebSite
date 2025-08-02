@@ -8,3 +8,34 @@
   height: 250px;
   border-radius: 5px;
 }
+
+.rich-text-display h1,
+.rich-text-display h2,
+.rich-text-display h3,
+.rich-text-display p,
+.rich-text-display img,
+.rich-text-display iframe,
+.rich-text-display strong, 
+.rich-text-display em, 
+.rich-text-display u, 
+.rich-text-display li {
+  color: #ffffff;
+  padding: 0;
+  margin: 0;
+}
+
+.rich-text-display a {
+  color: #f3777b;
+  padding: 0;
+  margin: 0;
+}
+
+.rich-text-display .ql-align-center {
+  text-align: center;
+}
+.rich-text-display .ql-align-right {
+  text-align: right;
+}
+.rich-text-display .ql-align-justify {
+  text-align: justify;
+}
