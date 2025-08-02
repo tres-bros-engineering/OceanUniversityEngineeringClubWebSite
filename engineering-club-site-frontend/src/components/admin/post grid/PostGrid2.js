@@ -61,7 +61,10 @@ const PostGrid2 = ({ posts }) => {
                   <span className="bi bi-clock"></span>
                   <span className="ms-1">{FormatDate(post.date)}</span>
                 </p>
-                <div className="my-1 rich-text-display" style={{ textAlign: "justify" }}>
+                <div
+                  className="my-1 rich-text-display"
+                  style={{ textAlign: "justify" }}
+                >
                   {truncate(post.body, 300, { stripTags: true })}
                 </div>
                 <button
@@ -82,11 +85,7 @@ const PostGrid2 = ({ posts }) => {
             <div className="d-flex justify-content-center">
               <NoPostFoundAnimation />
             </div>
-            {location.pathname === "/search-results" ? (
-              <h4 className="text-center mb-5">No Results Found!</h4>
-            ) : (
-              <h4 className="text-center mb-4">No Posts Found!</h4>
-            )}
+            <h4 className="text-center mb-5">No Results Found!</h4>
           </>
         )}
       </div>

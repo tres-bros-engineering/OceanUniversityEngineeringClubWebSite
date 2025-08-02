@@ -4,8 +4,8 @@ import { useData } from "../../utils/DataContext";
 import FormatDate from "../../utils/FormatDate";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
-import Form from "react-bootstrap/Form";
 import "../../components/admin/search/Search.css";
+import Search from "../../components/admin/search/Search";
 
 const CommentManage = () => {
   UseTitleName("Comment Manage | OCU Engineering Club");
@@ -39,17 +39,7 @@ const CommentManage = () => {
         <Row className="p-0 m-0 mt-4">
           <h1 className="col-lg">Comment Manage</h1>
           <div className="col-lg-2">
-            <div className="search-component-admin d-flex position-relative">
-              <Form.Control
-                type="search"
-                placeholder="Search..."
-                className="me-2 search-input pe-2"
-                aria-label="Search"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <i className="bi bi-search search-icon pe-2"></i>
-            </div>
+            <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </div>
         </Row>
 
@@ -119,7 +109,7 @@ const CommentManage = () => {
             <tbody>
               {comments
                 .filter((comment) => {
-                  return searchTerm === ""
+                  return searchTerm.trim() === ""
                     ? comment
                     : comment.name.toLowerCase().includes(searchTerm) ||
                         comment.email.toLowerCase().includes(searchTerm) ||

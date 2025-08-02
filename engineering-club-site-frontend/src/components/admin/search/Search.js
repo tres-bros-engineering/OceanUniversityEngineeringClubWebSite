@@ -1,27 +1,10 @@
-import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
 import "./Search.css";
 
-const Search = ({ url }) => {
-  const navigate = useNavigate();
-
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (!searchTerm.trim()) return;
-
-    navigate(url, {
-      state: { searchResult: searchTerm },
-    });
-
-    setSearchTerm("");
-  };
-
+const Search = ({ searchTerm, setSearchTerm }) => {
   return (
     <div className="search-component-admin">
-      <form className="d-flex position-relative" onSubmit={handleSearch}>
+      <div className="search-component-admin d-flex position-relative">
         <Form.Control
           type="search"
           placeholder="Search..."
@@ -31,7 +14,7 @@ const Search = ({ url }) => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <i className="bi bi-search search-icon pe-2"></i>
-      </form>
+      </div>
     </div>
   );
 };

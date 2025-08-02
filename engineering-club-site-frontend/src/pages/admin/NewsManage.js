@@ -5,8 +5,8 @@ import { Container, Row } from "react-bootstrap";
 import FormatDate from "../../utils/FormatDate";
 import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
-import Form from "react-bootstrap/Form";
 import "../../components/admin/search/Search.css";
+import Search from "../../components/admin/search/Search";
 
 const NewsManage = () => {
   UseTitleName("News Manage | OCU Engineering Club");
@@ -54,17 +54,7 @@ const NewsManage = () => {
             </button>
           </div>
           <div className="col-lg-2">
-            <div className="search-component-admin d-flex position-relative">
-              <Form.Control
-                type="search"
-                placeholder="Search..."
-                className="me-2 search-input pe-2"
-                aria-label="Search"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <i className="bi bi-search search-icon pe-2"></i>
-            </div>
+            <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </div>
         </Row>
 
@@ -134,7 +124,7 @@ const NewsManage = () => {
             <tbody>
               {news
                 .filter((n) => {
-                  return searchTerm === ""
+                  return searchTerm.trim() === ""
                     ? n
                     : n.title.toLowerCase().includes(searchTerm)
                 })

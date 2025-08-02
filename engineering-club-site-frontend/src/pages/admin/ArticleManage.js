@@ -5,8 +5,8 @@ import FormatDate from "../../utils/FormatDate";
 import { useNavigate } from "react-router-dom";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
-import Form from "react-bootstrap/Form";
 import "../../components/admin/search/Search.css";
+import Search from "../../components/admin/search/Search";
 
 const ArticleManage = () => {
   UseTitleName("Article Manage | OCU Engineering Club");
@@ -54,17 +54,7 @@ const ArticleManage = () => {
             </button>
           </div>
           <div className="col-lg-2">
-            <div className="search-component-admin d-flex position-relative">
-              <Form.Control
-                type="search"
-                placeholder="Search..."
-                className="me-2 search-input pe-2"
-                aria-label="Search"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <i className="bi bi-search search-icon pe-2"></i>
-            </div>
+            <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </div>
         </Row>
 
@@ -141,7 +131,7 @@ const ArticleManage = () => {
             <tbody>
               {articles
                 .filter((article) => {
-                  return searchTerm === ""
+                  return searchTerm.trim() === ""
                     ? article
                     : article.title.toLowerCase().includes(searchTerm) ||
                         article.category.toLowerCase().includes(searchTerm);
