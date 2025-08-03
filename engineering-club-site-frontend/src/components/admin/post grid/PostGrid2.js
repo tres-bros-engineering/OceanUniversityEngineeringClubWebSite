@@ -46,16 +46,26 @@ const PostGrid2 = ({ posts }) => {
           posts?.slice(firstIndex, lastIndex).map((post, index) => (
             <Row
               key={index}
-              className="border border-white mx-2 mb-3 py-2 rounded post-grid-post"
+              className="border border-white mx-2 mb-3 rounded post-grid-post"
+              style={{ position: 'relative' }}
             >
-              <div className="col-lg-4">
-                <img
-                  src={post.img}
-                  className="rounded post-grid-img"
-                  alt="..."
-                />
-              </div>
-              <div className="col-lg-8">
+              <div
+                className="rounded"
+                style={{
+                  position: 'absolute',
+                  backgroundImage: `url(${post.img})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  filter: "brightness(75%)",
+                  width: "100%",
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  left: 0,
+                  zIndex: 0,
+                }}
+              ></div>
+              <div className="p-4" style={{ position: 'relative', zIndex: 1 }}>
                 <h4 className="mb-0">{post.title}</h4>
                 <p>
                   <span className="bi bi-clock"></span>

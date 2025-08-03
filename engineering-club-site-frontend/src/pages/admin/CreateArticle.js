@@ -73,7 +73,7 @@ const CreateArticle = () => {
 
   return (
     <>
-      <div className="my-4 px-5 admin-manage-posts" data-aos="fade-up">
+      <div className="my-4 px-3 admin-manage-posts" data-aos="fade-up">
         <h1>Create Article</h1>
 
         {/* Add Article Form */}

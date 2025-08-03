@@ -40,7 +40,7 @@ const AdminHome = () => {
 
   return (
     <>
-      <Container fluid className="p-0 m-0 px-lg-5" data-aos="fade-up">
+      <Container fluid className="p-0 m-0" data-aos="fade-up">
         <Row className="p-0 m-0 mt-4 ms-2">
           <h1>Welcome Admin!</h1>
         </Row>

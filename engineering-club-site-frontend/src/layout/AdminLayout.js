@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Footer from "../components/admin/footer/Footer";
 import Header from "../components/admin/header/Header";
 import "./Layout.css";
@@ -8,20 +8,13 @@ import { useData } from "../utils/DataContext";
 
 const AdminLayout = () => {
   const { isPendingArticles, isPendingNews, isPendingComments, errorArticles, errorNews, errorComments } = useData();
-  
-  // To hide the header area
-  const location = useLocation();
-  const hideHeaderPaths = ["/admin", "/admin/forgot-password"];
-  const hideHeader = hideHeaderPaths.includes(location.pathname);
 
   return (
     <div className="Admin-App">
       {/* Header */}
-      {!hideHeader && (
-        <header>
-          <Header />
-        </header>
-      )}
+      <header>
+        <Header />
+      </header>
 
       {/* The animation shown after an error occurs */}
       {(errorArticles || errorNews || errorComments) && (
@@ -46,7 +39,7 @@ const AdminLayout = () => {
         !isPendingArticles &&
         !isPendingNews &&
         !isPendingComments && (
-          <main className="min-vh-100">
+          <main className="min-vh-100 px-lg-5">
             <Outlet />
           </main>
         )}

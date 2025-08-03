@@ -29,6 +29,7 @@ import EditArticle from "./pages/admin/EditArticle";
 import CreateNews from "./pages/admin/CreateNews";
 import EditNews from "./pages/admin/EditNews";
 import CommentManage from "./pages/admin/CommentManage";
+import AuthAdminLayout from "./layout/AuthAdminLayout";
 
 const App = () => {
   // Scroll Animation
@@ -73,9 +74,13 @@ const App = () => {
           </Route>
 
           {/* Admin Routes */}
-          <Route element={<AdminLayout />}>
+          {/* Routes before login  */}
+          <Route element={<AuthAdminLayout />}>
             <Route path="/admin" element={<AdminLogin />} />
             <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
+          </Route>
+          {/* Routes after login */}
+          <Route element={<AdminLayout />}>
             <Route path="/admin/home" element={<AdminHome />} />
             <Route path="/admin/article-manage" element={<ArticleManage />} />
             <Route path="/admin/news-manage" element={<NewsManage />} />
