@@ -9,12 +9,13 @@ import { useEffect, useState } from "react";
 import { useData } from "../../utils/DataContext";
 
 const SearchResults = () => {
-  UseTitleName("Search Results | OCU Engineering Club");
   const { articles, news } = useData();
 
   const location = useLocation();
   const { searchResult } = location.state || {};
   const [postResults, setPostResults] = useState([]);
+
+  searchResult ? UseTitleName("'" + searchResult + "'" + " | OCU Engineering Club") : UseTitleName("'' | OCU Engineering Club");
 
   // Filter posts by search result
   useEffect(() => {
@@ -69,7 +70,7 @@ const SearchResults = () => {
               <PostGrid2 posts={postResults} />
             </div>
           </div>
-          <div className="col-lg-4">
+          <div className="mb-4 col-lg-4">
             <Sidebar />
           </div>
         </Row>

@@ -35,7 +35,7 @@ const NewsManage = () => {
     <>
       <Container
         fluid
-        className="p-0 m-0 px-1 px-lg-5 pb-5 pt-2"
+        className="p-0 m-0 px-1 pb-5 pt-2"
         data-aos="fade-up"
       >
         <Row className="p-0 m-0 mt-4">

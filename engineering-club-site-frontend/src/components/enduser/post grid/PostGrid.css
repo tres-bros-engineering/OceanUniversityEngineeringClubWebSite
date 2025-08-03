@@ -6,12 +6,12 @@
 }
 
 .post-grid .post-grid-post {
-  transition: transform 0.5s ease, background-color 0.5s ease;
+  transition: transform 0.5s ease, filter 0.5s ease;
 }
 
 .post-grid .post-grid-post:hover {
-  background-color: #1b3754;
   transform: scale(1.02);
+  filter: brightness(90%);
 }
 
 /* Pagination Buttons */

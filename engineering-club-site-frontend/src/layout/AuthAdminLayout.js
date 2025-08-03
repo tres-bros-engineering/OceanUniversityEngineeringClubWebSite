@@ -1,21 +1,15 @@
 import { Outlet } from "react-router-dom";
-import Footer from "../components/enduser/footer/Footer";
-import Header from "../components/enduser/header/Header";
+import Footer from "../components/admin/footer/Footer";
 import "./Layout.css";
 import LoaderAnimation from "../utils/animation/LoaderAnimation"
 import ErrorAnimation from "../utils/animation/ErrorAnimation";
 import { useData } from "../utils/DataContext";
 
-const EndUserLayout = () => {
+const AuthAdminLayout = () => {
   const { isPendingArticles, isPendingNews, isPendingComments, errorArticles, errorNews, errorComments } = useData();
 
   return (
-    <div className="Enduser-App">
-      {/* Header */}
-      <header>
-        <Header />
-      </header>
-
+    <div className="Admin-App">
       {/* The animation shown after an error occurs */}
       {(errorArticles || errorNews || errorComments) && (
         <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
@@ -33,11 +27,16 @@ const EndUserLayout = () => {
       )}
 
       {/* page */}
-      {(!errorArticles && !errorNews && !errorComments) && (!isPendingArticles && !isPendingNews && !isPendingComments) && (
-        <main className="min-vh-100 px-lg-5">
-          <Outlet />
-        </main>
-      )}
+      {!errorArticles &&
+        !errorNews &&
+        !errorComments &&
+        !isPendingArticles &&
+        !isPendingNews &&
+        !isPendingComments && (
+          <main className="min-vh-100 px-lg-5">
+            <Outlet />
+          </main>
+        )}
 
       {/* Footer */}
       <footer>
@@ -47,4 +46,4 @@ const EndUserLayout = () => {
   );
 };
 
-export default EndUserLayout;
+export default AuthAdminLayout;
