@@ -6,10 +6,12 @@ import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
 import "../../components/admin/search/Search.css";
 import Search from "../../components/admin/search/Search";
+import { useAuth } from "../../utils/AuthContext";
 
 const CommentManage = () => {
   UseTitleName("Comment Manage | OCU Engineering Club");
   const { articles, comments, getComment } = useData();
+  const auth = useAuth();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
@@ -108,6 +110,8 @@ const CommentManage = () => {
             </thead>
             <tbody>
               {comments
+                .filter((comment) => articles.filter(article => article.author === auth.user)
+                .map(article => article.id).includes(comment.article_id))
                 .filter((comment) => {
                   return searchTerm.trim() === ""
                     ? comment

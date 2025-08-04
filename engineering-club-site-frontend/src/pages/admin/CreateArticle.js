@@ -6,11 +6,13 @@ import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useAuth } from "../../utils/AuthContext";
 
 const CreateArticle = () => {
   UseTitleName("Create Article | OCU Engineering Club");
   const navigate = useNavigate();
   const { getArticle } = useData();
+  const auth = useAuth();
 
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -50,7 +52,7 @@ const CreateArticle = () => {
       img: image,
       date: new Date(),
       body: body,
-      author: "Test",
+      author: auth.user,
       views: 0,
       publish: publish
     };

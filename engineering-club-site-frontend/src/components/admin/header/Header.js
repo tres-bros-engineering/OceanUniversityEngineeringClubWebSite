@@ -4,9 +4,11 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink, useLocation } from "react-router-dom";
+import { useAuth } from "../../../utils/AuthContext";
 
 const Header = () => {
   const location = useLocation();
+  const auth = useAuth();
 
   return (
     <div className="header-admin">
@@ -84,7 +86,7 @@ const Header = () => {
                   fontSize: "20px",
                 }}
               >
-                {"A"}
+                {auth.user.charAt(0)}
               </div>
             </div>
           </Nav.Link>

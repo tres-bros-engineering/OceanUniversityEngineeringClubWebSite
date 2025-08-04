@@ -7,10 +7,12 @@ import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
 import "../../components/admin/search/Search.css";
 import Search from "../../components/admin/search/Search";
+import { useAuth } from "../../utils/AuthContext";
 
 const ArticleManage = () => {
   UseTitleName("Article Manage | OCU Engineering Club");
   const { articles, getArticle } = useData();
+  const auth = useAuth();
   const naviagate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -130,6 +132,7 @@ const ArticleManage = () => {
             </thead>
             <tbody>
               {articles
+                .filter((article) => article.author === auth.user)
                 .filter((article) => {
                   return searchTerm.trim() === ""
                     ? article

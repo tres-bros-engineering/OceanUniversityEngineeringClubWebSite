@@ -1,10 +1,36 @@
 import UseTitleName from "../../utils/UseTitleName";
 import logo from "../../assets/logo.png";
 import "./Admin.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "../../utils/AuthContext";
+import { useData } from "../../utils/DataContext";
 
 const AdminLogin = () => {
   UseTitleName("Admin Login | OCU Engineering Club");
+  const auth = useAuth();
+  const { admin } = useData();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const redirectedPath = location.state?.path || "/admin/home";
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    // To find admin
+    const user = admin.find((a) => a.email === email && a.password === password);
+
+    if (user) {
+      auth.login(user?.name);
+      navigate(redirectedPath, { replace: true });
+    } else {
+      alert("Invalid Login");
+    }
+  };
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 admin-login text-center" data-aos="fade-up">
@@ -14,7 +40,7 @@ const AdminLogin = () => {
       </div>
 
       {/* Login form */}
-      <form className="mt-2">
+      <form className="mt-2" onSubmit={handleLogin}>
         <div className="form-group">
           <input
             type="email"
@@ -23,6 +49,8 @@ const AdminLogin = () => {
             placeholder="Enter Your Email"
             onInvalid={(e) => e.target.setCustomValidity('Please enter a valid email')}
             onInput={(e) => e.target.setCustomValidity('')}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
@@ -34,6 +62,8 @@ const AdminLogin = () => {
             placeholder="Enter Your Password"
             onInvalid={(e) => e.target.setCustomValidity('Please enter a valid password')}
             onInput={(e) => e.target.setCustomValidity('')}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>

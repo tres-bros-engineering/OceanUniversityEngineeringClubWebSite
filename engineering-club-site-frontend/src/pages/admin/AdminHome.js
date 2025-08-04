@@ -5,9 +5,11 @@ import { useData } from "../../utils/DataContext";
 import Search from "../../components/admin/search/Search";
 import { useEffect, useState } from "react";
 import PostGrid2 from "../../components/admin/post grid/PostGrid2";
+import { useAuth } from "../../utils/AuthContext";
 
 const AdminHome = () => {
   const { articles, news } = useData();
+  const auth = useAuth();
 
   const [postResults, setPostResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,21 +18,22 @@ const AdminHome = () => {
   searchTerm.trim() === "" ? UseTitleName("Home | OCU Engineering Club") : UseTitleName("'" + searchTerm + "'" + " | OCU Engineering Club");
 
   // Filter posts
-  const latestNewsPosts = news.filter(post => post.publish).sort(
+  const latestNewsPosts = news.filter(post => post.publish && post.author === auth.user).sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
-  const latestArticlePosts = articles.filter(post => post.publish).sort(
+  const latestArticlePosts = articles.filter(post => post.publish && post.author === auth.user).sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
 
   // Filter posts by search result
   useEffect(() => {
     if (["article", "articles"].includes(searchTerm.toLowerCase())) {
-      setPostResults(articles.sort((a, b) => new Date(b.date) - new Date(a.date)));
+      setPostResults(articles.filter((article) => article.author === auth.user).sort((a, b) => new Date(b.date) - new Date(a.date)));
     } else if (searchTerm.toLowerCase() === "news") {
-      setPostResults(news.sort((a, b) => new Date(b.date) - new Date(a.date)));
+      setPostResults(news.filter((n) => n.author === auth.user).sort((a, b) => new Date(b.date) - new Date(a.date)));
     } else {
       setPostResults([...articles, ...news]
+        .filter((post) => post.author === auth.user)
         .filter((post) =>
           `${post.title} ${post.category}`.toLowerCase().includes(searchTerm.toLowerCase())
         )
@@ -42,7 +45,7 @@ const AdminHome = () => {
     <>
       <Container fluid className="p-0 m-0" data-aos="fade-up">
         <Row className="p-0 m-0 mt-4 ms-2">
-          <h1>Welcome Admin!</h1>
+          <h1>Welcome {auth.user}!</h1>
         </Row>
         <div className="ms-4 ms-lg-0 mt-2 d-lg-flex justify-content-end me-4">
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />

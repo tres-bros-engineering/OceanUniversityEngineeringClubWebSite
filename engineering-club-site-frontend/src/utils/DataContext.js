@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import db from "../data/db.json";
 import ApiRoutes from "../api/ApiRoutes";
 
 const DataContext = createContext();
@@ -7,33 +6,49 @@ const DataContext = createContext();
 export const useData = () => useContext(DataContext);
 
 export const DataProvider = ({ children }) => {
+  const [admin, setAdmin] = useState([]);
   const [articles, setArticles] = useState([]);
   const [news, setNews] = useState([]);
   const [comments, setComments] = useState([]);
 
+  const [isPendingAdmin, setIsPendingAdmin] = useState(true);
   const [isPendingArticles, setIsPendingArticles] = useState(true);
   const [isPendingNews, setIsPendingNews] = useState(true);
   const [isPendingComments, setIsPendingComments] = useState(true);
 
+  const [errorAdmin, setErrorAdmin] = useState(null);
   const [errorArticles, setErrorArticles] = useState(null);
   const [errorNews, setErrorNews] = useState(null);
   const [errorComments, setErrorComments] = useState(null);
 
   useEffect(() => {
-    // Uncomment this after creating backend part or using fake APIs like json server (Remember to change the url if it doesn't match)
     setTimeout(() => {
+      getAdmin();
       getArticle();
       getNews();
       getComment();
     }, 1000);
-
-    // Remove or comment this after creating backend part or using fake APIs like json server (This helps to fetch data directly from db.json)
-    // setArticles(db.article);
-    // setNews(db.news);
-    // setComments(db.comment);
   }, []);
 
   // Get data from APIs
+  const getAdmin = () => {
+    fetch(ApiRoutes.ADMIN)
+      .then((res) => {
+        if(!res.ok) {
+          throw Error("Could not fetch the data for that resource");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setAdmin(data);
+        setIsPendingAdmin(false);
+        setErrorAdmin(null);
+      }).catch(err => {
+        setIsPendingAdmin(false);
+        setErrorAdmin(err.message);
+      });
+  };
+
   const getArticle = () => {
     fetch(ApiRoutes.ARTICLE)
       .then((res) => {
@@ -90,8 +105,8 @@ export const DataProvider = ({ children }) => {
 
   return (
     <DataContext.Provider 
-      value={{ articles, news, comments, getArticle, getNews, getComment, isPendingArticles, 
-        isPendingNews, isPendingComments, errorArticles, errorNews, errorComments 
+      value={{ admin, articles, news, comments, getAdmin, getArticle, getNews, getComment, isPendingAdmin, isPendingArticles, 
+        isPendingNews, isPendingComments, errorAdmin, errorArticles, errorNews, errorComments 
       }}
     >
       {children}
