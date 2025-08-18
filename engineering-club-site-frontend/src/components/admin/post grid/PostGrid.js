@@ -45,7 +45,7 @@ const PostGrid = ({ posts, category }) => {
               <div className="p-4" style={{ position: 'relative', zIndex: 1 }}>
                 <h4 className="mb-0">{post.title}</h4>
                 <p>
-                  <span className="bi bi-clock"></span>
+                  <span className="bi bi-clock-fill"></span>
                   <span className="ms-1">{FormatDate(post.date)}</span>
                 </p>
                 <div

@@ -45,7 +45,7 @@ const Slider = ({ posts }) => {
                     <div className="carousel-caption text-start pb-5">
                       <h2>{post.title}</h2>
                       <h6>
-                        <span className="bi bi-clock"></span>
+                        <span className="bi bi-clock-fill"></span>
                         <span className="ms-2">{FormatDate(post.date)}</span>
                       </h6>
                     </div>

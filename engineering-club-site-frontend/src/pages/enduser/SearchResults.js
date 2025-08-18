@@ -1,5 +1,4 @@
 import "../../components/enduser/header/Header.css";
-import { Container, Row } from "react-bootstrap";
 import UseTitleName from "../../utils/UseTitleName";
 import Sidebar from "../../components/enduser/sidebar/Sidebar";
 import PostGrid2 from "../../components/enduser/post grid/PostGrid2";
@@ -15,25 +14,38 @@ const SearchResults = () => {
   const { searchResult } = location.state || {};
   const [postResults, setPostResults] = useState([]);
 
-  searchResult ? UseTitleName("'" + searchResult + "'" + " | OCU Engineering Club") : UseTitleName("'' | OCU Engineering Club");
+  searchResult
+    ? UseTitleName("'" + searchResult + "'" + " | OCU Engineering Club")
+    : UseTitleName("'' | OCU Engineering Club");
 
   // Filter posts by search result
   useEffect(() => {
     if (!searchResult) {
-      setPostResults([...articles, ...news].sort((a, b) => new Date(b.date) - new Date(a.date)));
+      setPostResults(
+        [...articles, ...news].sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        )
+      );
     } else {
       const lowerSearch = searchResult.toLowerCase().trim();
 
       let results = [];
 
       if (["article", "articles"].includes(lowerSearch)) {
-        results = articles.filter(post => post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
+        results = articles
+          .filter((post) => post.publish)
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
       } else if (lowerSearch === "news") {
-        results = news.filter(post => post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
+        results = news
+          .filter((post) => post.publish)
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
       } else {
         results = [...articles, ...news]
-          .filter((post) =>
-            `${post.title} ${post.category}`.toLowerCase().includes(lowerSearch) && post.publish
+          .filter(
+            (post) =>
+              `${post.title} ${post.category}`
+                .toLowerCase()
+                .includes(lowerSearch) && post.publish
           )
           .sort((a, b) => new Date(b.date) - new Date(a.date));
       }
@@ -43,39 +55,35 @@ const SearchResults = () => {
   }, [searchResult]);
 
   return (
-    <>
-      <Container fluid className="p-0 m-0">
-        <Row className="p-0 m-0">
-          {/* Search Function */}
-          <div className="my-4" data-aos="fade-up">
-            <Search />
-          </div>
-        </Row>
-        <Row className="p-0 m-0">
-          <div className="col-lg-8" data-aos="fade-up">
-            <h2>
-              <div className="text-white">
-                Search Results for: {searchResult}
-              </div>
-              <div className="divider pt-1 bg-white rounded-end"></div>
-            </h2>
-            {postResults.length > 0 && (
-              <div className="text-white">
-                {postResults.length === 1
-                  ? "1 result found"
-                  : `${postResults.length} results found`}
-              </div>
-            )}
-            <div className="my-3">
-              <PostGrid2 posts={postResults} />
+    <div className="container">
+      <div className="row">
+        {/* Search Function */}
+        <div className="my-4" data-aos="fade-up">
+          <Search />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-lg-8" data-aos="fade-up">
+          <h2>
+            <div className="text-white">Search Results for: {searchResult}</div>
+            <div className="divider pt-1 bg-white rounded-end"></div>
+          </h2>
+          {postResults.length > 0 && (
+            <div className="text-white">
+              {postResults.length === 1
+                ? "1 result found"
+                : `${postResults.length} results found`}
             </div>
+          )}
+          <div className="my-3">
+            <PostGrid2 posts={postResults} />
           </div>
-          <div className="mb-4 col-lg-4">
-            <Sidebar />
-          </div>
-        </Row>
-      </Container>
-    </>
+        </div>
+        <div className="mb-4 col-lg-4">
+          <Sidebar />
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -34,7 +34,7 @@ const EndUserLayout = () => {
 
       {/* page */}
       {(!errorAdmin && !errorArticles && !errorNews && !errorComments) && (!isPendingAdmin && !isPendingArticles && !isPendingNews && !isPendingComments) && (
-        <main className="min-vh-100 px-lg-5">
+        <main className="min-vh-100">
           <Outlet />
         </main>
       )}

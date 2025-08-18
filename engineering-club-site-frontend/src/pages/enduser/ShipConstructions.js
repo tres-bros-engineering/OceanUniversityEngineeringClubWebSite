@@ -10,9 +10,9 @@ const ShipConstructions = () => {
   const shipConstructionsPosts = articles.filter(post => post.category === "Ship Constructions" && post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
-    <div>
+    <>
       <PostGrid2 posts={shipConstructionsPosts} />
-    </div>
+    </>
   );
 }
 

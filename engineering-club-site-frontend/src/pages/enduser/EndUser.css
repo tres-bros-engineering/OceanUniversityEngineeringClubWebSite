@@ -39,3 +39,40 @@
 .rich-text-display .ql-align-justify {
   text-align: justify;
 }
+
+/* Typing Animation */
+.typing-animation {
+  display: inline-block;
+}
+
+.typing-animation h1 {
+  font-size: 4em;
+  font-family: monospace;
+  border-right: 5px solid;
+  white-space: nowrap;
+  font-weight: bold;
+  width: 100%;
+  overflow: hidden;
+  animation: typing 10s steps(36, end) infinite,
+             cursor .4s step-end infinite alternate;
+}
+
+@keyframes cursor {
+  50% { border-color: transparent }
+}
+
+@keyframes typing {
+  0%   { width: 0 }
+  40%  { width: 100% }
+  60%  { width: 100% }
+  100% { width: 0 }
+}
+
+/* 3D Model Text*/
+.overlay-text {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  color: #ffffff;
+  z-index: 5;
+}

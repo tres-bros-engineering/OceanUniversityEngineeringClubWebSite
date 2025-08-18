@@ -8,7 +8,7 @@ const AdminForgotPassword = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 admin-login text-center" data-aos="fade-up">
+    <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100 admin-login text-center" data-aos="fade-up">
       <div>
         <img src={logo} alt="logo" />
         <h1>Forgot Password</h1>

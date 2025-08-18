@@ -50,10 +50,10 @@ const AdminProfile = () => {
   };
 
   return (
-    <div className="px-3 pt-2 pb-5 admin-manage-posts">
+    <div className="container pb-5 admin-manage-posts">
       <div className="mt-4">
         <h1>Profile</h1>
-        <div className="d-flex justify-content-end mt-2">
+        <div className="d-flex justify-content-end mt-3">
           <button
             type="submit"
             class="btn btn-primary"
@@ -65,7 +65,9 @@ const AdminProfile = () => {
         </div>
         <div className="d-flex justify-content-center">
           <div
-            className={"d-flex justify-content-center align-items-center rounded-circle fw-semibold bg-white text-black"}
+            className={
+              "d-flex justify-content-center align-items-center rounded-circle fw-semibold bg-white text-black"
+            }
             style={{
               width: "180px",
               height: "180px",
@@ -79,12 +81,35 @@ const AdminProfile = () => {
       {/* Admin edit profile form  */}
       <form className="mt-4" onSubmit={handleSubmit}>
         <div className="row">
-          <h5 className="col-lg-6">Name: {user?.name}</h5>
-          <h5 className="col-lg-6">Email Address: {user?.email}</h5>
+          <div className="form-group mt-3 col-lg-6">
+            <label>
+              <i className="bi bi-person-fill"></i> Name
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              value={user?.name}
+              disabled
+            />
+          </div>
+          <div className="form-group mt-3 col-lg-6">
+            <label>
+              <i className="bi bi-envelope-fill"></i> Email Address
+            </label>
+            <input
+              type="email"
+              class="form-control"
+              value={user?.email}
+              disabled
+            />
+          </div>
         </div>
 
         <div className="row">
           <div className="form-group mt-3 col-lg-6">
+            <label>
+              <i className="bi bi-lock-fill"></i> Password
+            </label>
             <input
               type="password"
               class="form-control"
@@ -100,11 +125,14 @@ const AdminProfile = () => {
             />
           </div>
           <div className="form-group my-3 col-lg-6">
+            <label>
+              <i className="bi bi-lock-fill"></i> Confirm Password
+            </label>
             <input
               type="password"
               class="form-control"
               id="adminConfirmPW"
-              placeholder="Confirm Password"
+              placeholder="Confirm Your Password"
               onInvalid={(e) =>
                 e.target.setCustomValidity("Please confirm the password")
               }
