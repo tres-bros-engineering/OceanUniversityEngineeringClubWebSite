@@ -8,9 +8,13 @@ const Comment = ({ post_id }) => {
   const { comments, getComment } = useData();
 
   // Get Input Values from Comment Box
-  const [commentName, setCommentName] = useState("");
-  const [commentEmail, setCommentEmail] = useState("");
-  const [commentBody, setCommentBody] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [body, setBody] = useState("");
+
+  const [errorName, setErrorName] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorBody, setErrorBody] = useState("");
 
   const [successMsg, setSuccessMsg] = useState(false);
 
@@ -21,9 +25,9 @@ const Comment = ({ post_id }) => {
     const comment = {
       article_id: post_id,
       date: new Date(),
-      name: commentName,
-      email: commentEmail,
-      comment: commentBody,
+      name: name,
+      email: email,
+      comment: body,
     };
 
     fetch(ApiRoutes.COMMENT, {
@@ -38,9 +42,9 @@ const Comment = ({ post_id }) => {
         getComment();
 
         // Clear The Input Fields Values
-        setCommentName("");
-        setCommentEmail("");
-        setCommentBody("");
+        setName("");
+        setEmail("");
+        setBody("");
       })
       .catch((err) => {
         console.log(err.message);
@@ -56,7 +60,8 @@ const Comment = ({ post_id }) => {
       {/* Display success msg */}
       {successMsg && (
         <div class="alert alert-success" role="alert">
-          The comment has been added successfully.
+          <i className="bi bi-check-circle-fill"></i> The comment has been added
+          successfully.
         </div>
       )}
 
@@ -72,44 +77,77 @@ const Comment = ({ post_id }) => {
           <form onSubmit={handleSubmit}>
             <div className="row">
               <div class="form-group col-lg-6">
+                <label>
+                  <i className="bi bi-person-fill"></i> Name
+                </label>
                 <input
                   type="text"
                   class="form-control"
-                  id="formCommentName"
-                  value={commentName}
-                  onChange={(e) => setCommentName(e.target.value)}
-                  placeholder="Enter Your Name"
-                  onInvalid={(e) => e.target.setCustomValidity('Please enter your name')}
-                  onInput={(e) => e.target.setCustomValidity('')}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter your name"
+                  onInvalid={(e) => {
+                    e.preventDefault();
+                    setErrorName(true);
+                  }}
+                  onInput={() => setErrorName(false)}
                   required
                 />
+                {errorName && (
+                  <label className="text-danger">
+                    <i className="bi bi-exclamation-circle-fill"></i> Please enter your
+                    name!
+                  </label>
+                )}
               </div>
               <div class="form-group col-lg-6 mt-3 mt-lg-0">
+                <label>
+                  <i className="bi bi-envelope-fill"></i> Email Address
+                </label>
                 <input
                   type="email"
                   class="form-control"
-                  id="formCommentEmail"
-                  value={commentEmail}
-                  onChange={(e) => setCommentEmail(e.target.value)}
-                  placeholder="Enter Your Email"
-                  onInvalid={(e) => e.target.setCustomValidity('Please enter your email')}
-                  onInput={(e) => e.target.setCustomValidity('')}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  onInvalid={(e) => {
+                    e.preventDefault();
+                    setErrorEmail(true);
+                  }}
+                  onInput={() => setErrorEmail(false)}
                   required
                 />
+                {errorEmail && (
+                  <label className="text-danger">
+                    <i className="bi bi-exclamation-circle-fill"></i> Please enter your
+                    email address!
+                  </label>
+                )}
               </div>
             </div>
             <div class="form-group mt-3">
+              <label>
+                <i className="bi bi-chat-text-fill"></i> Comment
+              </label>
               <textarea
                 class="form-control"
-                id="formCommentBody"
                 rows="3"
-                value={commentBody}
-                onChange={(e) => setCommentBody(e.target.value)}
-                placeholder="Enter Your Comment..."
-                onInvalid={(e) => e.target.setCustomValidity('Please enter your comment')}
-                onInput={(e) => e.target.setCustomValidity('')}
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+                placeholder="Write something..."
+                onInvalid={(e) => {
+                  e.preventDefault();
+                  setErrorBody(true);
+                }}
+                onInput={() => setErrorBody(false)}
                 required
               />
+              {errorBody && (
+                <label className="text-danger">
+                  <i className="bi bi-exclamation-circle-fill"></i> Please enter your
+                  comment!
+                </label>
+              )}
             </div>
             <div className="d-flex justify-content-end">
               <button

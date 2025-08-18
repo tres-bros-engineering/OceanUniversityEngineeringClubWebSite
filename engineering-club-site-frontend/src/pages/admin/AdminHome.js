@@ -42,47 +42,43 @@ const AdminHome = () => {
   },[searchTerm]);
 
   return (
-    <>
-      <Container fluid className="p-0 m-0" data-aos="fade-up">
-        <Row className="p-0 m-0 mt-4 ms-2">
-          <h1>Welcome {auth.user}!</h1>
-        </Row>
-        <div className="ms-4 ms-lg-0 mt-2 d-lg-flex justify-content-end me-4">
-          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+    <div className="container">
+      <div className="row mt-4">
+        <h1>Welcome {auth.user}!</h1>
+      </div>
+      <div className="mt-2 d-lg-flex justify-content-end">
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      </div>
+      {searchTerm.trim() === "" ? (
+        <div className="row my-4">
+          <div className="col-lg-6" data-aos="fade-up">
+            <PostGrid posts={latestArticlePosts} category="Latest Article" />
+          </div>
+          <div className="col-lg-6 mt-4 mt-lg-0" data-aos="fade-up">
+            <PostGrid posts={latestNewsPosts} category="Latest News" />
+          </div>
         </div>
-        {searchTerm.trim() === "" ? (
-          <Row className="p-0 m-0 my-4">
-            <div className="col-lg-6" data-aos="fade-left">
-              <PostGrid posts={latestArticlePosts} category="Latest Article" />
-            </div>
-            <div className="col-lg-6" data-aos="fade-right">
-              <PostGrid posts={latestNewsPosts} category="Latest News" />
-            </div>
-          </Row>
-        ) : (
-          <Row className="p-0 m-0 mb-4 mt-2">
-            <div data-aos="fade-up">
-              <h2>
-                <div className="text-white">
-                  Search Results for: {searchTerm}
-                </div>
-                <div className="divider pt-1 bg-white rounded-end"></div>
-              </h2>
-              {postResults.length > 0 && (
-                <div className="text-white">
-                  {postResults.length === 1
-                    ? "1 result found"
-                    : `${postResults.length} results found`}
-                </div>
-              )}
-              <div className="my-3" data-aos="fade-up">
-                <PostGrid2 posts={postResults} />
+      ) : (
+        <div className="row mb-4 mt-2">
+          <div data-aos="fade-up">
+            <h2>
+              <div className="text-white">Search Results for: {searchTerm}</div>
+              <div className="divider pt-1 bg-white rounded-end"></div>
+            </h2>
+            {postResults.length > 0 && (
+              <div className="text-white">
+                {postResults.length === 1
+                  ? "1 result found"
+                  : `${postResults.length} results found`}
               </div>
+            )}
+            <div className="my-3" data-aos="fade-up">
+              <PostGrid2 posts={postResults} />
             </div>
-          </Row>
-        )}
-      </Container>
-    </>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

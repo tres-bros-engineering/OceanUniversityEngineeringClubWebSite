@@ -4,8 +4,8 @@ import "./Admin.css";
 import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 
 const EditNews = () => {
   const navigate = useNavigate();
@@ -73,11 +73,11 @@ const EditNews = () => {
 
   return (
     <>
-      <div className="my-4 px-5 admin-manage-posts" data-aos="fade-up">
+      <div className="container my-4 admin-manage-posts" data-aos="fade-up">
         <h1>Create News</h1>
 
         {/* Edit News Form */}
-        <form className="mt-2" onSubmit={handleSubmit}>
+        <form className="mt-3" onSubmit={handleSubmit}>
           <div className="form-group">
             <input
               type="text"
