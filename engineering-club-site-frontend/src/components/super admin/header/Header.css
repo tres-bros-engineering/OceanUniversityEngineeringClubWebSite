@@ -1,0 +1,51 @@
+/* Navbar */
+.header-superadmin .custom-navbar {
+  background-color: #64cbe1 !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* Logo */
+.header-superadmin .navbar-App-logo {
+  width: 55px;
+}
+
+.header-superadmin .custom-nav .nav-link,
+.header-superadmin .nav-link {
+  color: #000000 !important;
+  font-weight: 700;
+  font-size: 22px;
+  transition: color 0.3s ease;
+}
+
+/* Hover */
+.header-superadmin .custom-nav .nav-link:hover,
+.header-superadmin .nav-link:hover {
+  color: #2200aa !important;
+}
+
+/* Active */
+.header-superadmin .custom-nav .nav-link.active,
+.header-superadmin .custom-nav .nav-link.active {
+  color: #2200aa !important;
+}
+
+/* Profile Icon  */
+.header-superadmin .profile-icon {
+  background: #000000;
+}
+
+.header-superadmin .profile-icon.active,
+.header-superadmin .profile-icon:hover {
+  background: #2200aa;
+}
+
+ /* Navbar Toggle */
+.header-superadmin .nav-toggle {
+  border-color: #2200aa;
+  color: #3300ff;
+}
+
+.header-superadmin .nav-toggle-icon {
+  color: #2200aa;
+}

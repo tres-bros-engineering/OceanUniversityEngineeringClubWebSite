@@ -30,9 +30,14 @@
   color: #00798e !important;
 }
 
+/* Profile Icon  */
 .header-admin .profile-icon {
+  background: #000000;
+}
+
+.header-admin .profile-icon.active,
+.header-admin .profile-icon:hover {
   background: #00798e;
-  color: #ffffff;
 }
 
  /* Navbar Toggle */

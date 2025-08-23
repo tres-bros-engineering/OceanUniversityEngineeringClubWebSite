@@ -11,10 +11,10 @@ const Header = () => {
   const auth = useAuth();
 
   return (
-    <div className="header-admin">
+    <div className="header-superadmin">
       <Navbar expand="lg" className="custom-navbar shadow-lg py-1 px-lg-5">
         <Container fluid>
-          <Navbar.Brand as={NavLink} to="/admin/home">
+          <Navbar.Brand as={NavLink} to="/superadmin/home">
             <img src={logo} className="navbar-App-logo me-lg-5" alt="logo" />
           </Navbar.Brand>
           <Navbar.Toggle className="nav-toggle">
@@ -24,45 +24,45 @@ const Header = () => {
             <Nav className="my-2 my-lg-0 custom-nav mx-auto">
               <Nav.Link
                 as={NavLink}
-                to="/admin/home"
+                to="/superadmin/home"
                 className={`mx-5 ${
-                  location.pathname === "/admin/home" ? "active" : ""
+                  location.pathname === "/superadmin/home" ? "active" : ""
                 }`}
               >
                 Home
               </Nav.Link>
               <Nav.Link
                 as={NavLink}
-                to="/admin/article-manage"
+                to="/superadmin/article-manage"
                 className={`mx-5 ${
-                  location.pathname === "/admin/article-manage" ? "active" : ""
+                  location.pathname === "/superadmin/article-manage" ? "active" : ""
                 }`}
               >
                 Article Manage
               </Nav.Link>
               <Nav.Link
                 as={NavLink}
-                to="/admin/news-manage"
+                to="/superadmin/news-manage"
                 className={`mx-5 ${
-                  location.pathname === "/admin/news-manage" ? "active" : ""
+                  location.pathname === "/superadmin/news-manage" ? "active" : ""
                 }`}
               >
                 News Manage
               </Nav.Link>
               <Nav.Link
                 as={NavLink}
-                to="/admin/comment-manage"
+                to="/superadmin/admin-manage"
                 className={`mx-5 ${
-                  location.pathname === "/admin/comment-manage" ? "active" : ""
+                  location.pathname === "/superadmin/admin-manage" ? "active" : ""
                 }`}
               >
-                Comment Manage
+                Admin Manage
               </Nav.Link>
               <Nav.Link
                 as={NavLink}
-                to="/admin/profile"
+                to="/superadmin/profile"
                 className={`mx-5 d-lg-none ${
-                  location.pathname === "/admin/profile" ? "active" : ""
+                  location.pathname === "/superadmin/profile" ? "active" : ""
                 }`}
               >
                 Profile
@@ -71,22 +71,22 @@ const Header = () => {
           </Navbar.Collapse>
           <Nav.Link
             as={NavLink}
-            to="/admin/profile"
+            to="/superadmin/profile"
             className={`mx-5 d-none d-lg-block ${
-              location.pathname === "/admin/profile" ? "active" : ""
+              location.pathname === "/superadmin/profile" ? "active" : ""
             }`}
           >
             <div className="d-inline-block">
               <div
                 className={`d-flex justify-content-center align-items-center rounded-circle fw-semibold text-white profile-icon
-                  ${location.pathname === "/admin/profile" ? "active" : ""}`}
+                  ${location.pathname === "/superadmin/profile" ? "active" : ""}`}
                 style={{
                   width: "40px",
                   height: "40px",
                   fontSize: "20px",
                 }}
               >
-                {auth.user.charAt(0)}
+                {"S"}
               </div>
             </div>
           </Nav.Link>

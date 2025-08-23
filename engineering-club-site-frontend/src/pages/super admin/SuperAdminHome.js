@@ -1,14 +1,14 @@
 import UseTitleName from "../../utils/UseTitleName";
-import PostGrid from "../../components/admin/post grid/PostGrid";
+import PostGrid from "../../components/super admin/post grid/PostGrid";
 import { useData } from "../../utils/DataContext";
-import Search from "../../components/admin/search/Search";
+import Search from "../../components/super admin/search/Search";
 import { useEffect, useState } from "react";
-import PostGrid2 from "../../components/admin/post grid/PostGrid2";
+import PostGrid2 from "../../components/super admin/post grid/PostGrid2";
 import { useAuth } from "../../utils/AuthContext";
 
-const AdminHome = () => {
+const SuperAdminHome = () => {
   const { articles, news } = useData();
-  const auth = useAuth();
+  // const auth = useAuth();
 
   const [postResults, setPostResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,22 +17,21 @@ const AdminHome = () => {
   searchTerm.trim() === "" ? UseTitleName("Home | OCU Engineering Club") : UseTitleName("'" + searchTerm + "'" + " | OCU Engineering Club");
 
   // Filter posts
-  const latestNewsPosts = news.filter(post => post.publish && post.author === auth.user).sort(
+  const latestNewsPosts = news.filter(post => post.publish).sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
-  const latestArticlePosts = articles.filter(post => post.publish && post.author === auth.user).sort(
+  const latestArticlePosts = articles.filter(post => post.publish).sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
 
   // Filter posts by search result
   useEffect(() => {
     if (["article", "articles"].includes(searchTerm.toLowerCase())) {
-      setPostResults(articles.filter((article) => article.author === auth.user).sort((a, b) => new Date(b.date) - new Date(a.date)));
+      setPostResults(articles.sort((a, b) => new Date(b.date) - new Date(a.date)));
     } else if (searchTerm.toLowerCase() === "news") {
-      setPostResults(news.filter((n) => n.author === auth.user).sort((a, b) => new Date(b.date) - new Date(a.date)));
+      setPostResults(news.sort((a, b) => new Date(b.date) - new Date(a.date)));
     } else {
       setPostResults([...articles, ...news]
-        .filter((post) => post.author === auth.user)
         .filter((post) =>
           `${post.title} ${post.category}`.toLowerCase().includes(searchTerm.toLowerCase())
         )
@@ -43,7 +42,7 @@ const AdminHome = () => {
   return (
     <div className="container">
       <div className="row mt-4">
-        <h1>Welcome {auth.user}!</h1>
+        <h1>Welcome Admin!</h1>
       </div>
       <div className="mt-2 d-lg-flex justify-content-end">
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -81,4 +80,4 @@ const AdminHome = () => {
   );
 };
 
-export default AdminHome;
+export default SuperAdminHome;

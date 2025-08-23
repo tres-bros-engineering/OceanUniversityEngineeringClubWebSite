@@ -32,6 +32,8 @@ import CommentManage from "./pages/admin/CommentManage";
 import AuthAdminLayout from "./layout/AuthAdminLayout";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./utils/AuthContext";
+import SuperAdminLayout from "./layout/SuperAdminLayout";
+import SuperAdminHome from "./pages/super admin/SuperAdminHome";
 
 const App = () => {
   // Scroll Animation
@@ -86,6 +88,11 @@ const App = () => {
                 <Route path="/admin/news-manage/:idSlug" element={<EditNews />} />
                 <Route path="/admin/comment-manage" element={<CommentManage />} />
               </Route>
+            </Route>
+
+            {/* Admin Routes */}
+            <Route element={<SuperAdminLayout />}>
+              <Route path="/superadmin/home" element={<SuperAdminHome />} />
             </Route>
           </Routes>
         </DataProvider>

@@ -1,0 +1,32 @@
+.post-grid-admin .post-grid-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.post-grid-admin .post-grid-post {
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.post-grid-admin .post-grid-post:hover {
+  transform: scale(1.02);
+  filter: brightness(90%);
+}
+
+/* Pagination Buttons */
+.post-grid-admin .pagination-btn .bi-chevron-left:hover,
+.post-grid-admin .pagination-btn .bi-chevron-right:hover {
+  color: #ffffff;
+}
+
+.post-grid-admin .pagination-btn {
+  color: #ffffff;
+  border-radius: 50%;
+}
+
+.post-grid-admin .pagination-btn.active {
+  background-color: #00798e;
+  color: #ffffff;
+  border-radius: 50%;
+}
