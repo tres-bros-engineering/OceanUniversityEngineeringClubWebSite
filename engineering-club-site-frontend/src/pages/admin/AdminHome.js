@@ -42,10 +42,10 @@ const AdminHome = () => {
 
   return (
     <div className="container">
-      <div className="row mt-4">
+      <div className="row mt-4" data-aos="fade-up">
         <h1>Welcome {auth.user}!</h1>
       </div>
-      <div className="mt-2 d-lg-flex justify-content-end">
+      <div className="mt-2 d-lg-flex justify-content-end" data-aos="fade-up">
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
       {searchTerm.trim() === "" ? (

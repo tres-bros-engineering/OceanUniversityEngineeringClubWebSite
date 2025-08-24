@@ -50,7 +50,7 @@ const NewsManage = () => {
             <span>Add News</span>
           </button>
         </div>
-        <div className="col-lg-2 mt-2 mt-lg-0">
+        <div className="col-lg-2 mt-2 mt-lg-0 ps-lg-0">
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
       </div>
@@ -58,7 +58,7 @@ const NewsManage = () => {
       {/* Display success msg */}
       {successMsg && (
         <div class="alert alert-success mt-3 mx-2" role="alert">
-          The news has been deleted successfully.
+          <i className="bi bi-check-circle-fill"></i> The news has been deleted successfully.
         </div>
       )}
 
@@ -140,7 +140,7 @@ const NewsManage = () => {
                   <td className="text-start">{n.title}</td>
                   <td>{FormatDate(n.date)}</td>
                   <td>
-                    <i className="bi bi-eye"></i> {n.views}
+                    <i className="bi bi-eye-fill"></i> {n.views}
                   </td>
                   {n.publish ? <td>Yes</td> : <td>No</td>}
                   <td>
@@ -150,7 +150,7 @@ const NewsManage = () => {
                       onClick={() => naviagate("/admin/news-manage/" + n.id)}
                     ></i>
                     <i
-                      className="btn bi bi-trash3"
+                      className="btn bi bi-trash3-fill"
                       style={{ border: 0 }}
                       onClick={() => deleteNews(n.id)}
                     ></i>

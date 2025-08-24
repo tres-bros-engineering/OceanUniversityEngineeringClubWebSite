@@ -40,7 +40,7 @@ const CommentManage = () => {
       {/* Display success msg */}
       {successMsg && (
         <div class="alert alert-success mt-3 mx-2" role="alert">
-          The comment has been deleted successfully.
+          <i className="bi bi-check-circle-fill"></i> The comment has been deleted successfully.
         </div>
       )}
 
@@ -135,7 +135,7 @@ const CommentManage = () => {
                   <td className="text-start">{comment.comment}</td>
                   <td>
                     <i
-                      className="btn bi bi-trash3"
+                      className="btn bi bi-trash3-fill"
                       style={{ border: 0 }}
                       onClick={() => deleteComment(comment.id)}
                     ></i>

@@ -1,30 +1,28 @@
-import UseTitleName from "../../utils/UseTitleName";
-import { useData } from "../../utils/DataContext";
-import FormatDate from "../../utils/FormatDate";
 import { useNavigate } from "react-router-dom";
-import ApiRoutes from "../../api/ApiRoutes";
+import { useData } from "../../utils/DataContext";
+import UseTitleName from "../../utils/UseTitleName";
+import FormatDate from "../../utils/FormatDate";
 import { useState } from "react";
-import "../../components/admin/search/Search.css";
-import Search from "../../components/admin/search/Search";
-import { useAuth } from "../../utils/AuthContext";
+import ApiRoutes from "../../api/ApiRoutes";
+import "../../components/super admin/search/Search.css";
+import Search from "../../components/super admin/search/Search";
 
-const ArticleManage = () => {
-  UseTitleName("Article Manage | OCU Engineering Club");
-  const { articles, getArticle } = useData();
-  const auth = useAuth();
+const SuperAdminNewsManage = () => {
+  UseTitleName("News Manage | OCU Engineering Club");
+  const { news, getNews } = useData();
   const naviagate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
 
-  // Delete article
-  const deleteArticle = (id) => {
-    fetch(ApiRoutes.ARTICLE + "/" + id, {
+  // Delete news
+  const deleteNews = (id) => {
+    fetch(ApiRoutes.NEWS + "/" + id, {
       method: "DELETE",
     })
       .then(() => {
         setSuccessMsg(true);
-        getArticle();
+        getNews();
       })
       .catch((err) => {
         console.log(err.message);
@@ -34,23 +32,10 @@ const ArticleManage = () => {
 
   return (
     <div className="container pb-5" data-aos="fade-up">
-      <h1 className="mt-4">Article Manage</h1>
+      <h1 className="mt-4">News Manage</h1>
 
-      <div className="row mt-3">
-        <div className="col-lg d-flex justify-content-end px-3">
-          <button
-            type="button"
-            class="btn btn-primary"
-            style={{ backgroundColor: "#00798eff", border: 0, width: 200 }}
-            onClick={() => naviagate("/admin/create-article")}
-          >
-            <span className="me-1">
-              <i class="bi bi-plus-circle"></i>
-            </span>
-            <span>Add Article</span>
-          </button>
-        </div>
-        <div className="col-lg-2 mt-2 mt-lg-0 ps-lg-0">
+      <div className="row mt-3 d-lg-flex justify-content-end">
+        <div className="col-lg-2 ps-lg-0">
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
       </div>
@@ -58,67 +43,67 @@ const ArticleManage = () => {
       {/* Display success msg */}
       {successMsg && (
         <div class="alert alert-success mt-3 mx-2" role="alert">
-          <i className="bi bi-check-circle-fill"></i> The article has been deleted successfully.
+          <i className="bi bi-check-circle-fill"></i> The news has been deleted successfully.
         </div>
       )}
 
-      {/* Articles Table */}
+      {/* News Table */}
       <div className="row px-3 pt-3 mx-2 mt-3 rounded bg-black border border-white table-responsive">
         <table className="table table-bordered border-black rounded overflow-hidden text-center">
           <thead>
             <tr>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 No.
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Image
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Title
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Date
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
-                Category
+                Author
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Views
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Publish
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Action
@@ -126,44 +111,35 @@ const ArticleManage = () => {
             </tr>
           </thead>
           <tbody>
-            {articles
-              .filter((article) => article.author === auth.user)
-              .filter((article) => {
+            {news
+              .filter((n) => {
                 return searchTerm.trim() === ""
-                  ? article
-                  : article.title.toLowerCase().includes(searchTerm) ||
-                      article.category.toLowerCase().includes(searchTerm);
+                  ? n
+                  : n.title.toLowerCase().includes(searchTerm);
               })
               .sort((a, b) => new Date(b.date) - new Date(a.date))
-              ?.map((article, index) => (
+              ?.map((n, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>
                     <img
-                      src={article.img}
+                      src={n.img}
                       style={{ width: "100px" }}
                       className="rounded"
                     />
                   </td>
-                  <td className="text-start">{article.title}</td>
-                  <td>{FormatDate(article.date)}</td>
-                  <td className="text-start">{article.category}</td>
+                  <td className="text-start">{n.title}</td>
+                  <td>{FormatDate(n.date)}</td>
+                  <td>{n.author}</td>
                   <td>
-                    <i className="bi bi-eye-fill"></i> {article.views}
+                    <i className="bi bi-eye-fill"></i> {n.views}
                   </td>
-                  {article.publish ? <td>Yes</td> : <td>No</td>}
+                  {n.publish ? <td>Yes</td> : <td>No</td>}
                   <td>
-                    <i
-                      className="btn bi bi-pencil-square"
-                      style={{ border: 0 }}
-                      onClick={() =>
-                        naviagate("/admin/article-manage/" + article.id)
-                      }
-                    ></i>
                     <i
                       className="btn bi bi-trash3-fill"
                       style={{ border: 0 }}
-                      onClick={() => deleteArticle(article.id)}
+                      onClick={() => deleteNews(n.id)}
                     ></i>
                   </td>
                 </tr>
@@ -173,6 +149,6 @@ const ArticleManage = () => {
       </div>
     </div>
   );
-}
+};
 
-export default ArticleManage;
+export default SuperAdminNewsManage;

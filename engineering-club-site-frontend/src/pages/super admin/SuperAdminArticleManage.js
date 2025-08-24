@@ -4,14 +4,12 @@ import FormatDate from "../../utils/FormatDate";
 import { useNavigate } from "react-router-dom";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
-import "../../components/admin/search/Search.css";
-import Search from "../../components/admin/search/Search";
-import { useAuth } from "../../utils/AuthContext";
+import "../../components/super admin/search/Search.css";
+import Search from "../../components/super admin/search/Search";
 
-const ArticleManage = () => {
+const SuperAdminArticleManage = () => {
   UseTitleName("Article Manage | OCU Engineering Club");
   const { articles, getArticle } = useData();
-  const auth = useAuth();
   const naviagate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,21 +34,8 @@ const ArticleManage = () => {
     <div className="container pb-5" data-aos="fade-up">
       <h1 className="mt-4">Article Manage</h1>
 
-      <div className="row mt-3">
-        <div className="col-lg d-flex justify-content-end px-3">
-          <button
-            type="button"
-            class="btn btn-primary"
-            style={{ backgroundColor: "#00798eff", border: 0, width: 200 }}
-            onClick={() => naviagate("/admin/create-article")}
-          >
-            <span className="me-1">
-              <i class="bi bi-plus-circle"></i>
-            </span>
-            <span>Add Article</span>
-          </button>
-        </div>
-        <div className="col-lg-2 mt-2 mt-lg-0 ps-lg-0">
+      <div className="row mt-3 d-lg-flex justify-content-end">
+        <div className="col-lg-2 ps-lg-0">
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
       </div>
@@ -69,56 +54,63 @@ const ArticleManage = () => {
             <tr>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 No.
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Image
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Title
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Date
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Category
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
+                scope="col"
+              >
+                Author
+              </th>
+              <th
+                className="text-white"
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Views
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Publish
               </th>
               <th
                 className="text-white"
-                style={{ backgroundColor: "#00798eff" }}
+                style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
                 Action
@@ -127,7 +119,6 @@ const ArticleManage = () => {
           </thead>
           <tbody>
             {articles
-              .filter((article) => article.author === auth.user)
               .filter((article) => {
                 return searchTerm.trim() === ""
                   ? article
@@ -148,18 +139,12 @@ const ArticleManage = () => {
                   <td className="text-start">{article.title}</td>
                   <td>{FormatDate(article.date)}</td>
                   <td className="text-start">{article.category}</td>
+                  <td className="text-start">{article.author}</td>
                   <td>
                     <i className="bi bi-eye-fill"></i> {article.views}
                   </td>
                   {article.publish ? <td>Yes</td> : <td>No</td>}
                   <td>
-                    <i
-                      className="btn bi bi-pencil-square"
-                      style={{ border: 0 }}
-                      onClick={() =>
-                        naviagate("/admin/article-manage/" + article.id)
-                      }
-                    ></i>
                     <i
                       className="btn bi bi-trash3-fill"
                       style={{ border: 0 }}
@@ -175,4 +160,4 @@ const ArticleManage = () => {
   );
 }
 
-export default ArticleManage;
+export default SuperAdminArticleManage;

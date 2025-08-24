@@ -1,0 +1,63 @@
+/* Login Page */
+.superadmin-login .form-group input {
+  border-radius: 50px;
+  border: 2px solid #2200aa;
+  width: 320px;
+}
+
+.superadmin-login .form-group input:focus {
+  border-color: #2200aa;
+  box-shadow: 0 0 0 0.1rem #3300ff;
+}
+
+/* Logo */
+.superadmin-login img {
+  width: 180px;
+}
+
+/* Create and Edit Article */ /* Create and Edit News */
+.superadmin-manage-posts .form-group input,
+.superadmin-manage-posts .form-group textarea,
+.superadmin-manage-posts .form-group select {
+  border: 2px solid #2200aa;
+}
+
+.superadmin-manage-posts .form-group input:focus,
+.superadmin-manage-posts .form-group textarea:focus,
+.superadmin-manage-posts .form-group select:focus {
+  border-color: #2200aa;
+  box-shadow: 0 0 0 0.1rem #3300ff;
+}
+
+/* Rich text editor  */
+.superadmin-manage-posts .rich-text-editor {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 2px solid #2200aa;
+}
+
+/* Text editor area */
+.superadmin-manage-posts .rich-text-editor .ql-container {
+  border: none;
+  border-radius: 0 0 8px 8px;
+  height: 400px;
+  color: #000000;
+}
+
+/* Toolbar */
+.superadmin-manage-posts .rich-text-editor .ql-toolbar {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+/* Input image file */
+.superadmin-manage-posts input[type="file"] {
+  display: none;
+}
+
+.superadmin-manage-posts .custom-image-upload {
+  background: #000000;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
