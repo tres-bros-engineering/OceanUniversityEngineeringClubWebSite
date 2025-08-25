@@ -39,6 +39,9 @@ import AuthSuperAdminLayout from "./layout/AuthSuperAdminLayout";
 import SuperAdminLogin from "./pages/super admin/SuperAdminLogin";
 import SuperAdminForgotPassword from "./pages/super admin/SuperAdminForgotPassword";
 import SuperAdminNewsManage from "./pages/super admin/SuperAdminNewsManage";
+import AdminManage from "./pages/super admin/AdminManage";
+import CreateAdmin from "./pages/super admin/CreateAdmin";
+import EditAdmin from "./pages/super admin/EditAdmin";
 
 const App = () => {
   // Scroll Animation
@@ -106,6 +109,9 @@ const App = () => {
               <Route path="/superadmin/home" element={<SuperAdminHome />} />
               <Route path="/superadmin/article-manage" element={<SuperAdminArticleManage />} />
               <Route path="/superadmin/news-manage" element={<SuperAdminNewsManage />} />
+              <Route path="/superadmin/admin-manage" element={<AdminManage />} />
+              <Route path="/superadmin/create-admin" element={<CreateAdmin />} />
+              <Route path="/superadmin/admin-manage/:idSlug" element={<EditAdmin />} />
             </Route>
           </Routes>
         </DataProvider>

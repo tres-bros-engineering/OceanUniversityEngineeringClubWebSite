@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useData } from "../../utils/DataContext";
 import UseTitleName from "../../utils/UseTitleName";
 import FormatDate from "../../utils/FormatDate";
@@ -10,7 +9,6 @@ import Search from "../../components/super admin/search/Search";
 const SuperAdminNewsManage = () => {
   UseTitleName("News Manage | OCU Engineering Club");
   const { news, getNews } = useData();
-  const naviagate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);

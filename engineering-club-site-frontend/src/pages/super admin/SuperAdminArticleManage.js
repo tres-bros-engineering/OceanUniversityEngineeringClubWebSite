@@ -1,7 +1,6 @@
 import UseTitleName from "../../utils/UseTitleName";
 import { useData } from "../../utils/DataContext";
 import FormatDate from "../../utils/FormatDate";
-import { useNavigate } from "react-router-dom";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
 import "../../components/super admin/search/Search.css";
@@ -10,7 +9,6 @@ import Search from "../../components/super admin/search/Search";
 const SuperAdminArticleManage = () => {
   UseTitleName("Article Manage | OCU Engineering Club");
   const { articles, getArticle } = useData();
-  const naviagate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
