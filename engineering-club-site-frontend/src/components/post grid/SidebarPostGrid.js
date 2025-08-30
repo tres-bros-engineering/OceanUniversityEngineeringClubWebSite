@@ -49,7 +49,7 @@ const SidebarPostGrid = ({ posts, category }) => {
                 </p>
                 <button
                   type="button"
-                  class="btn btn-outline-light btn-sm"
+                  className="btn btn-outline-light btn-sm"
                   onClick={() =>
                     navigate(PostUrlFormat(post.category, post.title))
                   }

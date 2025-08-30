@@ -60,7 +60,7 @@ const Comment = ({ post_id }) => {
     <div className="comment-component">
       {/* Display success msg */}
       {successMsg && (
-        <div class="alert alert-success" role="alert">
+        <div className="alert alert-success" role="alert">
           <i className="bi bi-check-circle-fill"></i> The comment has been added
           successfully.
         </div>
@@ -71,19 +71,19 @@ const Comment = ({ post_id }) => {
         <h4>
           <span className="me-2">Share Your Thoughts</span>
           <span>
-            <i class="bi bi-chat-text"></i>
+            <i className="bi bi-chat-text"></i>
           </span>
         </h4>
         <div className="mt-3 px-4">
           <form onSubmit={handleSubmit}>
             <div className="row">
-              <div class="form-group col-lg-6">
+              <div className="form-group col-lg-6">
                 <label>
                   <i className="bi bi-person-fill"></i> Name
                 </label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your name"
@@ -101,13 +101,13 @@ const Comment = ({ post_id }) => {
                   </label>
                 )}
               </div>
-              <div class="form-group col-lg-6 mt-3 mt-lg-0">
+              <div className="form-group col-lg-6 mt-3 mt-lg-0">
                 <label>
                   <i className="bi bi-envelope-fill"></i> Email Address
                 </label>
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email address"
@@ -126,12 +126,12 @@ const Comment = ({ post_id }) => {
                 )}
               </div>
             </div>
-            <div class="form-group mt-3">
+            <div className="form-group mt-3">
               <label>
                 <i className="bi bi-chat-text-fill"></i> Comment
               </label>
               <textarea
-                class="form-control"
+                className="form-control"
                 rows="3"
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
@@ -153,11 +153,11 @@ const Comment = ({ post_id }) => {
             <div className="d-flex justify-content-end">
               <button
                 type="submit"
-                class="btn btn-primary mt-3 d-flex justify-content-center"
+                className="btn btn-primary mt-3 d-flex justify-content-center"
                 style={{ backgroundColor: "#f3777b", border: 0 }}
               >
                 <span className="me-1">
-                  <i class="bi bi-send"></i>
+                  <i className="bi bi-send"></i>
                 </span>
                 <span>Post Comment</span>
               </button>
@@ -170,7 +170,7 @@ const Comment = ({ post_id }) => {
       <div className="my-3">
         <h4>
           Comments{" "}
-          <span class="badge rounded-pill text-bg-light fs-6 mb-2">
+          <span className="badge rounded-pill text-bg-light fs-6 mb-2">
             {comment.length}
           </span>
         </h4>

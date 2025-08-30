@@ -44,7 +44,7 @@ const SuperAdminLogin = () => {
     >
       {/* Display invalid user msg */}
       {invalidUser && (
-        <div class="alert alert-danger" role="alert">
+        <div className="alert alert-danger" role="alert">
           <i className="bi bi-exclamation-triangle-fill"></i> Invalid login, try
           again!
         </div>
@@ -62,7 +62,7 @@ const SuperAdminLogin = () => {
           </label>
           <input
             type="email"
-            class="form-control"
+            className="form-control"
             placeholder="Enter your email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -89,7 +89,7 @@ const SuperAdminLogin = () => {
           </label>
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -116,7 +116,7 @@ const SuperAdminLogin = () => {
         <div className="d-flex justify-content-center mt-2">
           <button
             type="submit"
-            class="btn btn-primary"
+            className="btn btn-primary"
             style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
           >
             Login

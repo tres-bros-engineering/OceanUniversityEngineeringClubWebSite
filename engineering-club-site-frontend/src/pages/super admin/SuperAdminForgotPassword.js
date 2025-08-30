@@ -19,7 +19,7 @@ const SuperAdminForgotPassword = () => {
         <div className="form-group">
           <input
             type="email"
-            class="form-control"
+            className="form-control"
             id="adminInputEmail"
             placeholder="Enter Your Email"
             onInvalid={(e) =>
@@ -32,7 +32,7 @@ const SuperAdminForgotPassword = () => {
         <div className="d-flex justify-content-center mt-3">
           <button
             type="submit"
-            class="btn btn-primary"
+            className="btn btn-primary"
             style={{ backgroundColor: "#000000ff", border: 0, width: 200 }}
           >
             Request Reset Link
@@ -41,7 +41,7 @@ const SuperAdminForgotPassword = () => {
         <div className="d-flex justify-content-center mt-2">
           <button
             type="button"
-            class="btn btn-primary"
+            className="btn btn-primary"
             style={{ backgroundColor: "#2200aa", border: 0, width: 200 }}
             onClick={() => navigate("/superadmin")}
           >

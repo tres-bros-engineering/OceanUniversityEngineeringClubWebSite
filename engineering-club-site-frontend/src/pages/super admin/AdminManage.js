@@ -37,12 +37,12 @@ const AdminManage = () => {
         <div className="col-lg d-flex justify-content-end px-3">
           <button
             type="button"
-            class="btn btn-primary"
+            className="btn btn-primary"
             style={{ backgroundColor: "#2200aa", border: 0, width: 200 }}
             onClick={() => naviagate("/superadmin/create-admin")}
           >
             <span className="me-1">
-              <i class="bi bi-plus-circle"></i>
+              <i className="bi bi-plus-circle"></i>
             </span>
             <span>Add Admin</span>
           </button>
@@ -54,7 +54,7 @@ const AdminManage = () => {
 
       {/* Display success msg */}
       {successMsg && (
-        <div class="alert alert-success mt-3 mx-2" role="alert">
+        <div className="alert alert-success mt-3 mx-2" role="alert">
           <i className="bi bi-check-circle-fill"></i> The admin has been deleted successfully.
         </div>
       )}

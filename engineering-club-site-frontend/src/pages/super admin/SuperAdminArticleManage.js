@@ -40,7 +40,7 @@ const SuperAdminArticleManage = () => {
 
       {/* Display success msg */}
       {successMsg && (
-        <div class="alert alert-success mt-3 mx-2" role="alert">
+        <div className="alert alert-success mt-3 mx-2" role="alert">
           <i className="bi bi-check-circle-fill"></i> The article has been deleted successfully.
         </div>
       )}

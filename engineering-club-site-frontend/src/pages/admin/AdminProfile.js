@@ -72,16 +72,16 @@ const AdminProfile = () => {
         <div className="d-flex justify-content-end">
           <button
             type="submit"
-            class="btn btn-primary"
+            className="btn btn-primary"
             style={{ backgroundColor: "#00798eff", border: 0, width: 120 }}
             onClick={handleLogout}
           >
-            Logout <i class="bi bi-box-arrow-left"></i>
+            Logout <i className="bi bi-box-arrow-left"></i>
           </button>
         </div>
         {/* Display success msg */}
         {successMsg && (
-          <div class="alert alert-success mt-3" role="alert">
+          <div className="alert alert-success mt-3" role="alert">
             <i className="bi bi-check-circle-fill"></i> Your profile has been
             updated successfully.
           </div>
@@ -118,7 +118,7 @@ const AdminProfile = () => {
           </label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             value={user?.name}
             disabled
             readOnly
@@ -130,7 +130,7 @@ const AdminProfile = () => {
           </label>
           <input
             type="email"
-            class="form-control"
+            className="form-control"
             value={user?.email}
             disabled
             readOnly
@@ -150,7 +150,7 @@ const AdminProfile = () => {
           </label>
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             placeholder="Enter your current password"
             value={currentPW}
             onChange={(e) => setCurrentPW(e.target.value)}
@@ -174,7 +174,7 @@ const AdminProfile = () => {
           </label>
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             placeholder="Enter your new password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -198,7 +198,7 @@ const AdminProfile = () => {
           </label>
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             placeholder="Confirm your new password"
             value={confirmPW}
             onChange={(e) => setConfirmPW(e.target.value)}
@@ -219,7 +219,7 @@ const AdminProfile = () => {
         <div className="d-flex justify-content-end mt-3">
           <button
             type="submit"
-            class="btn btn-primary"
+            className="btn btn-primary"
             style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
           >
             Update

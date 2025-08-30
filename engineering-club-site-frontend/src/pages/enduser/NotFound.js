@@ -30,7 +30,7 @@ const NotFound = () => {
             <div className="d-flex justify-content-center">
               <button
                 type="button"
-                class="btn btn-light btn-lg mt-2 fw-bold"
+                className="btn btn-light btn-lg mt-2 fw-bold"
                 onClick={() => navigate("/")}
               >
                 Sail Home

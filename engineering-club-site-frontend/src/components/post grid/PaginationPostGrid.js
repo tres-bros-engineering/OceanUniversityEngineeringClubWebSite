@@ -76,7 +76,7 @@ const PaginationPostGrid = ({ posts, styleType }) => {
                 </div>
                 <button
                   type="button"
-                  class="btn btn-outline-light btn-sm mt-1"
+                  className="btn btn-outline-light btn-sm mt-1"
                   onClick={() =>
                     navigate(PostUrlFormat(post.category, post.title))
                   }

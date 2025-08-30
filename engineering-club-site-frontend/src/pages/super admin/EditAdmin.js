@@ -59,7 +59,7 @@ const EditAdmin = () => {
             </label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               placeholder="Enter admin name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -83,7 +83,7 @@ const EditAdmin = () => {
             </label>
             <input
               type="email"
-              class="form-control"
+              className="form-control"
               placeholder="Enter admin email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -104,7 +104,7 @@ const EditAdmin = () => {
           <div className="d-flex justify-content-end mt-3">
             <button
               type="button"
-              class="btn btn-primary me-2"
+              className="btn btn-primary me-2"
               style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
               onClick={() => navigate("/superadmin/admin-manage")}
             >
@@ -112,11 +112,11 @@ const EditAdmin = () => {
             </button>
             <button
               type="submit"
-              class="btn btn-primary"
+              className="btn btn-primary"
               style={{ backgroundColor: "#2200aa", border: 0, width: 120 }}
             >
               <span className="me-1">
-                <i class="bi bi-pencil-square"></i>
+                <i className="bi bi-pencil-square"></i>
               </span>
               <span>Update</span>
             </button>

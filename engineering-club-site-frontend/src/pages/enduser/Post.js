@@ -13,8 +13,8 @@ const Post = () => {
   const { articles, news, comments } = useData();
 
   // Check the title to find post
-  const post = articles.find((p) => p.title.toLowerCase().replace(/\s+/g, "-") === titleSlug)
-    || news.find((p) => p.title.toLowerCase().replace(/\s+/g, "-") === titleSlug);
+  const post = articles.find((p) => p.title.toLowerCase().replace(/[^\p{L}\p{N}\s]+/gu, "").replace(/\s+/g, "-") === titleSlug)
+    || news.find((p) => p.title.toLowerCase().replace(/[^\p{L}\p{N}\s]+/gu, "").replace(/\s+/g, "-") === titleSlug);
 
   UseTitleName(post?.title + " | OCU Engineering Club");
   
@@ -48,7 +48,6 @@ const Post = () => {
                 <span className="me-4"><i className="bi bi-eye-fill"></i> {post.views}</span>
                 {post.category && (<span><i className="bi bi-chat-text-fill"></i> {comments.filter((comment) => comment.article_id === post.id).length}</span>)}
               </div>
-              <img src={post.img} className="rounded w-100" alt="..." />
               <div className="mt-4 rich-text-display">{parse(post.body)}</div>
               {/* Comment Section */}
               {post.category && <div className="mt-5" data-aos="fade-up"><Comment post_id={post.id} /></div>}

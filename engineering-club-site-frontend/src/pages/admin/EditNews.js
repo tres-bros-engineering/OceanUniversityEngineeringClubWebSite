@@ -6,6 +6,7 @@ import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
+import PreviewPost from "../../components/preview post/PreviewPost";
 
 const EditNews = () => {
   const navigate = useNavigate();
@@ -101,7 +102,7 @@ const EditNews = () => {
             </label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               id="title"
               placeholder="Enter your news title"
               value={title}
@@ -122,7 +123,7 @@ const EditNews = () => {
           </div>
           {/* Image Upload Area */}
           <div
-            class="rounded my-3 p-2 bg-white w-100 h-100"
+            className="rounded my-3 p-2 bg-white w-100 h-100"
             style={{ border: "2px solid #00798e" }}
           >
             <div
@@ -140,13 +141,13 @@ const EditNews = () => {
               ) : (
                 <div className="text-center">
                   <i
-                    class="bi bi-cloud-arrow-up-fill mb-2"
+                    className="bi bi-cloud-arrow-up-fill mb-2"
                     style={{ color: "#00798e", fontSize: "100px" }}
                   ></i>
                 </div>
               )}
               <div className="d-flex justify-content-center">
-                <label for="image-upload" class="custom-image-upload">
+                <label for="image-upload" className="custom-image-upload">
                   Thumbnail Upload
                 </label>
                 <input
@@ -166,7 +167,7 @@ const EditNews = () => {
           </div>
           <div className="form-group mb-3">
             <select
-              class="form-select"
+              className="form-select"
               value={publish}
               onChange={(e) => setPublish(e.target.value === "true")}
             >
@@ -194,19 +195,21 @@ const EditNews = () => {
           <div className="d-flex justify-content-end mt-3">
             <button
               type="button"
-              class="btn btn-primary me-2"
+              className="btn btn-primary me-2"
               style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
               onClick={() => navigate("/admin/news-manage")}
             >
               Cancel
             </button>
+            {/* Preview the post using a button */}
+            <PreviewPost title={title ? title : "News Title"} body={body} author={n?.author} />
             <button
               type="submit"
-              class="btn btn-primary"
+              className="btn btn-primary"
               style={{ backgroundColor: "#00798eff", border: 0, width: 120 }}
             >
               <span className="me-1">
-                <i class="bi bi-pencil-square"></i>
+                <i className="bi bi-pencil-square"></i>
               </span>
               <span>Update</span>
             </button>

@@ -7,6 +7,7 @@ import { useData } from "../../utils/DataContext";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { useAuth } from "../../utils/AuthContext";
+import PreviewPost from "../../components/preview post/PreviewPost";
 
 const CreateArticle = () => {
   UseTitleName("Create Article | OCU Engineering Club");
@@ -108,7 +109,7 @@ const CreateArticle = () => {
             </label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               placeholder="Enter your article title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -128,7 +129,7 @@ const CreateArticle = () => {
           </div>
           <div className="form-group my-3">
             <select
-              class="form-select"
+              className="form-select"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               onInvalid={(e) => {
@@ -156,7 +157,7 @@ const CreateArticle = () => {
           </div>
           {/* Image Upload Area */}
           <div
-            class="rounded mb-3 p-2 bg-white w-100 h-100"
+            className="rounded mb-3 p-2 bg-white w-100 h-100"
             style={{ border: "2px solid #00798e" }}
           >
             <div
@@ -174,13 +175,13 @@ const CreateArticle = () => {
               ) : (
                 <div className="text-center">
                   <i
-                    class="bi bi-cloud-arrow-up-fill mb-2"
+                    className="bi bi-cloud-arrow-up-fill mb-2"
                     style={{ color: "#00798e", fontSize: "100px" }}
                   ></i>
                 </div>
               )}
               <div className="d-flex justify-content-center">
-                <label for="image-upload" class="custom-image-upload">
+                <label for="image-upload" className="custom-image-upload">
                   Thumbnail Upload
                 </label>
                 <input
@@ -200,7 +201,7 @@ const CreateArticle = () => {
           </div>
           <div className="form-group mb-3">
             <select
-              class="form-select"
+              className="form-select"
               value={publish}
               onChange={(e) => setPublish(e.target.value === "true")}
               onInvalid={(e) => {
@@ -246,19 +247,21 @@ const CreateArticle = () => {
           <div className="d-flex justify-content-end mt-3">
             <button
               type="button"
-              class="btn btn-primary me-2"
+              className="btn btn-primary me-2"
               style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
               onClick={() => navigate("/admin/article-manage")}
             >
               Cancel
             </button>
+            {/* Preview the post using a button */}
+            <PreviewPost title={title ? title : "Article Title"} body={body} category={category ? category : "Article"} author={user?.name} />
             <button
               type="submit"
-              class="btn btn-primary"
+              className="btn btn-primary"
               style={{ backgroundColor: "#00798eff", border: 0, width: 120 }}
             >
               <span className="me-1">
-                <i class="bi bi-send"></i>
+                <i className="bi bi-send"></i>
               </span>
               <span>Post</span>
             </button>
