@@ -1,0 +1,1 @@
+To start the backend type "nodemon server.js" on command prompt and enter

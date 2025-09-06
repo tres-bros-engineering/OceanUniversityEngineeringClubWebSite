@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
-// const router = require('./router');
+const router = require('./router');
 
 require('dotenv').config();
 
@@ -30,4 +30,4 @@ const server = app.listen(port,host,() => {
     console.log(`Node server is listening to ${server.address().port}`)
 });
 
-// app.use('/api', router);
+app.use('/api', router);
