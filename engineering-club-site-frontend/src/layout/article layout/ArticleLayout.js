@@ -76,7 +76,7 @@ const Article = () => {
             <Outlet />
           </div>
         </div>
-        <div className="col-lg-4 mt-4 mt-lg-0">
+        <div className="col-lg-4">
           <Sidebar />
         </div>
       </div>
