@@ -5,6 +5,8 @@ import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import Search from "../../components/search/AdminSearch";
 import "./SuperAdmin.css";
+import axios from "axios";
+import DeleteModal from "../../components/modal/DeleteModal";
 
 const SuperAdminNewsManage = () => {
   UseTitleName("News Manage | OCU Engineering Club");
@@ -14,18 +16,16 @@ const SuperAdminNewsManage = () => {
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete news
-  const deleteNews = (id) => {
-    fetch(ApiRoutes.NEWS + "/" + id, {
-      method: "DELETE",
-    })
-      .then(() => {
-        setSuccessMsg(true);
-        getNews();
-      })
-      .catch((err) => {
-        console.log(err.message);
-        setSuccessMsg(false);
-      });
+  const deleteNews = async (id) => {
+    try {
+      await axios.delete(ApiRoutes.NEWS.DELETE + "/" + id);
+
+      setSuccessMsg(true);
+      getNews();
+    } catch (err) {
+      console.log(err.message);
+      setSuccessMsg(false);
+    }
   };
 
   return (
@@ -134,11 +134,8 @@ const SuperAdminNewsManage = () => {
                   </td>
                   {n.publish ? <td>Yes</td> : <td>No</td>}
                   <td>
-                    <i
-                      className="btn bi bi-trash3-fill"
-                      style={{ border: 0 }}
-                      onClick={() => deleteNews(n.id)}
-                    ></i>
+                    {/* News deletion confirmation modal */}
+                    <DeleteModal modal_title={n.title} modal_type={"News"} modal_button_theme={"#2200aa"} modal_id={n.id} modal_delete={deleteNews} />
                   </td>
                 </tr>
               ))}

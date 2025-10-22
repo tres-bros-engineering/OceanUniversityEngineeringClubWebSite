@@ -6,6 +6,8 @@ import { useState } from "react";
 import Search from "../../components/search/AdminSearch";
 import { useAuth } from "../../utils/AuthContext";
 import "./Admin.css";
+import axios from "axios";
+import DeleteModal from "../../components/modal/DeleteModal";
 
 const CommentManage = () => {
   UseTitleName("Comment Manage | OCU Engineering Club");
@@ -19,18 +21,16 @@ const CommentManage = () => {
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete comment
-  const deleteComment = (id) => {
-    fetch(ApiRoutes.COMMENT + "/" + id, {
-      method: "DELETE",
-    })
-      .then(() => {
-        setSuccessMsg(true);
-        getComment();
-      })
-      .catch((err) => {
-        console.log(err.message);
-        setSuccessMsg(false);
-      });
+  const deleteComment = async (id) => {
+    try {
+      await axios.delete(ApiRoutes.COMMENT.DELETE + "/" + id);
+
+      setSuccessMsg(true);
+      getComment();
+    } catch(err) {
+      console.log(err.message);
+      setSuccessMsg(false);
+    }
   };
 
   return (
@@ -137,11 +137,8 @@ const CommentManage = () => {
                   <td className="text-start">{comment.email}</td>
                   <td className="text-start">{comment.comment}</td>
                   <td>
-                    <i
-                      className="btn bi bi-trash3-fill"
-                      style={{ border: 0 }}
-                      onClick={() => deleteComment(comment.id)}
-                    ></i>
+                    {/* Comment deletion confirmation modal */}
+                    <DeleteModal modal_title={comment.comment} modal_type={"Comment"} modal_button_theme={"#00798eff"} modal_id={comment.id} modal_delete={deleteComment} />
                   </td>
                 </tr>
               ))}

@@ -8,6 +8,8 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { useAuth } from "../../utils/AuthContext";
 import PreviewPost from "../../components/preview post/PreviewPost";
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 const CreateNews = () => {
   UseTitleName("Create News | OCU Engineering Club");
@@ -52,7 +54,7 @@ const CreateNews = () => {
   };
 
   // Add news
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Image validation
@@ -68,6 +70,7 @@ const CreateNews = () => {
     }
 
     const news = {
+      id: uuidv4(),
       title: title,
       img: image,
       date: new Date(),
@@ -77,20 +80,14 @@ const CreateNews = () => {
       publish: publish
     };
 
-    fetch(ApiRoutes.NEWS, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(news),
-    })
-      .then(() => {
-        getNews();
-        navigate("/admin/news-manage");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    try {
+      await axios.post(ApiRoutes.NEWS.CREATE, news);
+
+      getNews();
+      navigate("/admin/news-manage");
+    } catch(err) {
+      console.log(err.message);
+    }
   };
 
   return (
