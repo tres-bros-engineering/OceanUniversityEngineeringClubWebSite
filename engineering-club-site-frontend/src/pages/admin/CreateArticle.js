@@ -8,8 +8,6 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { useAuth } from "../../utils/AuthContext";
 import PreviewPost from "../../components/preview post/PreviewPost";
-import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
 
 const CreateArticle = () => {
   UseTitleName("Create Article | OCU Engineering Club");
@@ -56,7 +54,7 @@ const CreateArticle = () => {
   };
 
   // Add article
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     // Image validation
@@ -72,7 +70,6 @@ const CreateArticle = () => {
     }
 
     const article = {
-      id: uuidv4(),
       title: title,
       category: category,
       img: image,
@@ -83,14 +80,20 @@ const CreateArticle = () => {
       publish: publish,
     };
 
-    try {
-      await axios.post(ApiRoutes.ARTICLE.CREATE, article);
-
-      getArticle();
-      navigate("/admin/article-manage");
-    } catch(err) {
-      console.log(err.message);
-    }
+    fetch(ApiRoutes.ARTICLE, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(article),
+    })
+      .then(() => {
+        getArticle();
+        navigate("/admin/article-manage");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   return (

@@ -5,7 +5,6 @@ import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import "./SuperAdmin.css";
-import axios from "axios";
 
 const SuperAdminProfile = () => {
   UseTitleName("Profile | OCU Engineering Club");
@@ -36,7 +35,7 @@ const SuperAdminProfile = () => {
   };
 
   // Update superadmin
-  const handleSubmitDetails = async (e) => {
+  const handleSubmitDetails = (e) => {
     e.preventDefault();
 
     const superadmin = {
@@ -44,22 +43,28 @@ const SuperAdminProfile = () => {
       email: email
     };
 
-    try {
-      await axios.patch(ApiRoutes.SUPERADMIN.PATCH + "/" + user?.id, superadmin)
+    fetch(ApiRoutes.SUPERADMIN + "/" + user?.id, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(superadmin),
+    })
+      .then(() => {
+        setSuccessMsg(true);
+        getSuperAdmin();
 
-      setSuccessMsg(true);
-      getSuperAdmin();
-
-      if(superadmin.email !== auth.user) {
-        auth.login(superadmin.email);
-      }
-    } catch(err) {
-      console.log(err.message);
-      setSuccessMsg(false);
-    }
+        if(superadmin.email !== auth.user) {
+          auth.login(superadmin.email);
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setSuccessMsg(false);
+      });
   };
 
-  const handleSubmitPassword = async (e) => {
+  const handleSubmitPassword = (e) => {
     e.preventDefault();
 
     //Current Password Validation
@@ -73,16 +78,21 @@ const SuperAdminProfile = () => {
         password: password,
       };
 
-      try {
-        await axios.patch(ApiRoutes.SUPERADMIN.PATCH + "/" + user?.id, superadmin)
-
-        setSuccessMsg(true);
-        getSuperAdmin();
-      } catch(err) {
-        console.log(err.message);
-        setSuccessMsg(false);
-      }
-
+      fetch(ApiRoutes.SUPERADMIN + "/" + user?.id, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(superadmin),
+      })
+        .then(() => {
+          setSuccessMsg(true);
+          getSuperAdmin();
+        })
+        .catch((err) => {
+          console.log(err.message);
+          setSuccessMsg(false);
+        });
     } else {
       setErrorConfirmPW(true);
     }

@@ -5,7 +5,6 @@ import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import "./Admin.css";
-import axios from "axios";
 
 const AdminProfile = () => {
   UseTitleName("Profile | OCU Engineering Club");
@@ -32,7 +31,7 @@ const AdminProfile = () => {
   };
 
   // Update admin
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     //Current Password Validation
@@ -46,16 +45,21 @@ const AdminProfile = () => {
         password: password,
       };
 
-      try {
-        await axios.patch(ApiRoutes.ADMIN.PATCH + "/" + user?.id, admin)
-
-        setSuccessMsg(true);
-        getAdmin();
-      } catch(err) {
-        console.log(err.message);
-        setSuccessMsg(false);
-      }
-      
+      fetch(ApiRoutes.ADMIN + "/" + user?.id, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(admin),
+      })
+        .then(() => {
+          setSuccessMsg(true);
+          getAdmin();
+        })
+        .catch((err) => {
+          console.log(err.message);
+          setSuccessMsg(false);
+        });
     } else {
       setErrorConfirmPW(true);
     }

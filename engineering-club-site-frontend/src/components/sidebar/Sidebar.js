@@ -19,12 +19,10 @@ const Sidebar = () => {
         <PostGrid posts={latestPosts} category={"Latest Post"} />
       </div>
       <div className="mt-5 container-fluid" data-aos="fade-up">
-        <h2>
-          <div className="px-2 text-black bg-white rounded-top d-inline-block">
-            Follow Us
-          </div>
-          <div className="divider pt-1 bg-white rounded-end"></div>
+        <h2 className="mb-0 px-2 text-black bg-white rounded-top d-inline-block">
+          Follow Us
         </h2>
+        <div className="divider pt-1 bg-white rounded-end"></div>
         <div className="text-center my-3">
           <a
             href="https://www.facebook.com/p/Engineering-Innovation-Club-Ocean-University-of-Sri-Lanka-100054277611108/"
