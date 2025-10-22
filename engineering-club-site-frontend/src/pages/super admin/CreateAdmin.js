@@ -2,15 +2,14 @@ import { useNavigate } from "react-router-dom";
 import UseTitleName from "../../utils/UseTitleName";
 import "./SuperAdmin.css";
 import { useState } from "react";
-import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
-import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
+import Axios from 'axios';
+
 
 const CreateAdmin = () => {
   UseTitleName("Create Admin | OCU Engineering Club");
   const navigate = useNavigate();
-  const { getAdmin } = useData();
+  const { admin,getAdmin } = useData();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,24 +18,27 @@ const CreateAdmin = () => {
   const [errorEmail, setErrorEmail] = useState(false);
 
   // Add admin
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    const admin = {
-      id: uuidv4(),
+    getAdmin();
+    const data = {
+      id:admin[admin.length - 1].id,
       name: name,
       email: email,
-      password: `${name.replace(/\s+/g, '%')}123`
+      
     };
 
-    try {
-      await axios.post(ApiRoutes.ADMIN.CREATE, admin);
+    Axios.post('http://localhost:3001/api/addadmin', data)
+        .then(() => {
+          getAdmin();
+          navigate("/superadmin/admin-manage");
+            
+        })
+        .catch(error => {
+            console.error('axios error: ', error)
+        })
 
-      getAdmin();
-      navigate("/superadmin/admin-manage");
-    } catch(err) {
-      console.log(err.message);
-    }
+    
   };
 
   return (

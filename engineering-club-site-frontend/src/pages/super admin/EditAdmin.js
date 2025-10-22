@@ -2,9 +2,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import UseTitleName from "../../utils/UseTitleName";
 import "./SuperAdmin.css";
 import { useState } from "react";
-import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
-import axios from "axios";
+import Axios from 'axios';
+
+
 
 const EditAdmin = () => {
   const navigate = useNavigate();
@@ -12,7 +13,9 @@ const EditAdmin = () => {
   const { admin, getAdmin } = useData();
 
   // Check id to find the admin
+  
   const a = admin.find((article) => article.id === idSlug);
+
 
   UseTitleName(a?.name + " | OCU Engineering Club");
 
@@ -23,22 +26,25 @@ const EditAdmin = () => {
   const [errorEmail, setErrorEmail] = useState(false);
 
   // Update admin
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    const admin = {
+    const data = {
+      id:idSlug,
       name: name,
       email: email
     };
 
-    try {
-      await axios.patch(ApiRoutes.ADMIN.PATCH + "/" + idSlug, admin)
+    Axios.post('http://localhost:3001/api/updateadmin', data)
+        .then(() => {
+            getAdmin();
+            navigate("/superadmin/admin-manage");
+        })
+        .catch(error => {
+            console.error('axios error: ', error)
+        })
 
-      getAdmin();
-      navigate("/superadmin/admin-manage");
-    } catch(err) {
-      console.log(err.message);
-    }
+  
   };
 
   return (

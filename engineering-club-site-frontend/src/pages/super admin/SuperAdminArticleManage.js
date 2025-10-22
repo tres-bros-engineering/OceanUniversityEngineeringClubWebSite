@@ -5,8 +5,6 @@ import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
 import Search from "../../components/search/AdminSearch";
 import "./SuperAdmin.css";
-import axios from "axios";
-import DeleteModal from "../../components/modal/DeleteModal";
 
 const SuperAdminArticleManage = () => {
   UseTitleName("Article Manage | OCU Engineering Club");
@@ -16,16 +14,18 @@ const SuperAdminArticleManage = () => {
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete article
-  const deleteArticle = async (id) => {
-    try {
-      await axios.delete(ApiRoutes.ARTICLE.DELETE + "/" + id);
-
-      setSuccessMsg(true);
-      getArticle();
-    } catch (err) {
-      console.log(err.message);
-      setSuccessMsg(false);
-    }
+  const deleteArticle = (id) => {
+    fetch(ApiRoutes.ARTICLE + "/" + id, {
+      method: "DELETE",
+    })
+      .then(() => {
+        setSuccessMsg(true);
+        getArticle();
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setSuccessMsg(false);
+      });
   };
 
   return (
@@ -143,8 +143,11 @@ const SuperAdminArticleManage = () => {
                   </td>
                   {article.publish ? <td>Yes</td> : <td>No</td>}
                   <td>
-                    {/* Article deletion confirmation modal */}
-                    <DeleteModal modal_title={article.title} modal_type={"Article"} modal_button_theme={"#2200aa"} modal_id={article.id} modal_delete={deleteArticle} />
+                    <i
+                      className="btn bi bi-trash3-fill"
+                      style={{ border: 0 }}
+                      onClick={() => deleteArticle(article.id)}
+                    ></i>
                   </td>
                 </tr>
               ))}

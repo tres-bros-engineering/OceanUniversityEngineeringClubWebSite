@@ -1,12 +1,10 @@
 import UseTitleName from "../../utils/UseTitleName";
 import { useData } from "../../utils/DataContext";
 import { useNavigate } from "react-router-dom";
-import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
 import Search from "../../components/search/AdminSearch";
 import "./SuperAdmin.css";
-import axios from "axios";
-import DeleteModal from "../../components/modal/DeleteModal";
+import Axios from 'axios';
 
 const AdminManage = () => {
   UseTitleName("Admin Manage | OCU Engineering Club");
@@ -17,16 +15,22 @@ const AdminManage = () => {
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete admin
-  const deleteAdmin = async (id) => {
-    try {
-      await axios.delete(ApiRoutes.ADMIN.DELETE + "/" + id);
+  const deleteAdmin = (id) => {
+    
+    const data = {"id":id}
+    Axios.post('http://localhost:3001/api/deleteadmin',data)
+        .then(() => {
+            setSuccessMsg(true);
+            getAdmin();
+            
+        })
+        .catch(error => {
+            console.error('axios error: ', error)
+            setSuccessMsg(false);
+          })
 
-      setSuccessMsg(true);
-      getAdmin();
-    } catch (err) {
-      console.log(err.message);
-      setSuccessMsg(false);
-    }
+
+    
   };
 
   return (
@@ -46,6 +50,7 @@ const AdminManage = () => {
             </span>
             <span>Add Admin</span>
           </button>
+          
         </div>
         <div className="col-lg-2 mt-2 mt-lg-0 ps-lg-0">
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-superadmin"} />
@@ -115,8 +120,11 @@ const AdminManage = () => {
                         naviagate("/superadmin/admin-manage/" + a.id)
                       }
                     ></i>
-                    {/* Admin deletion confirmation modal */}
-                    <DeleteModal modal_title={a.name} modal_type={"Admin"} modal_button_theme={"#2200aa"} modal_id={a.id} modal_delete={deleteAdmin} />
+                    <i
+                      className="btn bi bi-trash3-fill"
+                      style={{ border: 0 }}
+                      onClick={() => deleteAdmin(a.id)}
+                    ></i>
                   </td>
                 </tr>
               ))}
