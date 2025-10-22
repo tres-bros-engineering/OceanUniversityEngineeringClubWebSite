@@ -3,9 +3,7 @@ import UseTitleName from "../../utils/UseTitleName";
 import "./SuperAdmin.css";
 import { useState } from "react";
 import { useData } from "../../utils/DataContext";
-import Axios from 'axios';
-
-
+import axios from "axios";
 
 const EditAdmin = () => {
   const navigate = useNavigate();
@@ -26,7 +24,7 @@ const EditAdmin = () => {
   const [errorEmail, setErrorEmail] = useState(false);
 
   // Update admin
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
@@ -35,16 +33,14 @@ const EditAdmin = () => {
       email: email
     };
 
-    Axios.post('http://localhost:3001/api/updateadmin', data)
-        .then(() => {
-            getAdmin();
-            navigate("/superadmin/admin-manage");
-        })
-        .catch(error => {
-            console.error('axios error: ', error)
-        })
+    try {
+      await axios.patch(ApiRoutes.ADMIN.PATCH + "/" + idSlug, admin)
 
-  
+      getAdmin();
+      navigate("/superadmin/admin-manage");
+    } catch(err) {
+      console.log(err.message);
+    }
   };
 
   return (

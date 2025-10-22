@@ -24,7 +24,7 @@ const News = () => {
         <div className="col-lg-8" data-aos="fade-up">
           <PaginationPostGrid posts={newsPosts} styleType={"post-grid"} />
         </div>
-        <div className="col-lg-4">
+        <div className="col-lg-4 mt-4 mt-lg-0">
           <Sidebar />
         </div>
       </div>

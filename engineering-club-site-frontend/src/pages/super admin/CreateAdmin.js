@@ -3,8 +3,8 @@ import UseTitleName from "../../utils/UseTitleName";
 import "./SuperAdmin.css";
 import { useState } from "react";
 import { useData } from "../../utils/DataContext";
-import Axios from 'axios';
-
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 const CreateAdmin = () => {
   UseTitleName("Create Admin | OCU Engineering Club");
@@ -18,27 +18,24 @@ const CreateAdmin = () => {
   const [errorEmail, setErrorEmail] = useState(false);
 
   // Add admin
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    getAdmin();
-    const data = {
-      id:admin[admin.length - 1].id,
+
+    const admin = {
+      id: uuidv4(),
       name: name,
       email: email,
       
     };
 
-    Axios.post('http://localhost:3001/api/addadmin', data)
-        .then(() => {
-          getAdmin();
-          navigate("/superadmin/admin-manage");
-            
-        })
-        .catch(error => {
-            console.error('axios error: ', error)
-        })
+    try {
+      await axios.post(ApiRoutes.ADMIN.CREATE, admin);
 
-    
+      getAdmin();
+      navigate("/superadmin/admin-manage");
+    } catch(err) {
+      console.log(err.message);
+    }
   };
 
   return (
