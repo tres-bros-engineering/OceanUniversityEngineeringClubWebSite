@@ -7,6 +7,7 @@ import { useData } from "../../utils/DataContext";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import PreviewPost from "../../components/preview post/PreviewPost";
+import axios from "axios";
 
 const EditArticle = () => {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const EditArticle = () => {
   };
 
   // Update article
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Image validation
@@ -76,20 +77,14 @@ const EditArticle = () => {
       publish: publish,
     };
 
-    fetch(ApiRoutes.ARTICLE + "/" + idSlug, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(article),
-    })
-      .then(() => {
-        getArticle();
-        navigate("/admin/article-manage");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    try {
+      await axios.patch(ApiRoutes.ARTICLE.PATCH + "/" + idSlug, article)
+
+      getArticle();
+      navigate("/admin/article-manage");
+    } catch(err) {
+      console.log(err.message);
+    }
   };
 
   return (
