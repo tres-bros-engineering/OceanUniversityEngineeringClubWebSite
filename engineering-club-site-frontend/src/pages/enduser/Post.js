@@ -10,13 +10,16 @@ import parse from 'html-react-parser';
 
 const Post = () => {
   const { titleSlug } = useParams();
-  const { articles, news, comments } = useData();
+  const { articles, news, admin, comments } = useData();
 
   // Check the title to find post
   const post = articles.find((p) => p.title.toLowerCase().replace(/[^\p{L}\p{N}\s]+/gu, "").replace(/\s+/g, "-") === titleSlug)
     || news.find((p) => p.title.toLowerCase().replace(/[^\p{L}\p{N}\s]+/gu, "").replace(/\s+/g, "-") === titleSlug);
 
   UseTitleName(post?.title + " | OCU Engineering Club");
+
+  // Find post admin
+  const adminExist = admin.find((a) => a.id === post?.admin_id);
   
   return (
     <>
@@ -29,7 +32,7 @@ const Post = () => {
               <div className="mt-1 fw-bold">
                 <span className="me-4"><i className="bi bi-clock-fill"></i> {FormatDate(post.date)}</span>
                 {/* Profile icon */}
-                <div className="d-inline-block">
+                {adminExist && <div className="d-inline-block">
                   <div
                     className="d-flex justify-content-center align-items-center rounded-circle text-black fw-semibold bg-white"
                     style={{
@@ -38,10 +41,11 @@ const Post = () => {
                       fontSize: "14px"
                     }}
                   >
-                    {post.author.charAt(0)}
+                    {adminExist?.name.charAt(0)}
                   </div>
-                </div>
-                <span className="me-4"> {post.author}</span>
+                </div>}
+                {/* Author name */}
+                {adminExist && <span className="me-4"> {adminExist?.name}</span>}
                 {post.category ? (<span><i className="bi bi-tags-fill"></i> {post.category}</span>) : (<span><i className="bi bi-tags"></i> News</span>)}
               </div>
               <div className="mt-1 mb-4 fw-bold">

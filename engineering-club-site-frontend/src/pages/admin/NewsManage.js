@@ -123,7 +123,7 @@ const NewsManage = () => {
           </thead>
           <tbody>
             {news
-              .filter((n) => n.author === user?.name)
+              .filter((n) => n.admin_id === user?.id)
               .filter((n) => {
                 return searchTerm.trim() === ""
                   ? n

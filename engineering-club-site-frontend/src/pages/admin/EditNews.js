@@ -12,7 +12,7 @@ import axios from "axios";
 const EditNews = () => {
   const navigate = useNavigate();
   const { idSlug } = useParams();
-  const { news, getNews } = useData();
+  const { news, getNews, admin } = useData();
 
   // Check id to find the post
   const n = news.find((n) => n.id === Number(idSlug));
@@ -197,7 +197,7 @@ const EditNews = () => {
               Cancel
             </button>
             {/* Preview the post using a button */}
-            <PreviewPost title={title ? title : "News Title"} body={body} author={n?.author} />
+            <PreviewPost title={title ? title : "News Title"} body={body} author={admin.find((a) => a?.id === n?.admin_id)?.name} />
             <button
               type="submit"
               className="btn btn-primary"

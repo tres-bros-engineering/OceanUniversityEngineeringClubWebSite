@@ -130,7 +130,7 @@ const ArticleManage = () => {
           </thead>
           <tbody>
             {articles
-              .filter((article) => article.author === user?.name)
+              .filter((article) => article.admin_id === user?.id)
               .filter((article) => {
                 return searchTerm.trim() === ""
                   ? article

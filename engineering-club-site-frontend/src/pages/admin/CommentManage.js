@@ -107,7 +107,7 @@ const CommentManage = () => {
             {comments
               .filter((comment) =>
                 articles
-                  .filter((article) => article.author === user?.name)
+                  .filter((article) => article.admin_id === user?.id)
                   .map((article) => article.id)
                   .includes(comment.article_id)
               )

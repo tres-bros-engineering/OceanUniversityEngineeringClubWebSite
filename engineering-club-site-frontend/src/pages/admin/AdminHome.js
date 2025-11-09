@@ -21,22 +21,22 @@ const AdminHome = () => {
   searchTerm.trim() === "" ? UseTitleName("Home | OCU Engineering Club") : UseTitleName("'" + searchTerm + "'" + " | OCU Engineering Club");
 
   // Filter posts
-  const latestNewsPosts = news.filter(post => post.publish && post.author === user?.name).sort(
+  const latestNewsPosts = news.filter(post => post.publish && post.admin_id === user?.id).sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
-  const latestArticlePosts = articles.filter(post => post.publish && post.author === user?.name).sort(
+  const latestArticlePosts = articles.filter(post => post.publish && post.admin_id === user?.id).sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
 
   // Filter posts by search result
   useEffect(() => {
     if (["article", "articles"].includes(searchTerm.toLowerCase())) {
-      setPostResults(articles.filter((article) => article.author === user?.name).sort((a, b) => new Date(b.date) - new Date(a.date)));
+      setPostResults(articles.filter((article) => article.admin_id === user?.id).sort((a, b) => new Date(b.date) - new Date(a.date)));
     } else if (searchTerm.toLowerCase() === "news") {
-      setPostResults(news.filter((n) => n.author === user?.name).sort((a, b) => new Date(b.date) - new Date(a.date)));
+      setPostResults(news.filter((n) => n.admin_id === user?.id).sort((a, b) => new Date(b.date) - new Date(a.date)));
     } else {
       setPostResults([...articles, ...news]
-        .filter((post) => post.author === user?.name)
+        .filter((post) => post.admin_id === user?.id)
         .filter((post) =>
           `${post.title} ${post.category}`.toLowerCase().includes(searchTerm.toLowerCase())
         )

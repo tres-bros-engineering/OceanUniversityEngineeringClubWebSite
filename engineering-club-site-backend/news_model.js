@@ -8,7 +8,7 @@ const newsSchema = new Schema({
     img: String,
     date: String,
     body: String,
-    author: String,
+    admin_id: Number,
     like: Number,
     dislike: Number,
     views: Number,

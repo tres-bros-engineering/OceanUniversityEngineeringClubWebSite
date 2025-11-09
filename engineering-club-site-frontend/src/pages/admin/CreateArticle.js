@@ -76,7 +76,7 @@ const CreateArticle = () => {
       category: category,
       img: image,
       body: body,
-      author: user?.name,
+      admin_id: user?.id,
       publish: publish,
     };
 

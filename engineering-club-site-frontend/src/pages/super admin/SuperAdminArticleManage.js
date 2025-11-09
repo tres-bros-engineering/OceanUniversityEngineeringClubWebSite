@@ -10,7 +10,7 @@ import DeleteModal from "../../components/modal/DeleteModal";
 
 const SuperAdminArticleManage = () => {
   UseTitleName("Article Manage | OCU Engineering Club");
-  const { articles, getArticle } = useData();
+  const { articles, getArticle, admin } = useData();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
@@ -137,7 +137,7 @@ const SuperAdminArticleManage = () => {
                   <td className="text-start">{article.title}</td>
                   <td>{FormatDate(article.date)}</td>
                   <td className="text-start">{article.category}</td>
-                  <td className="text-start">{article.author}</td>
+                  <td className="text-start">{admin.find((a) => a?.id === article.admin_id)?.name}</td>
                   <td>
                     <i className="bi bi-eye-fill"></i> {article.views}
                   </td>
