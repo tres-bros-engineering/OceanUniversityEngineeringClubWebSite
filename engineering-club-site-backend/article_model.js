@@ -13,7 +13,8 @@ const articleSchema = new Schema({
     like: Number,
     dislike: Number,
     views: Number,
-    publish: Boolean
+    publish: Boolean,
+    dropboxPath: String
 })
 
 

@@ -72,10 +72,8 @@ const CreateNews = () => {
       id: news[news.length - 1].id,
       title: title,
       img: image,
-      date: new Date(),
       body: body,
       admin_id: user?.id,
-      views: 0,
       publish: publish
     };
 

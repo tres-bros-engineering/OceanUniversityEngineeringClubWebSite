@@ -19,6 +19,8 @@ const EditArticle = () => {
 
   UseTitleName(article?.title + " | OCU Engineering Club");
 
+  const [isPending, setIsPending] = useState(false);
+
   const [title, setTitle] = useState(article?.title);
   const [category, setCategory] = useState(article?.category);
   const [image, setImage] = useState(article?.img);
@@ -46,7 +48,7 @@ const EditArticle = () => {
     const img = e.target.files[0];
 
     if (img && img.type.startsWith("image/")) {
-      setImage(URL.createObjectURL(img));
+      setImage(img);
     } else {
       setImage("");
       setErrorImage(true);
@@ -56,34 +58,41 @@ const EditArticle = () => {
   // Update article
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsPending(true);
 
     // Image validation
     if (!image || image === "") {
       setErrorImage(true);
+      setIsPending(false);
       return;
     }
 
     // Rich text editor validation
     if (!body || body.trim() === "" || body === "<p><br></p>") {
       setErrorBody(true);
+      setIsPending(false);
       return;
     }
 
-    const article = {
-      title: title,
-      category: category,
-      img: image,
-      body: body,
-      publish: publish,
-    };
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('category', category);
+    formData.append('file', image);
+    formData.append('body', body);
+    formData.append('publish', publish);
 
     try {
-      await axios.patch(ApiRoutes.ARTICLE.PATCH + "/" + idSlug, article)
+      await axios.patch(ApiRoutes.ARTICLE.PATCH + "/" + idSlug, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        }
+      });
 
       getArticle();
       navigate("/admin/article-manage");
     } catch(err) {
       console.log(err.message);
+      setIsPending(false);
     }
   };
 
@@ -143,7 +152,7 @@ const EditArticle = () => {
               {image ? (
                 <div className="d-flex justify-content-center mb-2">
                   <img
-                    src={image}
+                    src={image === article?.img ? image : URL.createObjectURL(image)}
                     style={{ width: "250px" }}
                     className="rounded"
                   />
@@ -216,12 +225,24 @@ const EditArticle = () => {
             <button
               type="submit"
               className="btn btn-primary"
-              style={{ backgroundColor: "#00798eff", border: 0, width: 120 }}
+              style={{ backgroundColor: "#00798eff", border: 0, width: 125 }}
+              disabled={isPending}
             >
-              <span className="me-1">
-                <i className="bi bi-pencil-square"></i>
-              </span>
-              <span>Update</span>
+              {isPending ? (
+                <>
+                  <span className="me-1">
+                    <i className="spinner-border spinner-border-sm"></i>
+                  </span>
+                  <span>Updating...</span>
+                </>
+              ) : (
+                <>
+                  <span className="me-1">
+                    <i className="bi bi-pencil-square"></i>
+                  </span>
+                  <span>Update</span>
+                </>
+              )}
             </button>
           </div>
         </form>

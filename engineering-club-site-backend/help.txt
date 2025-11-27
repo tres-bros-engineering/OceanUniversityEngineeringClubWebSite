@@ -1,3 +1,28 @@
-To start the backend type "nodemon server.js" on command prompt and enter
+To start the backend type "nodemon server.js" on command prompt and enter.
 
-Use "npm start" to start the server
+Use "npm start" to start the backend server.
+
+For dropbox configuration;
+    1. create 3 variables - (DROPBOX_CLIENT_ID, DROPBOX_CLIENT_SECRET, DROPBOX_REFRESH_TOKEN)
+    2. DROPBOX_CLIENT_ID and DROPBOX_CLIENT_SECRET can be found from dropbox app settings.
+    3. For DROPBOX_REFRESH_TOKEN, 
+        i. Open a browser and paste this URL, replacing YOUR_CLIENT_ID and YOUR_REDIRECT_URI (https://www.dropbox.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&response_type=code&token_access_type=offline&redirect_uri=YOUR_REDIRECT_URI)
+        ii. You need to login, if you are not logged in.
+        iii. Check the url (https://localhost/?code=LONG_CODE_HERE) and copy that long code.
+        iv. Open postman and create a new post request, and enter keys and values for the body just like as the following table and send it.
+             ----------------------------------------
+            | Key           | Value                  |
+            | ------------- | ---------------------- |
+            | code          | paste long code        |
+            | grant_type    | authorization_code     |
+            | client_id     | your app client ID     |
+            | client_secret | your app client secret |
+            | redirect_uri  | same redirect URI      |
+             ----------------------------------------
+        v. you can see the response just like as following, and copy the refresh_token and paste it in to DROPBOX_REFRESH_TOKEN.
+        {
+            ....,
+            "refresh_token": "YOUR_REFRESH_TOKEN_HERE",
+            ....,
+        }
+

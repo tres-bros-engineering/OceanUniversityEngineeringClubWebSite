@@ -27,7 +27,8 @@ const DeleteModal = ({ modal_id, modal_title, modal_type, modal_button_theme, mo
           <Modal.Title>Delete {modal_type}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to delete the {modal_type.toLowerCase()} "{modal_title}"?
+          Are you sure you want to delete the {modal_type.toLowerCase()} "
+          {modal_title}"?
         </Modal.Body>
         <Modal.Footer>
           <Button

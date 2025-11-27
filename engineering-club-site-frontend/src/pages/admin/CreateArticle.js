@@ -18,6 +18,8 @@ const CreateArticle = () => {
 
   // Get admin attributes
   const user = admin?.find((a) => a.email === auth.user);
+  
+  const [isPending, setIsPending] = useState(false);
 
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -47,7 +49,7 @@ const CreateArticle = () => {
     const img = e.target.files[0];
 
     if (img && img.type.startsWith("image/")) {
-      setImage(URL.createObjectURL(img));
+      setImage(img);
     } else {
       setImage("");
       setErrorImage(true);
@@ -57,36 +59,43 @@ const CreateArticle = () => {
   // Add article
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsPending(true);
 
     // Image validation
     if (!image || image === "") {
       setErrorImage(true);
+      setIsPending(false);
       return;
     }
 
     // Rich text editor validation
     if (!body || body.trim() === "" || body === "<p><br></p>") {
       setErrorBody(true);
+      setIsPending(false);
       return;
     }
 
-    const articleData = {
-      id: articles[articles.length - 1].id,
-      title: title,
-      category: category,
-      img: image,
-      body: body,
-      admin_id: user?.id,
-      publish: publish,
-    };
+    const formData = new FormData();
+    formData.append('id', articles[articles.length - 1].id);
+    formData.append('title', title);
+    formData.append('category', category);
+    formData.append('file', image);
+    formData.append('body', body);
+    formData.append('admin_id', user?.id);
+    formData.append('publish', publish);
 
     try {
-      await axios.post(ApiRoutes.ARTICLE.CREATE, articleData);
+      await axios.post(ApiRoutes.ARTICLE.CREATE, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        }
+      });
 
       getArticle();
       navigate("/admin/article-manage");
     } catch(err) {
       console.log(err.message);
+      setIsPending(false);
     }
   };
 
@@ -161,7 +170,7 @@ const CreateArticle = () => {
               {image ? (
                 <div className="d-flex justify-content-center mb-2">
                   <img
-                    src={image}
+                    src={URL.createObjectURL(image)}
                     style={{ width: "250px" }}
                     className="rounded"
                   />
@@ -248,16 +257,33 @@ const CreateArticle = () => {
               Cancel
             </button>
             {/* Preview the post using a button */}
-            <PreviewPost title={title ? title : "Article Title"} body={body} category={category ? category : "Article"} author={user?.name} />
+            <PreviewPost
+              title={title ? title : "Article Title"}
+              body={body}
+              category={category ? category : "Article"}
+              author={user?.name}
+            />
             <button
               type="submit"
               className="btn btn-primary"
               style={{ backgroundColor: "#00798eff", border: 0, width: 120 }}
+              disabled={isPending}
             >
-              <span className="me-1">
-                <i className="bi bi-send"></i>
-              </span>
-              <span>Post</span>
+              {isPending ? (
+                <>
+                  <span className="me-1">
+                    <i className="spinner-border spinner-border-sm"></i>
+                  </span>
+                  <span>Posting...</span>
+                </>
+              ) : (
+                <>
+                  <span className="me-1">
+                    <i className="bi bi-send"></i>
+                  </span>
+                  <span>Post</span>
+                </>
+              )}
             </button>
           </div>
         </form>
