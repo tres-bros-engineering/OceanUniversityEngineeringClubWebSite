@@ -12,18 +12,26 @@ const SuperAdminArticleManage = () => {
   UseTitleName("Article Manage | OCU Engineering Club");
   const { articles, getArticle, admin } = useData();
 
+  const [isPending, setIsPending] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete article
   const deleteArticle = async (id) => {
     try {
+      setIsPending(true);
       await axios.delete(ApiRoutes.ARTICLE.DELETE + "/" + id);
-
+      setIsPending(false);
+      setIsModalOpen(false);
       setSuccessMsg(true);
+
       getArticle();
     } catch (err) {
       console.log(err.message);
+      setIsPending(false);
+      setIsModalOpen(false);
       setSuccessMsg(false);
     }
   };
@@ -144,7 +152,7 @@ const SuperAdminArticleManage = () => {
                   {article.publish ? <td>Yes</td> : <td>No</td>}
                   <td>
                     {/* Article deletion confirmation modal */}
-                    <DeleteModal modal_title={article.title} modal_type={"Article"} modal_button_theme={"#2200aa"} modal_id={article.id} modal_delete={deleteArticle} />
+                    <DeleteModal modal_title={article.title} modal_type={"Article"} modal_button_theme={"#2200aa"} modal_id={article.id} modal_delete={deleteArticle} isPending={isPending} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
                   </td>
                 </tr>
               ))}

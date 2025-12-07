@@ -19,6 +19,8 @@ const CreateNews = () => {
   // Get admin attributes
   const user = admin?.find((a) => a.email === auth.user);
 
+  const [isPending, setIsPending] = useState(false);
+
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [publish, setPublish] = useState("");
@@ -45,7 +47,7 @@ const CreateNews = () => {
     const img = e.target.files[0];
 
     if (img && img.type.startsWith("image/")) {
-      setImage(URL.createObjectURL(img));
+      setImage(img);
     } else {
       setImage("");
       setErrorImage(true);
@@ -55,35 +57,42 @@ const CreateNews = () => {
   // Add news
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsPending(true);
 
     // Image validation
     if (!image || image === "") {
       setErrorImage(true);
+      setIsPending(false);
       return;
     }
 
     // Rich text editor validation
     if (!body || body.trim() === "" || body === "<p><br></p>") {
       setErrorBody(true);
+      setIsPending(false);
       return;
     }
 
-    const newsData = {
-      id: news[news.length - 1].id,
-      title: title,
-      img: image,
-      body: body,
-      admin_id: user?.id,
-      publish: publish
-    };
+    const formData = new FormData();
+    formData.append('id', news[news.length - 1].id);
+    formData.append('title', title);
+    formData.append('file', image);
+    formData.append('body', body);
+    formData.append('admin_id', user?.id);
+    formData.append('publish', publish);
 
     try {
-      await axios.post(ApiRoutes.NEWS.CREATE, newsData);
+      await axios.post(ApiRoutes.NEWS.CREATE, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       getNews();
       navigate("/admin/news-manage");
     } catch(err) {
       console.log(err.message);
+      setIsPending(false);
     }
   };
 
@@ -130,7 +139,7 @@ const CreateNews = () => {
               {image ? (
                 <div className="d-flex justify-content-center mb-2">
                   <img
-                    src={image}
+                    src={URL.createObjectURL(image)}
                     style={{ width: "250px" }}
                     className="rounded"
                   />
@@ -144,7 +153,7 @@ const CreateNews = () => {
                 </div>
               )}
               <div className="d-flex justify-content-center">
-                <label for="image-upload" className="custom-image-upload">
+                <label for="image-upload" className="custom-image-upload rounded">
                   Thumbnail Upload
                 </label>
                 <input
@@ -219,11 +228,23 @@ const CreateNews = () => {
               type="submit"
               className="btn btn-primary"
               style={{ backgroundColor: "#00798eff", border: 0, width: 120 }}
+              disabled={isPending}
             >
-              <span className="me-1">
-                <i className="bi bi-send"></i>
-              </span>
-              <span>Post</span>
+              {isPending ? (
+                <>
+                  <span className="me-1">
+                    <i className="spinner-border spinner-border-sm"></i>
+                  </span>
+                  <span>Posting...</span>
+                </>
+              ) : (
+                <>
+                  <span className="me-1">
+                    <i className="bi bi-send"></i>
+                  </span>
+                  <span>Post</span>
+                </>
+              )}
             </button>
           </div>
         </form>

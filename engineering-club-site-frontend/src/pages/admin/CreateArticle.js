@@ -184,7 +184,7 @@ const CreateArticle = () => {
                 </div>
               )}
               <div className="d-flex justify-content-center">
-                <label for="image-upload" className="custom-image-upload">
+                <label for="image-upload" className="custom-image-upload rounded">
                   Thumbnail Upload
                 </label>
                 <input

@@ -19,19 +19,27 @@ const ArticleManage = () => {
   // Get admin attributes
   const user = admin?.find((a) => a.email === auth.user);
 
+  const [isPending, setIsPending] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete article
   const deleteArticle = async (id) => {
     try {
+      setIsPending(true);
       await axios.delete(ApiRoutes.ARTICLE.DELETE + "/" + id);
-
+      setIsPending(false);
+      setIsModalOpen(false);
       setSuccessMsg(true);
+      
       getArticle();
     } catch(err) {
       console.log(err.message);
+      setIsPending(false);
       setSuccessMsg(false);
+      setIsModalOpen(false);
     }
   };
 
@@ -164,7 +172,7 @@ const ArticleManage = () => {
                       }
                     ></i>
                     {/* Article deletion confirmation modal */}
-                    <DeleteModal modal_title={article.title} modal_type={"Article"} modal_button_theme={"#00798eff"} modal_id={article.id} modal_delete={deleteArticle} />
+                    <DeleteModal modal_title={article.title} modal_type={"Article"} modal_button_theme={"#00798eff"} modal_id={article.id} modal_delete={deleteArticle} isPending={isPending} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
                   </td>
                 </tr>
               ))}

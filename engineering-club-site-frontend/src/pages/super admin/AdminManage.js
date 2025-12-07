@@ -13,19 +13,27 @@ const AdminManage = () => {
   const { admin, getAdmin } = useData();
   const naviagate = useNavigate();
 
+  const [isPending, setIsPending] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete admin
   const deleteAdmin = async (id) => {
     try {
+      setIsPending(true);
       await axios.delete(ApiRoutes.ADMIN.DELETE + "/" + id);
-
+      setIsPending(false);
+      setIsModalOpen(false);
       setSuccessMsg(true);
+
       getAdmin();
     } catch (err) {
       console.log(err.message);
       setSuccessMsg(false);
+      setIsPending(false);
+      setIsModalOpen(false);
     }
   };
 
@@ -116,7 +124,7 @@ const AdminManage = () => {
                       }
                     ></i>
                     {/* Admin deletion confirmation modal */}
-                    <DeleteModal modal_title={a.name} modal_type={"Admin"} modal_button_theme={"#2200aa"} modal_id={a.id} modal_delete={deleteAdmin} />
+                    <DeleteModal modal_title={a.name} modal_type={"Admin"} modal_button_theme={"#2200aa"} modal_id={a.id} modal_delete={deleteAdmin} isPending={isPending} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
                   </td>
                 </tr>
               ))}

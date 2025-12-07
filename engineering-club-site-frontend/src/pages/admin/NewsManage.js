@@ -19,19 +19,27 @@ const NewsManage = () => {
   // Get admin attributes
   const user = admin?.find((a) => a.email === auth.user);
 
+  const [isPending, setIsPending] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete news
   const deleteNews = async (id) => {
     try {
+      setIsPending(true);
       await axios.delete(ApiRoutes.NEWS.DELETE + "/" + id);
-
+      setIsPending(false);
+      setIsModalOpen(false);
       setSuccessMsg(true);
+
       getNews();
     } catch(err) {
       console.log(err.message);
       setSuccessMsg(false);
+      setIsPending(false);
+      setIsModalOpen(false);
     }
   };
 
@@ -153,7 +161,7 @@ const NewsManage = () => {
                       onClick={() => naviagate("/admin/news-manage/" + n.id)}
                     ></i>
                     {/* News deletion confirmation modal */}
-                    <DeleteModal modal_title={n.title} modal_type={"News"} modal_button_theme={"#00798eff"} modal_id={n.id} modal_delete={deleteNews} />
+                    <DeleteModal modal_title={n.title} modal_type={"News"} modal_button_theme={"#00798eff"} modal_id={n.id} modal_delete={deleteNews} isPending={isPending} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
                   </td>
                 </tr>
               ))}

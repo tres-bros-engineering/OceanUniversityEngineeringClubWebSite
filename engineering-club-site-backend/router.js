@@ -3,8 +3,7 @@ const controller = require('./controller');
 const multer = require('multer');
 const router = express.Router();
 
-// multer config here
-// Store file in memory
+// Multer to store file in memory
 const storage = multer.memoryStorage();
 const upload = multer({
   storage,
@@ -20,8 +19,8 @@ router.patch('/updatearticles/:id',upload.single("file"),controller.updateArticl
 router.delete('/deletearticles/:id',controller.deleteArticles);
 
 router.get('/news',controller.getNews);
-router.post('/addnews',controller.addNews);
-router.patch('/updatenews/:id',controller.updateNews);
+router.post('/addnews',upload.single("file"),controller.addNews);
+router.patch('/updatenews/:id',upload.single("file"),controller.updateNews);
 router.delete('/deletenews/:id',controller.deleteNews);
 
 router.get('/comments',controller.getComments);
