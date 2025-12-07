@@ -12,18 +12,26 @@ const SuperAdminNewsManage = () => {
   UseTitleName("News Manage | OCU Engineering Club");
   const { news, getNews, admin } = useData();
 
+  const [isPending, setIsPending] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete news
   const deleteNews = async (id) => {
     try {
+      setIsPending(true);
       await axios.delete(ApiRoutes.NEWS.DELETE + "/" + id);
-
+      setIsPending(false);
+      setIsModalOpen(false);
       setSuccessMsg(true);
+
       getNews();
     } catch (err) {
       console.log(err.message);
+      setIsPending(false);
+      setIsModalOpen(false);
       setSuccessMsg(false);
     }
   };
@@ -135,7 +143,7 @@ const SuperAdminNewsManage = () => {
                   {n.publish ? <td>Yes</td> : <td>No</td>}
                   <td>
                     {/* News deletion confirmation modal */}
-                    <DeleteModal modal_title={n.title} modal_type={"News"} modal_button_theme={"#2200aa"} modal_id={n.id} modal_delete={deleteNews} />
+                    <DeleteModal modal_title={n.title} modal_type={"News"} modal_button_theme={"#2200aa"} modal_id={n.id} modal_delete={deleteNews} isPending={isPending} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
                   </td>
                 </tr>
               ))}

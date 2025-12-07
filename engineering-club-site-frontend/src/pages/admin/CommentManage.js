@@ -17,19 +17,27 @@ const CommentManage = () => {
   // Get admin attributes
   const user = admin?.find((a) => a.email === auth.user);
 
+  const [isPending, setIsPending] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete comment
   const deleteComment = async (id) => {
     try {
+      setIsPending(true);
       await axios.delete(ApiRoutes.COMMENT.DELETE + "/" + id);
-
+      setIsPending(false);
+      setIsModalOpen(false);
       setSuccessMsg(true);
+
       getComment();
     } catch(err) {
       console.log(err.message);
       setSuccessMsg(false);
+      setIsPending(false);
+      setIsModalOpen(false);
     }
   };
 
@@ -138,7 +146,7 @@ const CommentManage = () => {
                   <td className="text-start">{comment.comment}</td>
                   <td>
                     {/* Comment deletion confirmation modal */}
-                    <DeleteModal modal_title={comment.comment} modal_type={"Comment"} modal_button_theme={"#00798eff"} modal_id={comment.id} modal_delete={deleteComment} />
+                    <DeleteModal modal_title={comment.comment} modal_type={"Comment"} modal_button_theme={"#00798eff"} modal_id={comment.id} modal_delete={deleteComment} isPending={isPending} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
                   </td>
                 </tr>
               ))}
