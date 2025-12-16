@@ -5,12 +5,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ScrollToTop from './utils/ScrollToTop';
+import { ToastContainer } from 'react-toastify';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
       <ScrollToTop />
+      <ToastContainer position="top-right" theme="dark" />
       <App />
     </Router>
   </React.StrictMode>

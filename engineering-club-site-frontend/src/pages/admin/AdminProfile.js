@@ -6,6 +6,7 @@ import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import "./Admin.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AdminProfile = () => {
   UseTitleName("Profile | OCU Engineering Club");
@@ -16,6 +17,8 @@ const AdminProfile = () => {
   // Get admin attributes
   const user = admin?.find((a) => a.email === auth.user);
 
+  const [isPending, setIsPending] = useState(false);
+
   const [currentPW, setCurrentPW] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPW, setConfirmPW] = useState("");
@@ -23,8 +26,6 @@ const AdminProfile = () => {
   const [errorCurrentPW, setErrorCurrentPW] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
   const [errorConfirmPW, setErrorConfirmPW] = useState(false);
-  
-  const [successMsg, setSuccessMsg] = useState(false);
 
   const handleLogout = () => {
     auth.logout();
@@ -34,10 +35,12 @@ const AdminProfile = () => {
   // Update admin
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsPending(true);
 
     //Current Password Validation
     if (currentPW !== user?.password) {
       setErrorCurrentPW(true);
+      setIsPending(false);
       return;
     }
 
@@ -45,22 +48,23 @@ const AdminProfile = () => {
       const admin = {
         password: password,
       };
-
-      try {
-        await axios.patch(ApiRoutes.ADMIN.PATCH + "/" + user?.id, admin)
-
-        setSuccessMsg(true);
-        getAdmin();
-
+      
+    await axios
+      .patch(ApiRoutes.ADMIN.PATCH + "/" + user?.id, admin)
+      .then((res) => {
         // Clear The Input Fields Values
         setCurrentPW("");
         setPassword("");
         setConfirmPW("");
-      } catch(err) {
-        console.log(err.message);
-        setSuccessMsg(false);
-      }
-      
+
+        getAdmin();
+        setIsPending(false);
+        toast.success(res.data?.user_message);
+      })
+      .catch((error) => {
+        setIsPending(false);
+        toast.error(error.response.data?.message || error.response.data?.error);
+      });
     } else {
       setErrorConfirmPW(true);
     }
@@ -80,13 +84,6 @@ const AdminProfile = () => {
             Logout <i className="bi bi-box-arrow-left"></i>
           </button>
         </div>
-        {/* Display success msg */}
-        {successMsg && (
-          <div className="alert alert-success mt-3" role="alert">
-            <i className="bi bi-check-circle-fill"></i> Your profile has been
-            updated successfully.
-          </div>
-        )}
 
         {/* Profile icon  */}
         <div className="d-flex flex-row border border-white border-2 rounded p-3 mt-3">
@@ -138,7 +135,7 @@ const AdminProfile = () => {
           />
         </div>
       </div>
-      
+
       {/* Admin edit password form */}
       <form
         className="mt-3 row border border-white border-2 rounded p-3 m-0"
@@ -221,9 +218,24 @@ const AdminProfile = () => {
           <button
             type="submit"
             className="btn btn-primary"
-            style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
+            style={{ backgroundColor: "#000000ff", border: 0, width: 125 }}
+            disabled={isPending}
           >
-            Update
+            {isPending ? (
+              <>
+                <span className="me-1">
+                  <i className="spinner-border spinner-border-sm"></i>
+                </span>
+                <span>Updating...</span>
+              </>
+            ) : (
+              <>
+                <span className="me-1">
+                  <i className="bi bi-pencil-square"></i>
+                </span>
+                <span>Update</span>
+              </>
+            )}
           </button>
         </div>
       </form>

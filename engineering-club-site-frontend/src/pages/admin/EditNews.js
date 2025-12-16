@@ -8,6 +8,7 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import PreviewPost from "../../components/modal/PreviewPost";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 const EditNews = () => {
   const navigate = useNavigate();
@@ -78,19 +79,21 @@ const EditNews = () => {
     formData.append('body', body);
     formData.append('publish', publish);
 
-    try {
-      await axios.patch(ApiRoutes.NEWS.PATCH + "/" + idSlug, formData, {
+    await axios
+      .patch(ApiRoutes.NEWS.PATCH + "/" + idSlug, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+      })
+      .then((res) => {
+        getNews();
+        navigate("/admin/news-manage");
+        toast.success(res.data?.message);
+      })
+      .catch((error) => {
+        setIsPending(false);
+        toast.error(error.response.data?.message || error.response.data?.error);
       });
-
-      getNews();
-      navigate("/admin/news-manage");
-    } catch(err) {
-      console.log(err.message);
-      setIsPending(false);
-    }
   };
 
   return (

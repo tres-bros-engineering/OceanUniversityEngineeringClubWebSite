@@ -9,6 +9,7 @@ import "react-quill-new/dist/quill.snow.css";
 import { useAuth } from "../../utils/AuthContext";
 import PreviewPost from "../../components/modal/PreviewPost";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 const CreateArticle = () => {
   UseTitleName("Create Article | OCU Engineering Club");
@@ -84,19 +85,21 @@ const CreateArticle = () => {
     formData.append('admin_id', user?.id);
     formData.append('publish', publish);
 
-    try {
-      await axios.post(ApiRoutes.ARTICLE.CREATE, formData, {
+    await axios
+      .post(ApiRoutes.ARTICLE.CREATE, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-        }
+        },
+      })
+      .then((res) => {
+        getArticle();
+        navigate("/admin/article-manage");
+        toast.success(res.data?.message);
+      })
+      .catch((error) => {
+        setIsPending(false);
+        toast.error(error.response.data?.error);
       });
-
-      getArticle();
-      navigate("/admin/article-manage");
-    } catch(err) {
-      console.log(err.message);
-      setIsPending(false);
-    }
   };
 
   return (

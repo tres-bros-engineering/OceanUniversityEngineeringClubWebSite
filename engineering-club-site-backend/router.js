@@ -1,5 +1,9 @@
 const express = require('express');
-const controller = require('./controller');
+const article_controller = require('./controller/article_controller');
+const news_controller = require('./controller/news_controller');
+const comment_controller = require('./controller/comment_controller');
+const superadmin_controller = require('./controller/superadmin_controller');
+const admin_controller = require('./controller/admin_controller');
 const multer = require('multer');
 const router = express.Router();
 
@@ -13,27 +17,27 @@ const upload = multer({
   },
 });
 
-router.get('/articles',controller.getArticles);
-router.post('/addarticles',upload.single("file"),controller.addArticles);
-router.patch('/updatearticles/:id',upload.single("file"),controller.updateArticles);
-router.delete('/deletearticles/:id',controller.deleteArticles);
+router.get('/articles',article_controller.getArticles);
+router.post('/addarticles',upload.single("file"),article_controller.addArticles);
+router.patch('/updatearticles/:id',upload.single("file"),article_controller.updateArticles);
+router.delete('/deletearticles/:id',article_controller.deleteArticles);
 
-router.get('/news',controller.getNews);
-router.post('/addnews',upload.single("file"),controller.addNews);
-router.patch('/updatenews/:id',upload.single("file"),controller.updateNews);
-router.delete('/deletenews/:id',controller.deleteNews);
+router.get('/news',news_controller.getNews);
+router.post('/addnews',upload.single("file"),news_controller.addNews);
+router.patch('/updatenews/:id',upload.single("file"),news_controller.updateNews);
+router.delete('/deletenews/:id',news_controller.deleteNews);
 
-router.get('/comments',controller.getComments);
-router.post('/addcomments',controller.addComments);
-router.delete('/deletecomments/:id',controller.deleteComments);
+router.get('/comments',comment_controller.getComments);
+router.post('/addcomments',comment_controller.addComments);
+router.delete('/deletecomments/:id',comment_controller.deleteComments);
 
-router.get('/superadmin',controller.getSuperAdmin);
-router.patch('/updatesuperadmin/:id',controller.updateSuperAdmin);
+router.get('/superadmin',superadmin_controller.getSuperAdmin);
+router.patch('/updatesuperadmin/:id',superadmin_controller.updateSuperAdmin);
 
-router.get('/admin',controller.getAdmin);
-router.post('/addadmin',controller.addAdmin);
-router.patch('/updateadmin/:id',controller.updateAdmin);
-router.delete('/deleteadmin/:id',controller.deleteAdmin);
+router.get('/admin',admin_controller.getAdmin);
+router.post('/addadmin',admin_controller.addAdmin);
+router.patch('/updateadmin/:id',admin_controller.updateAdmin);
+router.delete('/deleteadmin/:id',admin_controller.deleteAdmin);
 
 
 module.exports = router; 

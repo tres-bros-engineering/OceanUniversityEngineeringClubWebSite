@@ -27,7 +27,7 @@ const Post = () => {
         <div className="container pb-2">
           <div className="row my-4">
             {/* Post Layout */}
-            <div className="col-lg-8 ps-4" data-aos="fade-up">
+            <div className="col-lg-8" data-aos="fade-up">
               <h2>{post.title}</h2>
               <div className="mt-1 fw-bold">
                 <span className="me-4"><i className="bi bi-clock-fill"></i> {FormatDate(post.date)}</span>

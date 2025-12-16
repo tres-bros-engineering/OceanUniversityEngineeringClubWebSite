@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { init } = require('./app');
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({

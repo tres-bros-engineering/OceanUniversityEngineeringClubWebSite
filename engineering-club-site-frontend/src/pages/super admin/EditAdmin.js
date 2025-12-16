@@ -5,6 +5,7 @@ import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 const EditAdmin = () => {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ const EditAdmin = () => {
 
   UseTitleName(a?.name + " | OCU Engineering Club");
 
+  const [isPending, setIsPending] = useState(false);
+
   const [name, setName] = useState(a?.name);
   const [email, setEmail] = useState(a?.email);
 
@@ -25,20 +28,24 @@ const EditAdmin = () => {
   // Update admin
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsPending(true);
 
     const admin = {
       name: name,
       email: email
     };
 
-    try {
-      await axios.patch(ApiRoutes.ADMIN.PATCH + "/" + idSlug, admin)
-
-      getAdmin();
-      navigate("/superadmin/admin-manage");
-    } catch(err) {
-      console.log(err.message);
-    }
+    await axios
+      .patch(ApiRoutes.ADMIN.PATCH + "/" + idSlug, admin)
+      .then((res) => {
+        getAdmin();
+        navigate("/superadmin/admin-manage");
+        toast.success(res.data?.message);
+      })
+      .catch((error) => {
+        setIsPending(false);
+        toast.error(error.response.data?.message || error.response.data?.error);
+      });
   };
 
   return (
@@ -108,12 +115,24 @@ const EditAdmin = () => {
             <button
               type="submit"
               className="btn btn-primary"
-              style={{ backgroundColor: "#2200aa", border: 0, width: 120 }}
+              style={{ backgroundColor: "#2200aa", border: 0, width: 125 }}
+              disabled={isPending}
             >
-              <span className="me-1">
-                <i className="bi bi-pencil-square"></i>
-              </span>
-              <span>Update</span>
+              {isPending ? (
+                <>
+                  <span className="me-1">
+                    <i className="spinner-border spinner-border-sm"></i>
+                  </span>
+                  <span>Updating...</span>
+                </>
+              ) : (
+                <>
+                  <span className="me-1">
+                    <i className="bi bi-pencil-square"></i>
+                  </span>
+                  <span>Update</span>
+                </>
+              )}
             </button>
           </div>
         </form>

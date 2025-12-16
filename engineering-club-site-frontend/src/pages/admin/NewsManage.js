@@ -9,6 +9,7 @@ import { useAuth } from "../../utils/AuthContext";
 import "./Admin.css";
 import axios from "axios";
 import DeleteModal from "../../components/modal/DeleteModal";
+import { toast } from 'react-toastify';
 
 const NewsManage = () => {
   UseTitleName("News Manage | OCU Engineering Club");
@@ -23,24 +24,24 @@ const NewsManage = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete news
   const deleteNews = async (id) => {
-    try {
-      setIsPending(true);
-      await axios.delete(ApiRoutes.NEWS.DELETE + "/" + id);
+    
+  setIsPending(true);
+  await axios
+    .delete(ApiRoutes.NEWS.DELETE + "/" + id)
+    .then((res) => {
       setIsPending(false);
       setIsModalOpen(false);
-      setSuccessMsg(true);
-
       getNews();
-    } catch(err) {
-      console.log(err.message);
-      setSuccessMsg(false);
+      toast.success(res.data?.message);
+    })
+    .catch((error) => {
       setIsPending(false);
       setIsModalOpen(false);
-    }
+      toast.error(error.response.data?.message || error.response.data?.error);
+    });
   };
 
   return (
@@ -65,13 +66,6 @@ const NewsManage = () => {
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-admin"} />
         </div>
       </div>
-
-      {/* Display success msg */}
-      {successMsg && (
-        <div className="alert alert-success mt-3 mx-2" role="alert">
-          <i className="bi bi-check-circle-fill"></i> The news has been deleted successfully.
-        </div>
-      )}
 
       {/* News Table */}
       <div className="row px-3 pt-3 mx-2 mt-3 rounded bg-black border border-white table-responsive">

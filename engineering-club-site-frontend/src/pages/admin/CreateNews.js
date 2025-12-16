@@ -9,6 +9,7 @@ import 'react-quill-new/dist/quill.snow.css';
 import { useAuth } from "../../utils/AuthContext";
 import PreviewPost from "../../components/modal/PreviewPost";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 const CreateNews = () => {
   UseTitleName("Create News | OCU Engineering Club");
@@ -81,19 +82,21 @@ const CreateNews = () => {
     formData.append('admin_id', user?.id);
     formData.append('publish', publish);
 
-    try {
-      await axios.post(ApiRoutes.NEWS.CREATE, formData, {
+    await axios
+      .post(ApiRoutes.NEWS.CREATE, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+      })
+      .then((res) => {
+        getNews();
+        navigate("/admin/news-manage");
+        toast.success(res.data?.message);
+      })
+      .catch((error) => {
+        setIsPending(false);
+        toast.error(error.response.data?.error);
       });
-
-      getNews();
-      navigate("/admin/news-manage");
-    } catch(err) {
-      console.log(err.message);
-      setIsPending(false);
-    }
   };
 
   return (

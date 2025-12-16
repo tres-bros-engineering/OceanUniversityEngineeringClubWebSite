@@ -6,6 +6,7 @@ import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import "./SuperAdmin.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const SuperAdminProfile = () => {
   UseTitleName("Profile | OCU Engineering Club");
@@ -15,6 +16,9 @@ const SuperAdminProfile = () => {
 
   // Get admin attributes
   const user = superadmin?.find((a) => a.email === auth.user);
+
+  const [isPendingDetails, setIsPendingDetails] = useState(false);
+  const [isPendingPassword, setIsPendingPassword] = useState(false);
 
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
@@ -27,8 +31,6 @@ const SuperAdminProfile = () => {
   const [errorCurrentPW, setErrorCurrentPW] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
   const [errorConfirmPW, setErrorConfirmPW] = useState(false);
-  
-  const [successMsg, setSuccessMsg] = useState(false);
 
   const handleLogout = () => {
     auth.logout();
@@ -38,33 +40,37 @@ const SuperAdminProfile = () => {
   // Update superadmin
   const handleSubmitDetails = async (e) => {
     e.preventDefault();
+    setIsPendingDetails(true);
 
     const superadmin = {
       name: name,
       email: email
     };
 
-    try {
-      await axios.patch(ApiRoutes.SUPERADMIN.PATCH + "/" + user?.id, superadmin)
-
-      setSuccessMsg(true);
-      getSuperAdmin();
-
-      if(superadmin.email !== auth.user) {
-        auth.login(superadmin.email);
-      }
-    } catch(err) {
-      console.log(err.message);
-      setSuccessMsg(false);
-    }
+    await axios
+      .patch(ApiRoutes.SUPERADMIN.PATCH + "/" + user?.id, superadmin)
+      .then((res) => {
+        getSuperAdmin();
+        if (superadmin.email !== auth.user) {
+          auth.login(superadmin.email);
+        }
+        setIsPendingDetails(false);
+        toast.success(res.data?.message);
+      })
+      .catch((error) => {
+        setIsPendingDetails(false);
+        toast.error(error.response.data?.message || error.response.data?.error);
+      });
   };
 
   const handleSubmitPassword = async (e) => {
     e.preventDefault();
+    setIsPendingPassword(true);
 
     //Current Password Validation
     if (currentPW !== user?.password) {
       setErrorCurrentPW(true);
+      setIsPendingPassword(false);
       return;
     }
 
@@ -73,21 +79,22 @@ const SuperAdminProfile = () => {
         password: password,
       };
 
-      try {
-        await axios.patch(ApiRoutes.SUPERADMIN.PATCH + "/" + user?.id, superadmin)
+      await axios
+        .patch(ApiRoutes.SUPERADMIN.PATCH + "/" + user?.id, superadmin)
+        .then((res) => {
+          // Clear The Input Fields Values
+          setCurrentPW("");
+          setPassword("");
+          setConfirmPW("");
 
-        setSuccessMsg(true);
-        getSuperAdmin();
-
-        // Clear The Input Fields Values
-        setCurrentPW("");
-        setPassword("");
-        setConfirmPW("");
-      } catch(err) {
-        console.log(err.message);
-        setSuccessMsg(false);
-      }
-
+          getSuperAdmin();
+          setIsPendingPassword(false);
+          toast.success(res.data?.message);
+        })
+        .catch((error) => {
+          setIsPendingPassword(false);
+          toast.error(error.response.data?.message || error.response.data?.error);
+        });
     } else {
       setErrorConfirmPW(true);
     }
@@ -107,13 +114,6 @@ const SuperAdminProfile = () => {
             Logout <i className="bi bi-box-arrow-left"></i>
           </button>
         </div>
-        {/* Display success msg */}
-        {successMsg && (
-          <div className="alert alert-success mt-3" role="alert">
-            <i className="bi bi-check-circle-fill"></i> Your profile has been
-            updated successfully.
-          </div>
-        )}
 
         {/* Profile icon  */}
         <div className="d-flex flex-row border border-white border-2 rounded p-3 mt-3">
@@ -193,9 +193,24 @@ const SuperAdminProfile = () => {
           <button
             type="submit"
             className="btn btn-primary"
-            style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
+            style={{ backgroundColor: "#000000ff", border: 0, width: 125 }}
+            disabled={isPendingDetails}
           >
-            Update
+            {isPendingDetails ? (
+              <>
+                <span className="me-1">
+                  <i className="spinner-border spinner-border-sm"></i>
+                </span>
+                <span>Updating...</span>
+              </>
+            ) : (
+              <>
+                <span className="me-1">
+                  <i className="bi bi-pencil-square"></i>
+                </span>
+                <span>Update</span>
+              </>
+            )}
           </button>
         </div>
       </form>
@@ -282,9 +297,24 @@ const SuperAdminProfile = () => {
           <button
             type="submit"
             className="btn btn-primary"
-            style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
+            style={{ backgroundColor: "#000000ff", border: 0, width: 125 }}
+            disabled={isPendingPassword}
           >
-            Update
+            {isPendingPassword ? (
+              <>
+                <span className="me-1">
+                  <i className="spinner-border spinner-border-sm"></i>
+                </span>
+                <span>Updating...</span>
+              </>
+            ) : (
+              <>
+                <span className="me-1">
+                  <i className="bi bi-pencil-square"></i>
+                </span>
+                <span>Update</span>
+              </>
+            )}
           </button>
         </div>
       </form>

@@ -7,6 +7,7 @@ import Search from "../../components/search/AdminSearch";
 import "./SuperAdmin.css";
 import axios from "axios";
 import DeleteModal from "../../components/modal/DeleteModal";
+import { toast } from "react-toastify";
 
 const SuperAdminArticleManage = () => {
   UseTitleName("Article Manage | OCU Engineering Club");
@@ -16,24 +17,23 @@ const SuperAdminArticleManage = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete article
   const deleteArticle = async (id) => {
-    try {
-      setIsPending(true);
-      await axios.delete(ApiRoutes.ARTICLE.DELETE + "/" + id);
-      setIsPending(false);
-      setIsModalOpen(false);
-      setSuccessMsg(true);
-
-      getArticle();
-    } catch (err) {
-      console.log(err.message);
-      setIsPending(false);
-      setIsModalOpen(false);
-      setSuccessMsg(false);
-    }
+    setIsPending(true);
+    await axios
+      .delete(ApiRoutes.ARTICLE.DELETE + "/" + id)
+      .then((res) => {
+        setIsPending(false);
+        setIsModalOpen(false);
+        getArticle();
+        toast.success(res.data?.message);
+      })
+      .catch((error) => {
+        setIsPending(false);
+        setIsModalOpen(false);
+        toast.error(error.response.data?.message || error.response.data?.error);
+      });
   };
 
   return (
@@ -45,13 +45,6 @@ const SuperAdminArticleManage = () => {
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-superadmin"} />
         </div>
       </div>
-
-      {/* Display success msg */}
-      {successMsg && (
-        <div className="alert alert-success mt-3 mx-2" role="alert">
-          <i className="bi bi-check-circle-fill"></i> The article has been deleted successfully.
-        </div>
-      )}
 
       {/* Articles Table */}
       <div className="row px-3 pt-3 mx-2 mt-3 rounded bg-black border border-white table-responsive">
@@ -145,7 +138,7 @@ const SuperAdminArticleManage = () => {
                   <td className="text-start">{article.title}</td>
                   <td>{FormatDate(article.date)}</td>
                   <td className="text-start">{article.category}</td>
-                  <td className="text-start">{admin.find((a) => a?.id === article.admin_id)?.name}</td>
+                  <td className="text-start">{admin.find((a) => a?.id === article.admin_id)?.name || "-"}</td>
                   <td>
                     <i className="bi bi-eye-fill"></i> {article.views}
                   </td>

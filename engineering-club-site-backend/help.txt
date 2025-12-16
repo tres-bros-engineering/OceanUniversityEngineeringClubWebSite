@@ -1,6 +1,8 @@
 To start the backend type "nodemon server.js" on command prompt and enter.
 
 Use "npm start" to start the backend server.
+                    Or
+Use "npm run dev" to start the backend server with nodemon.
 
 For dropbox configuration;
     1. create 3 variables - (DROPBOX_CLIENT_ID, DROPBOX_CLIENT_SECRET, DROPBOX_REFRESH_TOKEN)

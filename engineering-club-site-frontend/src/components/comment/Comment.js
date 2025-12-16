@@ -5,6 +5,7 @@ import { useData } from "../../utils/DataContext";
 import "./Comment.css";
 import { useState } from 'react';
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Comment = ({ post_id }) => {
   const { comments, getComment } = useData();
@@ -18,11 +19,12 @@ const Comment = ({ post_id }) => {
   const [errorEmail, setErrorEmail] = useState("");
   const [errorBody, setErrorBody] = useState("");
 
-  const [successMsg, setSuccessMsg] = useState(false);
+  const [isPending, setIsPending] = useState(false);
 
   // Add comment
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsPending(true);
 
     const comment = {
       id: comments[comments.length - 1].id,
@@ -32,20 +34,22 @@ const Comment = ({ post_id }) => {
       comment: body,
     };
 
-    try {
-      await axios.post(ApiRoutes.COMMENT.CREATE, comment);
+    await axios
+      .post(ApiRoutes.COMMENT.CREATE, comment)
+      .then((res) => {
+        // Clear The Input Fields Values
+        setName("");
+        setEmail("");
+        setBody("");
 
-      setSuccessMsg(true);
-      getComment();
-
-      // Clear The Input Fields Values
-      setName("");
-      setEmail("");
-      setBody("");
-    } catch(err) {
-      console.log(err.message);
-      setSuccessMsg(false);
-    }
+        getComment();
+        setIsPending(false);
+        toast.success(res.data?.message);
+      })
+      .catch((error) => {
+        setIsPending(false);
+        toast.error(error.response.data?.error);
+      });
   };
 
   // Filter comments by relevant post id
@@ -53,14 +57,6 @@ const Comment = ({ post_id }) => {
 
   return (
     <div className="comment-component">
-      {/* Display success msg */}
-      {successMsg && (
-        <div className="alert alert-success" role="alert">
-          <i className="bi bi-check-circle-fill"></i> The comment has been added
-          successfully.
-        </div>
-      )}
-
       {/* Comment Box */}
       <div>
         <h4>
@@ -145,16 +141,28 @@ const Comment = ({ post_id }) => {
                 </label>
               )}
             </div>
-            <div className="d-flex justify-content-end">
+            <div className="d-flex justify-content-end mt-3">
               <button
                 type="submit"
-                className="btn btn-primary mt-3 d-flex justify-content-center"
-                style={{ backgroundColor: "#f3777b", border: 0 }}
+                className="btn btn-primary"
+                style={{ backgroundColor: "#f3777b", border: 0, width: 120 }}
+                disabled={isPending}
               >
-                <span className="me-1">
-                  <i className="bi bi-send"></i>
-                </span>
-                <span>Post Comment</span>
+                {isPending ? (
+                  <>
+                    <span className="me-1">
+                      <i className="spinner-border spinner-border-sm"></i>
+                    </span>
+                    <span>Posting...</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="me-1">
+                      <i className="bi bi-send"></i>
+                    </span>
+                    <span>Post</span>
+                  </>
+                )}
               </button>
             </div>
           </form>

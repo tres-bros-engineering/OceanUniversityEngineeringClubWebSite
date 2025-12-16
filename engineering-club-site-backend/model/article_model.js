@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const { init } = require('./app');
 const Schema = mongoose.Schema;
 
-const newsSchema = new Schema({
+const articleSchema = new Schema({
     id: Number,
     title: String,
+    category: String,
     img: String,
     date: String,
     body: String,
@@ -16,6 +16,8 @@ const newsSchema = new Schema({
     dropboxPath: String
 })
 
-const News = mongoose.model('News', newsSchema,'news');
 
-module.exports = News;
+const Article = mongoose.model('Article', articleSchema,'articles');
+
+
+module.exports = Article;

@@ -7,6 +7,7 @@ import Search from "../../components/search/AdminSearch";
 import "./SuperAdmin.css";
 import axios from "axios";
 import DeleteModal from "../../components/modal/DeleteModal";
+import { toast } from "react-toastify";
 
 const AdminManage = () => {
   UseTitleName("Admin Manage | OCU Engineering Club");
@@ -17,24 +18,23 @@ const AdminManage = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete admin
   const deleteAdmin = async (id) => {
-    try {
-      setIsPending(true);
-      await axios.delete(ApiRoutes.ADMIN.DELETE + "/" + id);
-      setIsPending(false);
-      setIsModalOpen(false);
-      setSuccessMsg(true);
-
-      getAdmin();
-    } catch (err) {
-      console.log(err.message);
-      setSuccessMsg(false);
-      setIsPending(false);
-      setIsModalOpen(false);
-    }
+    setIsPending(true);
+    await axios
+      .delete(ApiRoutes.ADMIN.DELETE + "/" + id)
+      .then((res) => {
+        setIsPending(false);
+        setIsModalOpen(false);
+        getAdmin();
+        toast.success(res.data?.message);
+      })
+      .catch((error) => {
+        setIsPending(false);
+        setIsModalOpen(false);
+        toast.error(error.response.data?.message || error.response.data?.error);
+      });
   };
 
   return (
@@ -59,13 +59,6 @@ const AdminManage = () => {
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-superadmin"} />
         </div>
       </div>
-
-      {/* Display success msg */}
-      {successMsg && (
-        <div className="alert alert-success mt-3 mx-2" role="alert">
-          <i className="bi bi-check-circle-fill"></i> The admin has been deleted successfully.
-        </div>
-      )}
 
       {/* Admin Table */}
       <div className="row px-3 pt-3 mx-2 mt-3 rounded bg-black border border-white table-responsive">

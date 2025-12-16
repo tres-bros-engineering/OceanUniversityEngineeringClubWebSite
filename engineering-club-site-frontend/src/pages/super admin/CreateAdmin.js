@@ -5,11 +5,14 @@ import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 const CreateAdmin = () => {
   UseTitleName("Create Admin | OCU Engineering Club");
   const navigate = useNavigate();
   const { admin, getAdmin } = useData();
+
+  const [isPending, setIsPending] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,6 +23,7 @@ const CreateAdmin = () => {
   // Add admin
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsPending(true);
 
     const adminData = {
       id: admin[admin.length - 1].id,
@@ -27,14 +31,17 @@ const CreateAdmin = () => {
       email: email,
     };
 
-    try {
-      await axios.post(ApiRoutes.ADMIN.CREATE, adminData);
-
-      getAdmin();
-      navigate("/superadmin/admin-manage");
-    } catch(err) {
-      console.log(err.message);
-    }
+    await axios
+      .post(ApiRoutes.ADMIN.CREATE, adminData)
+      .then((res) => {
+        getAdmin();
+        navigate("/superadmin/admin-manage");
+        toast.success(res.data?.message);
+      })
+      .catch((error) => {
+        setIsPending(false);
+        toast.error(error.response.data?.message || error.response.data?.error);
+      });
   };
 
   return (
@@ -105,11 +112,23 @@ const CreateAdmin = () => {
               type="submit"
               className="btn btn-primary"
               style={{ backgroundColor: "#2200aa", border: 0, width: 120 }}
+              disabled={isPending}
             >
-              <span className="me-1">
-                <i className="bi bi-plus-circle"></i>
-              </span>
-              <span>Add</span>
+              {isPending ? (
+                <>
+                  <span className="me-1">
+                    <i className="spinner-border spinner-border-sm"></i>
+                  </span>
+                  <span>Adding...</span>
+                </>
+              ) : (
+                <>
+                  <span className="me-1">
+                    <i className="bi bi-plus-circle"></i>
+                  </span>
+                  <span>Add</span>
+                </>
+              )}
             </button>
           </div>
         </form>
