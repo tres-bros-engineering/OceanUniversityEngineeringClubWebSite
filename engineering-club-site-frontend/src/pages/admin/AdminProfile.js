@@ -7,15 +7,28 @@ import { useData } from "../../utils/DataContext";
 import "./Admin.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+
 
 const AdminProfile = () => {
   UseTitleName("Profile | OCU Engineering Club");
   const auth = useAuth();
   const navigate = useNavigate();
-  const { admin, getAdmin} = useData();
+  const { admin, getAdmin } = useData();
 
   // Get admin attributes
-  const user = admin?.find((a) => a.email === auth.user);
+  const user = admin?.find(
+    (a) =>
+      a.email === auth.getLocalStorageWithExpiry("admin")?.[2] ||
+      a.email === auth.user
+  );
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/admin");
+    }
+  }, [user, navigate]);
+
 
   const [isPending, setIsPending] = useState(false);
 
@@ -37,36 +50,42 @@ const AdminProfile = () => {
     e.preventDefault();
     setIsPending(true);
 
-    //Current Password Validation
-    if (currentPW !== user?.password) {
-      setErrorCurrentPW(true);
-      setIsPending(false);
-      return;
-    }
-
     if (password === confirmPW) {
       const admin = {
-        password: password,
+        currentPassword: currentPW,
+        password: password
       };
-      
-    await axios
-      .patch(ApiRoutes.ADMIN.PATCH + "/" + user?.id, admin)
-      .then((res) => {
-        // Clear The Input Fields Values
-        setCurrentPW("");
-        setPassword("");
-        setConfirmPW("");
 
-        getAdmin();
-        setIsPending(false);
-        toast.success(res.data?.user_message);
-      })
-      .catch((error) => {
-        setIsPending(false);
-        toast.error(error.response.data?.message || error.response.data?.error);
-      });
+      await axios
+        .patch(ApiRoutes.ADMIN.PATCH + "/" + user?.id, admin)
+        .then((res) => {
+          //Current Password Validation taken from database
+          if (!res.data?.response) {
+            //when current password not matching with previous password
+            setErrorCurrentPW(true);
+            setIsPending(false);
+            toast.error(res.data?.user_message);
+          } else {
+            // Clear The Input Fields Values
+            setCurrentPW("");
+            setPassword("");
+            setConfirmPW("");
+            setErrorCurrentPW(false);
+            setErrorConfirmPW(false);
+
+            getAdmin();
+            setIsPending(false);
+            toast.success(res.data?.user_message);
+          }
+
+        })
+        .catch((error) => {
+          setIsPending(false);
+          toast.error(error.response.data?.message || error.response.data?.error);
+        });
     } else {
       setErrorConfirmPW(true);
+      setIsPending(false);
     }
   };
 

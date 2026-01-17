@@ -4,6 +4,7 @@ const news_controller = require('./controller/news_controller');
 const comment_controller = require('./controller/comment_controller');
 const superadmin_controller = require('./controller/superadmin_controller');
 const admin_controller = require('./controller/admin_controller');
+const authentication_controller = require('./controller/authentication_controller');
 const multer = require('multer');
 const router = express.Router();
 
@@ -38,6 +39,9 @@ router.get('/admin',admin_controller.getAdmin);
 router.post('/addadmin',admin_controller.addAdmin);
 router.patch('/updateadmin/:id',admin_controller.updateAdmin);
 router.delete('/deleteadmin/:id',admin_controller.deleteAdmin);
+
+router.post('/authadmin',authentication_controller.getAuthAdmin);
+router.post('/authsuperadmin',authentication_controller.getAuthSuperAdmin);
 
 
 module.exports = router; 
