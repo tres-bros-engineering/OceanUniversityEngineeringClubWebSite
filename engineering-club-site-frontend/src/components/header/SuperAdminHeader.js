@@ -4,17 +4,29 @@ import "./Header.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../utils/AuthContext";
 import { useData } from "../../utils/DataContext";
+import { useEffect } from "react";
 
 const SuperAdminHeader = () => {
   const location = useLocation();
   const { superadmin } = useData();
   const auth = useAuth();
+  const navigate = useNavigate();
 
   // Get superadmin attributes
-  const user = superadmin?.find((a) => a.email === auth.user);
+  const user = superadmin?.find(
+        (a) =>
+          a.email === auth.getLocalStorageWithExpiry("superadmin")?.[2] ||
+          a.email === auth.user
+      );
+    
+      useEffect(() => {
+        if (!user) {
+          navigate("/superadmin");
+        }
+      }, [user, navigate]);
 
   return (
     <div className="header-superadmin">

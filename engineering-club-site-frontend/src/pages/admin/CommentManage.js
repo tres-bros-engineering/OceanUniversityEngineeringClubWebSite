@@ -2,21 +2,34 @@ import UseTitleName from "../../utils/UseTitleName";
 import { useData } from "../../utils/DataContext";
 import FormatDate from "../../utils/FormatDate";
 import ApiRoutes from "../../api/ApiRoutes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Search from "../../components/search/AdminSearch";
 import { useAuth } from "../../utils/AuthContext";
 import "./Admin.css";
 import axios from "axios";
 import DeleteModal from "../../components/modal/DeleteModal";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const CommentManage = () => {
   UseTitleName("Comment Manage | OCU Engineering Club");
   const { articles, comments, getComment, admin } = useData();
   const auth = useAuth();
+  const navigate = useNavigate();
 
   // Get admin attributes
-  const user = admin?.find((a) => a.email === auth.user);
+  const user = admin?.find(
+    (a) =>
+      a.email === auth.getLocalStorageWithExpiry("admin")?.[2] ||
+      a.email === auth.user
+  );
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/admin");
+    }
+  }, [user, navigate]);
+
 
   const [isPending, setIsPending] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -116,11 +129,11 @@ const CommentManage = () => {
                 return searchTerm.trim() === ""
                   ? comment
                   : comment.name.toLowerCase().includes(searchTerm) ||
-                      comment.email.toLowerCase().includes(searchTerm) ||
-                      articles
-                        .find((article) => article.id === comment.article_id)
-                        ?.title.toLowerCase()
-                        .includes(searchTerm);
+                  comment.email.toLowerCase().includes(searchTerm) ||
+                  articles
+                    .find((article) => article.id === comment.article_id)
+                    ?.title.toLowerCase()
+                    .includes(searchTerm);
               })
               .sort((a, b) => new Date(b.date) - new Date(a.date))
               ?.map((comment, index) => (

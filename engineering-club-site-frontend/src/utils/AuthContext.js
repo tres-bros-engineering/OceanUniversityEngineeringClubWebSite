@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [AuthAdmin, setAuthAdmin] = useState(null); // if login admin details needed
   const [AuthSuperAdmin, setSuperAuthAdmin] = useState(null); // if login superadmin details needed
 
+  const expiryTime = 3000000000 // one month in mS
   const adminlogin = (user) => {
     //get admin details from data base through backend
     axios
@@ -27,7 +28,7 @@ export const AuthProvider = ({ children }) => {
         if (response[0]) {
 
           if (typeof (Storage) !== "undefined") {
-            setLocalStorageWithExpiry("admin", [hash.hashWord(String(response[0])), response[1].id, response[1].email], 60000); //1-minute (60000 ms) time limit
+            setLocalStorageWithExpiry("admin", [hash.hashWord(String(response[0])), response[1].id, response[1].email], expiryTime); //1-minute (60000 ms) time limit
             setUser(getLocalStorageWithExpiry("admin")[2]);
 
             //navigate to home page
@@ -66,7 +67,7 @@ export const AuthProvider = ({ children }) => {
         if (response[0]) {
 
           if (typeof (Storage) !== "undefined") {
-           setLocalStorageWithExpiry("superadmin", [hash.hashWord(String(response[0])), response[1].id, response[1].email], 60000); //1-minute (60000 ms) time limit
+           setLocalStorageWithExpiry("superadmin", [hash.hashWord(String(response[0])), response[1].id, response[1].email], expiryTime); //1-minute (60000 ms) time limit
             setUser(getLocalStorageWithExpiry("superadmin")[2]);
 
             //navigate to home page
@@ -138,6 +139,7 @@ export const AuthProvider = ({ children }) => {
 
     return item.value;
   }
+  
 
 
 

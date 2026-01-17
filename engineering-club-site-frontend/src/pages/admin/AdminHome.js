@@ -6,13 +6,25 @@ import { useEffect, useState } from "react";
 import PaginationPostGrid from "../../components/post grid/PaginationPostGrid";
 import { useAuth } from "../../utils/AuthContext";
 import "./Admin.css";
+import { useNavigate } from "react-router-dom";
 
 const AdminHome = () => {
+  const navigate = useNavigate();
   const { articles, news, admin } = useData();
   const auth = useAuth();
 
   // Get admin attributes
-  const user = admin?.find((a) => a.email === auth.user);
+  const user = admin?.find(
+    (a) =>
+      a.email === auth.getLocalStorageWithExpiry("admin")?.[2] ||
+      a.email === auth.user
+  );
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/admin");
+    }
+  }, [user, navigate]);
 
   const [postResults, setPostResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,7 +54,7 @@ const AdminHome = () => {
         )
         .sort((a, b) => new Date(b.date) - new Date(a.date)));
     }
-  },[searchTerm]);
+  }, [searchTerm]);
 
   return (
     <div className="container">

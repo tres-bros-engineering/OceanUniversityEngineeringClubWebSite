@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import UseTitleName from "../../utils/UseTitleName";
 import { useAuth } from "../../utils/AuthContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import "./SuperAdmin.css";
@@ -15,7 +15,17 @@ const SuperAdminProfile = () => {
   const { superadmin, getSuperAdmin } = useData();
 
   // Get admin attributes
-  const user = superadmin?.find((a) => a.email === auth.user);
+  const user = superadmin?.find(
+      (a) =>
+        a.email === auth.getLocalStorageWithExpiry("superadmin")?.[2] ||
+        a.email === auth.user
+    );
+  
+    useEffect(() => {
+      if (!user) {
+        navigate("/superadmin");
+      }
+    }, [user, navigate]);
 
   const [isPendingDetails, setIsPendingDetails] = useState(false);
   const [isPendingPassword, setIsPendingPassword] = useState(false);

@@ -3,7 +3,7 @@ import { useData } from "../../utils/DataContext";
 import FormatDate from "../../utils/FormatDate";
 import { useNavigate } from "react-router-dom";
 import ApiRoutes from "../../api/ApiRoutes";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Search from "../../components/search/AdminSearch";
 import { useAuth } from "../../utils/AuthContext";
 import "./Admin.css";
@@ -15,10 +15,20 @@ const ArticleManage = () => {
   UseTitleName("Article Manage | OCU Engineering Club");
   const { articles, getArticle, admin } = useData();
   const auth = useAuth();
-  const naviagate = useNavigate();
+  const navigate = useNavigate();
 
   // Get admin attributes
-  const user = admin?.find((a) => a.email === auth.user);
+  const user = admin?.find(
+    (a) =>
+      a.email === auth.getLocalStorageWithExpiry("admin")?.[2] ||
+      a.email === auth.user
+  );
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/admin");
+    }
+  }, [user, navigate]);
 
   const [isPending, setIsPending] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -53,7 +63,7 @@ const ArticleManage = () => {
             type="button"
             className="btn btn-primary"
             style={{ backgroundColor: "#00798eff", border: 0, width: 200 }}
-            onClick={() => naviagate("/admin/create-article")}
+            onClick={() => navigate("/admin/create-article")}
           >
             <span className="me-1">
               <i className="bi bi-plus-circle"></i>
@@ -136,7 +146,7 @@ const ArticleManage = () => {
                 return searchTerm.trim() === ""
                   ? article
                   : article.title.toLowerCase().includes(searchTerm) ||
-                      article.category.toLowerCase().includes(searchTerm);
+                  article.category.toLowerCase().includes(searchTerm);
               })
               .sort((a, b) => new Date(b.date) - new Date(a.date))
               ?.map((article, index) => (
@@ -161,7 +171,7 @@ const ArticleManage = () => {
                       className="btn bi bi-pencil-square"
                       style={{ border: 0 }}
                       onClick={() =>
-                        naviagate("/admin/article-manage/" + article.id)
+                        navigate("/admin/article-manage/" + article.id)
                       }
                     ></i>
                     {/* Article deletion confirmation modal */}
