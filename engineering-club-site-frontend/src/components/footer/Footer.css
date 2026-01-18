@@ -50,6 +50,50 @@
   display: none !important;
 }
 
+/* To center End User NavDropdown menu in small and medium screens */
+@media (max-width: 991.98px) {
+  .footer .nav-link {
+    text-align: center;
+  }
+
+  .footer .dropdown-menu {
+    position: fixed;
+    opacity: 0;
+    transform: translate(-50%, -10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    display: block;
+    margin-left: 70%;
+    pointer-events: none;
+  }
+
+  /* When dropdown is open */
+  .footer .show>.dropdown-menu {
+    position: relative;
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+  }
+}
+
+/* Dropdown animation */
+@media (min-width: 991.98px) {
+  .footer .dropdown-menu {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: block;
+    margin-left: 110%;
+    pointer-events: none;
+  }
+
+  /* When dropdown is open */
+  .footer .show>.dropdown-menu {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+  }
+}
+
 /* Contact us text */
 .footer .contact-us-text {
   font-weight: 700;

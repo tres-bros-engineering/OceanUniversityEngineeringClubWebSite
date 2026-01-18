@@ -38,7 +38,7 @@ const SuperAdminLogin = () => {
     } else {
       setTimeout(() => {
         setInvalidUser(true);
-      }, 2000);
+      }, 1000);
     }
 
 

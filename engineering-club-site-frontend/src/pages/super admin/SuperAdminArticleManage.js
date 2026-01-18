@@ -38,7 +38,7 @@ const SuperAdminArticleManage = () => {
 
   return (
     <div className="container pb-5" data-aos="fade-up">
-      <h1 className="mt-4">Article Manage</h1>
+      <h1 className="mt-4">Manage Article</h1>
 
       <div className="row mt-3 d-lg-flex justify-content-end">
         <div className="col-lg-2 ps-lg-0">

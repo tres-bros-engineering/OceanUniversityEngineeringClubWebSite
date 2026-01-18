@@ -28,10 +28,10 @@ const EndUserFooter = () => {
           <div className="col-lg-6 mt-lg-5 mt-2">
             <Navbar expand="lg" className="footer-navbar">
               <Nav className="footer-nav mx-auto">
-                <Nav.Link as={NavLink} to="/" className="mx-5">
+                <Nav.Link as={NavLink} to="/" className="ms-lg-5">
                   Home
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/news" className="mx-5">
+                <Nav.Link as={NavLink} to="/news" className="mx-lg-5">
                   News
                 </Nav.Link>
                 <NavDropdown
@@ -41,7 +41,7 @@ const EndUserFooter = () => {
                     </span>
                   }
                   drop="up"
-                  className="mx-5 caret-down"
+                  className="me-lg-5 caret-down"
                 >
                   <NavDropdown.Item as={NavLink} to="/article/pumps">
                     Pumps
@@ -69,7 +69,7 @@ const EndUserFooter = () => {
               </Nav>
             </Navbar>
           </div>
-          <div className="col-lg mt-lg-5 text-center mt-2">
+          <div className="col-lg mt-lg-5 text-center">
             <div className="contact-us-text text-white">Contact Us</div>
             <div className="mt-2">
               <a
