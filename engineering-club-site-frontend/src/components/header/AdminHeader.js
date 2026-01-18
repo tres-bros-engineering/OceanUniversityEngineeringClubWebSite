@@ -4,24 +4,37 @@ import "./Header.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../utils/AuthContext";
 import { useData } from "../../utils/DataContext";
+import { useEffect } from "react";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 const AdminHeader = () => {
   const location = useLocation();
   const { admin } = useData();
   const auth = useAuth();
+  const navigate = useNavigate();
 
   // Get admin attributes
-  const user = admin?.find((a) => a.email === auth.user);
+  const user = admin?.find(
+    (a) =>
+      a.email === auth.getLocalStorageWithExpiry("admin")?.[2] ||
+      a.email === auth.user
+  );
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/admin");
+    }
+  }, [user, navigate]);
 
   return (
     <div className="header-admin">
       <Navbar expand="lg" className="custom-navbar shadow-lg py-1 px-lg-5">
         <Container fluid>
           <Navbar.Brand as={NavLink} to="/admin/home">
-            <img src={logo} className="navbar-App-logo me-lg-5" alt="logo" />
+            <img src={logo} className="navbar-App-logo" alt="logo" />
           </Navbar.Brand>
           <Navbar.Toggle className="nav-toggle">
             <i className="bi bi-list fs-1 nav-toggle-icon"></i>
@@ -31,45 +44,46 @@ const AdminHeader = () => {
               <Nav.Link
                 as={NavLink}
                 to="/admin/home"
-                className={`mx-5 ${
-                  location.pathname === "/admin/home" ? "active" : ""
-                }`}
+                className={`ms-lg-5 ${location.pathname === "/admin/home" ? "active" : ""
+                  }`}
               >
                 Home
               </Nav.Link>
               <Nav.Link
                 as={NavLink}
-                to="/admin/article-manage"
-                className={`mx-5 ${
-                  location.pathname === "/admin/article-manage" ? "active" : ""
-                }`}
-              >
-                Article Manage
-              </Nav.Link>
-              <Nav.Link
-                as={NavLink}
                 to="/admin/news-manage"
-                className={`mx-5 ${
-                  location.pathname === "/admin/news-manage" ? "active" : ""
+                className={`mx-lg-5 ${location.pathname === "/admin/news-manage" ? "active" : ""
+                  }`}
+              >
+                News
+              </Nav.Link>
+              <NavDropdown
+                title={
+                  <span>
+                    Article <i className="bi bi-caret-down-fill fs-6"></i>
+                  </span>
+                }
+                id="navbarScrollingDropdown"
+                className={`me-lg-5 caret-down ${
+                  location.pathname.startsWith("/admin/article-manage") || 
+                  location.pathname.startsWith("/admin/comment-manage")
+                    ? "active"
+                    : ""
                 }`}
               >
-                News Manage
-              </Nav.Link>
-              <Nav.Link
-                as={NavLink}
-                to="/admin/comment-manage"
-                className={`mx-5 ${
-                  location.pathname === "/admin/comment-manage" ? "active" : ""
-                }`}
-              >
-                Comment Manage
-              </Nav.Link>
+                <NavDropdown.Item as={NavLink} to="/admin/article-manage">
+                  Manage Article
+                </NavDropdown.Item>
+                <NavDropdown.Divider className="d-none d-lg-block" />
+                <NavDropdown.Item as={NavLink} to="/admin/comment-manage">
+                  Manage Comment
+                </NavDropdown.Item>
+              </NavDropdown>
               <Nav.Link
                 as={NavLink}
                 to="/admin/profile"
-                className={`mx-5 d-lg-none ${
-                  location.pathname === "/admin/profile" ? "active" : ""
-                }`}
+                className={`d-lg-none ${location.pathname === "/admin/profile" ? "active" : ""
+                  }`}
               >
                 Profile
               </Nav.Link>
@@ -78,9 +92,8 @@ const AdminHeader = () => {
           <Nav.Link
             as={NavLink}
             to="/admin/profile"
-            className={`mx-5 d-none d-lg-block ${
-              location.pathname === "/admin/profile" ? "active" : ""
-            }`}
+            className={`d-none d-lg-block ${location.pathname === "/admin/profile" ? "active" : ""
+              }`}
           >
             <div className="d-inline-block">
               <div

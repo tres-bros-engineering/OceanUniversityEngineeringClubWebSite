@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import UseTitleName from "../../utils/UseTitleName";
 import "./Admin.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import ReactQuill from "react-quill-new";
@@ -18,7 +18,17 @@ const CreateArticle = () => {
   const auth = useAuth();
 
   // Get admin attributes
-  const user = admin?.find((a) => a.email === auth.user);
+  const user = admin?.find(
+    (a) =>
+      a.email === auth.getLocalStorageWithExpiry("admin")?.[2] ||
+      a.email === auth.user
+  );
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/admin");
+    }
+  }, [user, navigate]);
   
   const [isPending, setIsPending] = useState(false);
 
