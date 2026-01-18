@@ -22,12 +22,6 @@ const AdminHeader = () => {
       a.email === auth.user
   );
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/admin");
-    }
-  }, [user, navigate]);
-
   return (
     <div className="header-admin">
       <Navbar expand="lg" className="custom-navbar shadow-lg py-1 px-lg-5">

@@ -21,12 +21,6 @@ const SuperAdminHeader = () => {
           a.email === auth.getLocalStorageWithExpiry("superadmin")?.[2] ||
           a.email === auth.user
       );
-    
-      useEffect(() => {
-        if (!user) {
-          navigate("/superadmin");
-        }
-      }, [user, navigate]);
 
   return (
     <div className="header-superadmin">
