@@ -16,7 +16,7 @@ const EndUserHeader = () => {
       <Navbar expand="lg" className="custom-navbar shadow-lg py-1 px-lg-5">
         <Container fluid>
           <Navbar.Brand as={NavLink} to="/">
-            <img src={logo} className="navbar-App-logo me-lg-5" alt="logo" />
+            <img src={logo} className="navbar-App-logo" alt="logo" />
           </Navbar.Brand>
           <Navbar.Toggle className="nav-toggle">
             <i className="bi bi-list fs-1 nav-toggle-icon"></i>
@@ -26,14 +26,14 @@ const EndUserHeader = () => {
               <Nav.Link
                 as={NavLink}
                 to="/"
-                className={`mx-5 ${location.pathname === "/" ? "active" : ""}`}
+                className={`ms-lg-5 ${location.pathname === "/" ? "active" : ""}`}
               >
                 Home
               </Nav.Link>
               <Nav.Link
                 as={NavLink}
                 to="/news"
-                className={`mx-5 ${
+                className={`mx-lg-5 ${
                   location.pathname.startsWith("/news/") ? "active" : ""
                 }`}
               >
@@ -46,7 +46,7 @@ const EndUserHeader = () => {
                   </span>
                 }
                 id="navbarScrollingDropdown"
-                className={`ms-5 caret-down ${
+                className={`me-lg-5 caret-down ${
                   location.pathname.startsWith("/article/")
                     ? "active"
                     : ""

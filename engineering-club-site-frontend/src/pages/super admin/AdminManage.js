@@ -39,7 +39,7 @@ const AdminManage = () => {
 
   return (
     <div className="container pb-5" data-aos="fade-up">
-      <h1 className="mt-4">Admin Manage</h1>
+      <h1 className="mt-4">Manage Admin</h1>
 
       <div className="row mt-3">
         <div className="col-lg d-flex justify-content-end px-3">

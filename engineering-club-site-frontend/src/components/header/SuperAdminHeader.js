@@ -7,6 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../utils/AuthContext";
 import { useData } from "../../utils/DataContext";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import { useEffect } from "react";
 
 const SuperAdminHeader = () => {
@@ -21,13 +22,19 @@ const SuperAdminHeader = () => {
           a.email === auth.getLocalStorageWithExpiry("superadmin")?.[2] ||
           a.email === auth.user
       );
+    
+      useEffect(() => {
+        if (!user) {
+          navigate("/superadmin");
+        }
+      }, [user, navigate]);
 
   return (
     <div className="header-superadmin">
       <Navbar expand="lg" className="custom-navbar shadow-lg py-1 px-lg-5">
         <Container fluid>
           <Navbar.Brand as={NavLink} to="/superadmin/home">
-            <img src={logo} className="navbar-App-logo me-lg-5" alt="logo" />
+            <img src={logo} className="navbar-App-logo" alt="logo" />
           </Navbar.Brand>
           <Navbar.Toggle className="nav-toggle">
             <i className="bi bi-list fs-1 nav-toggle-icon"></i>
@@ -37,7 +44,7 @@ const SuperAdminHeader = () => {
               <Nav.Link
                 as={NavLink}
                 to="/superadmin/home"
-                className={`mx-5 ${
+                className={`ms-lg-5 ${
                   location.pathname === "/superadmin/home" ? "active" : ""
                 }`}
               >
@@ -45,35 +52,48 @@ const SuperAdminHeader = () => {
               </Nav.Link>
               <Nav.Link
                 as={NavLink}
-                to="/superadmin/article-manage"
-                className={`mx-5 ${
-                  location.pathname === "/superadmin/article-manage" ? "active" : ""
-                }`}
-              >
-                Article Manage
-              </Nav.Link>
-              <Nav.Link
-                as={NavLink}
                 to="/superadmin/news-manage"
-                className={`mx-5 ${
+                className={`ms-lg-5 ${
                   location.pathname === "/superadmin/news-manage" ? "active" : ""
                 }`}
               >
-                News Manage
+                News
               </Nav.Link>
+              <NavDropdown
+                title={
+                  <span>
+                    Article <i className="bi bi-caret-down-fill fs-6"></i>
+                  </span>
+                }
+                id="navbarScrollingDropdown"
+                className={`mx-lg-5 caret-down ${
+                  location.pathname.startsWith("/superadmin/article-manage") ||
+                  location.pathname.startsWith("/superadmin/category-manage")
+                    ? "active"
+                    : ""
+                }`}
+              >
+                <NavDropdown.Item as={NavLink} to="/superadmin/article-manage">
+                  Manage Article
+                </NavDropdown.Item>
+                <NavDropdown.Divider className="d-none d-lg-block" />
+                <NavDropdown.Item as={NavLink} to="/superadmin/category-manage">
+                  Manage Category
+                </NavDropdown.Item>
+              </NavDropdown>
               <Nav.Link
                 as={NavLink}
                 to="/superadmin/admin-manage"
-                className={`mx-5 ${
+                className={`me-lg-5 ${
                   location.pathname === "/superadmin/admin-manage" ? "active" : ""
                 }`}
               >
-                Admin Manage
+                Admin
               </Nav.Link>
               <Nav.Link
                 as={NavLink}
                 to="/superadmin/profile"
-                className={`mx-5 d-lg-none ${
+                className={`d-lg-none ${
                   location.pathname === "/superadmin/profile" ? "active" : ""
                 }`}
               >
@@ -84,7 +104,7 @@ const SuperAdminHeader = () => {
           <Nav.Link
             as={NavLink}
             to="/superadmin/profile"
-            className={`mx-5 d-none d-lg-block ${
+            className={`d-none d-lg-block ${
               location.pathname === "/superadmin/profile" ? "active" : ""
             }`}
           >

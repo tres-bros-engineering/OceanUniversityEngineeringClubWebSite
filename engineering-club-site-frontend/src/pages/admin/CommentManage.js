@@ -56,7 +56,7 @@ const CommentManage = () => {
 
   return (
     <div className="container pb-5" data-aos="fade-up">
-      <h1 className="mt-4">Comment Manage</h1>
+      <h1 className="mt-4">Manage Comment</h1>
       <div className="mt-3 d-lg-flex justify-content-end">
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-admin"} />
       </div>
