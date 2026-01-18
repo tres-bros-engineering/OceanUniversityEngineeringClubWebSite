@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import PaginationPostGrid from "../../components/post grid/PaginationPostGrid";
 import { useAuth } from "../../utils/AuthContext";
 import "./SuperAdmin.css";
+import { useNavigate } from "react-router-dom";
 
 const SuperAdminHome = () => {
   const { articles, news, superadmin } = useData();
