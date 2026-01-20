@@ -7,6 +7,7 @@ import UseTitleName from "../../utils/UseTitleName";
 import { useData } from "../../utils/DataContext";
 import "./EndUser.css";
 import parse from 'html-react-parser';
+import PostStats from "../../components/post stats/PostStats";
 
 const Post = () => {
   const { titleSlug } = useParams();
@@ -49,7 +50,7 @@ const Post = () => {
                 {post.category ? (<span><i className="bi bi-tags-fill"></i> {post.category}</span>) : (<span><i className="bi bi-tags"></i> News</span>)}
               </div>
               <div className="mt-1 mb-4 fw-bold">
-                <span className="me-4"><i className="bi bi-eye-fill"></i> {post.views}</span>
+                <PostStats key={post.id} views={post.views || 0} like={post.like || 0} dislike={post.dislike || 0} postId={post.id} category={post.category} />
                 {post.category && (<span><i className="bi bi-chat-text-fill"></i> {comments.filter((comment) => comment.article_id === post.id).length}</span>)}
               </div>
               <div className="mt-4 rich-text-display">{parse(post.body)}</div>

@@ -31,25 +31,29 @@ export const AuthProvider = ({ children }) => {
             setLocalStorageWithExpiry("admin", [hash.hashWord(String(response[0])), response[1].id, response[1].email], expiryTime); //1-minute (60000 ms) time limit
             setUser(getLocalStorageWithExpiry("admin")[2]);
 
+            toast.success(res.data?.message);
+
             //navigate to home page
             const redirectedPath = location.state?.path || "/admin/home";
             navigate(redirectedPath, { replace: true });
           } else {
             setUser(response[1].email); // when browser not support local storage
             //navigate to home page
+            toast.success(res.data?.message);
             const redirectedPath = location.state?.path || "/admin/home";
             navigate(redirectedPath, { replace: true });
           }
 
         } else {
           localStorage.removeItem("admin");
+          toast.error(res.data?.message);
 
         }
 
 
       })
       .catch((error) => {
-        toast.error(error.response.data?.message || error.response.data?.error);
+        toast.error(error.response.data?.error);
 
       });
 
@@ -70,6 +74,8 @@ export const AuthProvider = ({ children }) => {
            setLocalStorageWithExpiry("superadmin", [hash.hashWord(String(response[0])), response[1].id, response[1].email], expiryTime); //1-minute (60000 ms) time limit
             setUser(getLocalStorageWithExpiry("superadmin")[2]);
 
+            toast.success(res.data?.message);
+
             //navigate to home page
             const redirectedPath = location.state?.path || "/superadmin/home";
             navigate(redirectedPath, { replace: true });
@@ -77,19 +83,20 @@ export const AuthProvider = ({ children }) => {
           } else {
             setUser(response[1].email); // when browser not support local storage
             //navigate to home page
+            toast.success(res.data?.message);
             const redirectedPath = location.state?.path || "/superadmin/home";
             navigate(redirectedPath, { replace: true });
           }
 
         } else {
           localStorage.removeItem("superadmin");
-
+          toast.error(res.data?.message);
         }
 
 
       })
       .catch((error) => {
-        toast.error(error.response.data?.message || error.response.data?.error);
+        toast.error(error.response.data?.error);
 
       });
 
