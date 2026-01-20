@@ -11,13 +11,13 @@ const getAuthAdmin = async (req, res, next) => {
             //verify password hashing
             const isAuthentication = hash.verifyPasswordBcrypt(String(req.body.password), admin.password)
             if (isAuthentication) {
-                res.status(200).json({ response: [isAuthentication, admin] });
+                res.status(200).json({ response: [isAuthentication, admin], message: "You have logged in successfully." });
             } else {
-                res.status(200).json({ response: [isAuthentication] });
+                res.status(200).json({ response: [isAuthentication], message: "You have logged in successfully." });
             }
         } else {
             //user not exists
-            res.status(200).json({ response: [false] });
+            res.status(200).json({ response: [false], message: "Login failed. Please try again." });
         }
 
     } catch (err) {
@@ -36,13 +36,13 @@ const getAuthSuperAdmin = async (req, res, next) => {
             const isAuthentication = hash.verifyPasswordBcrypt(String(req.body.password), superadmin.password)
 
             if (isAuthentication) {
-                res.status(200).json({ response: [isAuthentication, superadmin] });
+                res.status(200).json({ response: [isAuthentication, superadmin], message: "You have logged in successfully." });
             } else {
-                res.status(200).json({ response: [isAuthentication] });
+                res.status(200).json({ response: [isAuthentication], message: "You have logged in successfully." });
             }
         } else {
             //user not exists
-            res.status(200).json({ response: [false] });
+            res.status(200).json({ response: [false], message: "Login failed. Please try again." });
         }
 
 

@@ -32,16 +32,6 @@ const AdminLogin = () => {
     }
     //check admin in database
     auth.adminlogin(user);
-    isLogin = hash.checkHash(auth.getLocalStorageWithExpiry("isLogin"), true)
-
-    if (isLogin) {
-      
-    } else {
-      setTimeout(() => {
-        setInvalidUser(true);
-      }, 2000);
-      
-    }
   };
 
   return (
@@ -49,13 +39,6 @@ const AdminLogin = () => {
       className="container d-flex flex-column justify-content-center align-items-center min-vh-100 admin-login text-center"
       data-aos="fade-up"
     >
-      {/* Display invalid user msg */}
-      {invalidUser && (
-        <div className="alert alert-danger" role="alert">
-          <i className="bi bi-exclamation-triangle-fill"></i> Invalid login, try
-          again!
-        </div>
-      )}
       <div>
         <img src={logo} alt="logo" />
         <h1>Login</h1>

@@ -80,6 +80,7 @@ const App = () => {
 
             {/* Admin Routes */}
             {/* Routes before login  */}
+            
             <Route element={<AuthAdminLayout />}>
               <Route path="/admin" element={<AdminLogin />} />
               <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
