@@ -24,7 +24,8 @@ const EndUserPostGrid = ({ posts, category }) => {
             <Row
               key={index}
               className="border border-white border-2 mx-2 mb-3 rounded post-grid-post"
-              style={{ position: "relative" }}
+              style={{ position: "relative", cursor: "pointer" }}
+              onClick={() => navigate(PostUrlFormat(post.category, post.title))}
             >
               <div
                 className="rounded"
@@ -48,19 +49,9 @@ const EndUserPostGrid = ({ posts, category }) => {
                   <span className="bi bi-clock-fill"></span>
                   <span className="ms-1">{FormatDate(post.date)}</span>
                 </p>
-                <div className="my-1" style={{ textAlign: "justify" }}>
+                <div style={{ textAlign: "justify" }}>
                   {truncate(post.body, 150, { stripTags: true })}
                 </div>
-                <button
-                  type="button"
-                  className="btn btn-outline-light btn-sm mt-1"
-                  onClick={() =>
-                    navigate(PostUrlFormat(post.category, post.title))
-                  }
-                >
-                  <span>Read More</span>
-                  <span className="bi bi-arrow-right ms-1"></span>
-                </button>
               </div>
             </Row>
           ))
