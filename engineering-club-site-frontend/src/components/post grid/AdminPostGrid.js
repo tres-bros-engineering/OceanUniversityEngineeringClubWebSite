@@ -24,12 +24,13 @@ const AdminPostGrid = ({ posts, category, styleType }) => {
             <Row
               key={index}
               className="border border-white border-2 mx-2 mb-3 rounded post-grid-post"
-              style={{ position: 'relative' }}
+              style={{ position: "relative", cursor: "pointer" }}
+              onClick={() => navigate(PostUrlFormat(post.category, post.title))}
             >
               <div
                 className="rounded"
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   backgroundImage: `url(${post.img})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
@@ -42,28 +43,15 @@ const AdminPostGrid = ({ posts, category, styleType }) => {
                   zIndex: 0,
                 }}
               ></div>
-              <div className="p-4" style={{ position: 'relative', zIndex: 1 }}>
+              <div className="p-4" style={{ position: "relative", zIndex: 1 }}>
                 <h4 className="mb-0">{post.title}</h4>
                 <p>
                   <span className="bi bi-clock-fill"></span>
                   <span className="ms-1">{FormatDate(post.date)}</span>
                 </p>
-                <div
-                  className="my-1 rich-text-display"
-                  style={{ textAlign: "justify" }}
-                >
+                <div style={{ textAlign: "justify" }}>
                   {truncate(post.body, 150, { stripTags: true })}
                 </div>
-                <button
-                  type="button"
-                  className="btn btn-outline-light btn-sm mt-1"
-                  onClick={() =>
-                    navigate(PostUrlFormat(post.category, post.title))
-                  }
-                >
-                  <span>Read More</span>
-                  <span className="bi bi-arrow-right ms-1"></span>
-                </button>
               </div>
             </Row>
           ))
