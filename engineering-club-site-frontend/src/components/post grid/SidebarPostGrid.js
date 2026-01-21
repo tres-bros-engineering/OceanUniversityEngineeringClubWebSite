@@ -23,12 +23,13 @@ const SidebarPostGrid = ({ posts, category }) => {
             <Row
               key={index}
               className="border border-white border-2 mx-2 mb-3 rounded post-grid-post"
-              style={{ position: 'relative' }}
+              style={{ position: "relative", cursor: "pointer" }}
+              onClick={() => navigate(PostUrlFormat(post.category, post.title))}
             >
               <div
                 className="rounded"
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   backgroundImage: `url(${post.img})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
@@ -41,22 +42,12 @@ const SidebarPostGrid = ({ posts, category }) => {
                   zIndex: 0,
                 }}
               ></div>
-              <div className="p-4" style={{ position: 'relative', zIndex: 1 }}>
+              <div className="p-4" style={{ position: "relative", zIndex: 1 }}>
                 <h5 className="mb-0">{post.title}</h5>
-                <p>
+                <p className="mb-0">
                   <span className="bi bi-clock-fill"></span>
                   <span className="ms-1">{FormatDate(post.date)}</span>
                 </p>
-                <button
-                  type="button"
-                  className="btn btn-outline-light btn-sm"
-                  onClick={() =>
-                    navigate(PostUrlFormat(post.category, post.title))
-                  }
-                >
-                  <span>Read More</span>
-                  <span className="bi bi-arrow-right ms-1"></span>
-                </button>
               </div>
             </Row>
           ))

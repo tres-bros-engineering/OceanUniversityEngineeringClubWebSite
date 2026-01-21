@@ -6,13 +6,25 @@ import { useEffect, useState } from "react";
 import PaginationPostGrid from "../../components/post grid/PaginationPostGrid";
 import { useAuth } from "../../utils/AuthContext";
 import "./SuperAdmin.css";
+import { useNavigate } from "react-router-dom";
 
 const SuperAdminHome = () => {
   const { articles, news, superadmin } = useData();
   const auth = useAuth();
+  const navigate = useNavigate();
 
   // Get super admin attributes
-  const user = superadmin?.find((a) => a.email === auth.user);
+  const user = superadmin?.find(
+    (a) =>
+      a.email === auth.getLocalStorageWithExpiry("superadmin")?.[2] ||
+      a.email === auth.user
+  );
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/superadmin");
+    }
+  }, [user, navigate]);
 
   const [postResults, setPostResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");

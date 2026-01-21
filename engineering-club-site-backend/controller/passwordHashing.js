@@ -13,11 +13,11 @@ const verifyPasswordBcrypt = (suppliedPassword, storedHash) => {
 }
 
 // Usage:
-// const userPasswordBcrypt = 'mySecurePassword123';
+// const userPasswordBcrypt = 'Admin123';
 // const hashedPasswordBcrypt = hashPasswordBcrypt(userPasswordBcrypt);
 // console.log('Bcrypt Hash:', hashedPasswordBcrypt);
 
-// const isMatchBcrypt = verifyPasswordBcrypt(userPasswordBcrypt, hashedPasswordBcrypt);
+// const isMatchBcrypt = verifyPasswordBcrypt(userPasswordBcrypt, '$2b$10$.EZWeDSzV47d.H.2sScBKOearaaDRDyNuLfBM/qHrxQNJy8Ik3olC');
 // console.log('Bcrypt Password verified:', isMatchBcrypt);
 exports.hashPasswordBcrypt = hashPasswordBcrypt;
 exports.verifyPasswordBcrypt = verifyPasswordBcrypt;

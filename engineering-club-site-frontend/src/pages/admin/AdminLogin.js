@@ -1,19 +1,17 @@
 import UseTitleName from "../../utils/UseTitleName";
 import logo from "../../assets/logo.png";
 import "./Admin.css";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../utils/AuthContext";
-import { useData } from "../../utils/DataContext";
+// import { useData } from "../../utils/DataContext";
+
+const hash = require("../../utils/hashing");
 
 const AdminLogin = () => {
   UseTitleName("Admin Login | OCU Engineering Club");
   const auth = useAuth();
-  const { admin } = useData();
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const redirectedPath = location.state?.path || "/admin/home";
+  // const { admin } = useData();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,16 +23,15 @@ const AdminLogin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    // To find admin
-    const user = admin.find((a) => a.email === email && a.password === password);
-
-    if (user) {
-      auth.login(user?.email);
-      navigate(redirectedPath, { replace: true });
-    } else {
-      setInvalidUser(true);
+    //set islogin variable 
+    var isLogin = false
+    // set user as input
+    const user = {
+      email: email,
+      password: password
     }
+    //check admin in database
+    auth.adminlogin(user);
   };
 
   return (
@@ -42,13 +39,6 @@ const AdminLogin = () => {
       className="container d-flex flex-column justify-content-center align-items-center min-vh-100 admin-login text-center"
       data-aos="fade-up"
     >
-      {/* Display invalid user msg */}
-      {invalidUser && (
-        <div className="alert alert-danger" role="alert">
-          <i className="bi bi-exclamation-triangle-fill"></i> Invalid login, try
-          again!
-        </div>
-      )}
       <div>
         <img src={logo} alt="logo" />
         <h1>Login</h1>

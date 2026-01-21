@@ -27,6 +27,12 @@ const ApiRoutes = {
         GET: `${BASE_URL}/comments`,
         CREATE: `${BASE_URL}/addcomments`,
         DELETE: `${BASE_URL}/deletecomments`
+    },
+    AUTHADMIN : {
+        POST:`${BASE_URL}/authadmin`
+    },
+    AUTHSUPERADMIN : {
+        POST:`${BASE_URL}/authsuperadmin`
     }
 }
 

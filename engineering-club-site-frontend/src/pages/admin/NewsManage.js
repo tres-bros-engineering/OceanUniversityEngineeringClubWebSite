@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useData } from "../../utils/DataContext";
 import UseTitleName from "../../utils/UseTitleName";
 import FormatDate from "../../utils/FormatDate";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import Search from "../../components/search/AdminSearch";
 import { useAuth } from "../../utils/AuthContext";
@@ -15,10 +15,20 @@ const NewsManage = () => {
   UseTitleName("News Manage | OCU Engineering Club");
   const { news, getNews, admin } = useData();
   const auth = useAuth();
-  const naviagate = useNavigate();
+  const navigate = useNavigate();
 
   // Get admin attributes
-  const user = admin?.find((a) => a.email === auth.user);
+  const user = admin?.find(
+    (a) =>
+      a.email === auth.getLocalStorageWithExpiry("admin")?.[2] ||
+      a.email === auth.user
+  );
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/admin");
+    }
+  }, [user, navigate]);
 
   const [isPending, setIsPending] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -46,7 +56,7 @@ const NewsManage = () => {
 
   return (
     <div className="container pb-5" data-aos="fade-up">
-      <h1 className="mt-4">News Manage</h1>
+      <h1 className="mt-4">Manage News</h1>
 
       <div className="row mt-3">
         <div className="col-lg d-flex justify-content-end px-3">
@@ -54,7 +64,7 @@ const NewsManage = () => {
             type="button"
             className="btn btn-primary"
             style={{ backgroundColor: "#00798eff", border: 0, width: 200 }}
-            onClick={() => naviagate("/admin/create-news")}
+            onClick={() => navigate("/admin/create-news")}
           >
             <span className="me-1">
               <i className="bi bi-plus-circle"></i>
@@ -152,7 +162,7 @@ const NewsManage = () => {
                     <i
                       className="btn bi bi-pencil-square"
                       style={{ border: 0 }}
-                      onClick={() => naviagate("/admin/news-manage/" + n.id)}
+                      onClick={() => navigate("/admin/news-manage/" + n.id)}
                     ></i>
                     {/* News deletion confirmation modal */}
                     <DeleteModal modal_title={n.title} modal_type={"News"} modal_button_theme={"#00798eff"} modal_id={n.id} modal_delete={deleteNews} isPending={isPending} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import UseTitleName from "../../utils/UseTitleName";
 import { useAuth } from "../../utils/AuthContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import "./SuperAdmin.css";
@@ -12,10 +12,20 @@ const SuperAdminProfile = () => {
   UseTitleName("Profile | OCU Engineering Club");
   const auth = useAuth();
   const navigate = useNavigate();
-  const { superadmin, getSuperAdmin} = useData();
+  const { superadmin, getSuperAdmin } = useData();
 
   // Get admin attributes
-  const user = superadmin?.find((a) => a.email === auth.user);
+  const user = superadmin?.find(
+      (a) =>
+        a.email === auth.getLocalStorageWithExpiry("superadmin")?.[2] ||
+        a.email === auth.user
+    );
+  
+    useEffect(() => {
+      if (!user) {
+        navigate("/superadmin");
+      }
+    }, [user, navigate]);
 
   const [isPendingDetails, setIsPendingDetails] = useState(false);
   const [isPendingPassword, setIsPendingPassword] = useState(false);
@@ -67,29 +77,32 @@ const SuperAdminProfile = () => {
     e.preventDefault();
     setIsPendingPassword(true);
 
-    //Current Password Validation
-    if (currentPW !== user?.password) {
-      setErrorCurrentPW(true);
-      setIsPendingPassword(false);
-      return;
-    }
-
     if (password === confirmPW) {
       const superadmin = {
-        password: password,
+        currentPassword: currentPW,
+        password: password
       };
 
       await axios
         .patch(ApiRoutes.SUPERADMIN.PATCH + "/" + user?.id, superadmin)
         .then((res) => {
-          // Clear The Input Fields Values
-          setCurrentPW("");
-          setPassword("");
-          setConfirmPW("");
+          //Current Password Validation taken from database
+          if (!res.data?.response) {
+            //when current password not matching with previous password
+            setErrorCurrentPW(true);
+            setIsPendingPassword(false);
+            toast.error(res.data?.user_message);
+          } else {
+            // Clear The Input Fields Values
+            setCurrentPW("");
+            setPassword("");
+            setConfirmPW("");
 
-          getSuperAdmin();
-          setIsPendingPassword(false);
-          toast.success(res.data?.message);
+            getSuperAdmin();
+            setIsPendingPassword(false);
+            toast.success(res.data?.message);
+          }
+
         })
         .catch((error) => {
           setIsPendingPassword(false);
@@ -97,6 +110,7 @@ const SuperAdminProfile = () => {
         });
     } else {
       setErrorConfirmPW(true);
+      setIsPendingPassword(false);
     }
   };
 
@@ -214,7 +228,7 @@ const SuperAdminProfile = () => {
           </button>
         </div>
       </form>
-      
+
       {/* Admin edit password form */}
       <form
         className="mt-3 row border border-white border-2 rounded p-3 m-0"
