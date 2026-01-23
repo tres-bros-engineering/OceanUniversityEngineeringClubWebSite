@@ -58,5 +58,31 @@ const updateSuperAdmin = async (req, res, next) => {
         res.status(500).json({ error: "Internal Server Error." })
     }
 };
+
+const forgotPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const superAdminExist = await Admin.findOne({ email: email });
+    if (!superAdminExist) {
+      return res.status(404).json({ message: "Email not found." });
+    }
+
+    // Send the reset link as an email
+    await sendMail(
+      superAdminExist.email,
+      "Reset Super Admin Password",
+      reset_password_template({
+        userName: superAdminExist.name,
+        resetLink: "http://localhost:3000/superadmin",
+      }),
+    );
+    res.status(200).json({ message: "Reset link sent to your email." });
+    console.log("Reset link sent to your email.");
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error." });
+  }
+};
+
 exports.getSuperAdmin = getSuperAdmin;
 exports.updateSuperAdmin = updateSuperAdmin;
+exports.forgotPassword = forgotPassword;

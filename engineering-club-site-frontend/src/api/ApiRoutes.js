@@ -3,13 +3,15 @@ const BASE_URL = "http://localhost:3001/api";
 const ApiRoutes = {
     SUPERADMIN : {
         GET: `${BASE_URL}/superadmin`,
-        PATCH: `${BASE_URL}/updatesuperadmin`
+        PATCH: `${BASE_URL}/updatesuperadmin`,
+        FORGOT: `${BASE_URL}/forgotsuperadmin`
     },
     ADMIN : {
         GET: `${BASE_URL}/admin`,
         CREATE: `${BASE_URL}/addadmin`,
         PATCH: `${BASE_URL}/updateadmin`,
-        DELETE: `${BASE_URL}/deleteadmin`
+        DELETE: `${BASE_URL}/deleteadmin`,
+        FORGOT: `${BASE_URL}/forgotadmin`
     },
     ARTICLE : {
         GET: `${BASE_URL}/articles`,

@@ -2,10 +2,30 @@ import UseTitleName from "../../utils/UseTitleName";
 import logo from "../../assets/logo.png";
 import "./SuperAdmin.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import ApiRoutes from "../../api/ApiRoutes";
+import axios from "axios";
+import { toast } from 'react-toastify';
 
 const SuperAdminForgotPassword = () => {
   UseTitleName("Forgot Password | OCU Engineering Club");
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [errorEmail, setErrorEmail] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await axios
+      .post(ApiRoutes.SUPERADMIN.FORGOT, { email: email })
+      .then((res) => {
+        toast.success(res.data?.message);
+      })
+      .catch((error) => {
+        toast.error(error.response.data?.message || error.response.data?.error);
+      });
+  };
 
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100 superadmin-login text-center" data-aos="fade-up">
@@ -22,12 +42,23 @@ const SuperAdminForgotPassword = () => {
             className="form-control"
             id="adminInputEmail"
             placeholder="Enter Your Email"
-            onInvalid={(e) =>
-              e.target.setCustomValidity("Please enter a valid email")
-            }
-            onInput={(e) => e.target.setCustomValidity("")}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onInvalid={(e) => {
+              e.preventDefault();
+              setErrorEmail(true);
+            }}
+            onInput={() => {
+              setErrorEmail(false);
+            }}
             required
           />
+          {errorEmail && (
+            <label className="text-danger d-flex justify-content-start ms-1">
+              <i className="bi bi-exclamation-circle-fill me-1"></i>Please enter
+              a valid email address!
+            </label>
+          )}
         </div>
         <div className="d-flex justify-content-center mt-3">
           <button
