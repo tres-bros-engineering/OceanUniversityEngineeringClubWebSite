@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import OTP from "../../components/modal/OTP";
 
 const SuperAdminForgotPassword = () => {
-  UseTitleName("Forgot Password | OCU Engineering Club");
+  UseTitleName("Forgot Password");
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -170,7 +170,7 @@ const SuperAdminForgotPassword = () => {
             )}
           </button>
         </div>
-        <div className="d-flex justify-content-center mt-2">
+        <div className="d-flex justify-content-center mt-2 mb-4">
           <button
             type="button"
             className="btn btn-primary"

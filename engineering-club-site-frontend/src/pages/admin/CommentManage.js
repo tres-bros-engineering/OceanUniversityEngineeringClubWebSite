@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const CommentManage = () => {
-  UseTitleName("Comment Manage | OCU Engineering Club");
+  UseTitleName("Comment Manage");
   const { articles, comments, getComment, admin } = useData();
   const auth = useAuth();
   const navigate = useNavigate();

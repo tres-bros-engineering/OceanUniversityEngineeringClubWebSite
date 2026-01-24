@@ -15,7 +15,7 @@ const EditAdmin = () => {
   // Check id to find the admin
   const a = admin.find((a) => a.id === Number(idSlug));
 
-  UseTitleName(a?.name + " | OCU Engineering Club");
+  UseTitleName(a?.name);
 
   const [isPending, setIsPending] = useState(false);
 

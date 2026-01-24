@@ -10,7 +10,7 @@ import DeleteModal from "../../components/modal/DeleteModal";
 import { toast } from "react-toastify";
 
 const CategoryManage = () => {
-  UseTitleName("Category Manage | OCU Engineering Club");
+  UseTitleName("Category Manage");
   const { category, getCategory } = useData();
   const naviagate = useNavigate();
 

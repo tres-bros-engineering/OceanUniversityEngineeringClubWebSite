@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import OTP from "../../components/modal/OTP";
 
 const AdminForgotPassword = () => {
-  UseTitleName("Forgot Password | OCU Engineering Club");
+  UseTitleName("Forgot Password");
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -179,7 +179,7 @@ const AdminForgotPassword = () => {
             )}
           </button>
         </div>
-        <div className="d-flex justify-content-center mt-2">
+        <div className="d-flex justify-content-center mt-2 mb-4">
           <button
             type="button"
             className="btn btn-primary"

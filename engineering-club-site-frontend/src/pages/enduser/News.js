@@ -5,7 +5,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import { useData } from "../../utils/DataContext";
 
 const News = () => {
-  UseTitleName("News | OCU Engineering Club");
+  UseTitleName("News");
   const { news } = useData();
 
   // Filter posts by category

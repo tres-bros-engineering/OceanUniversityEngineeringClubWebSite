@@ -3,7 +3,7 @@ import UseTitleName from "../../utils/UseTitleName";
 import { useNavigate } from "react-router-dom";
 
 const NotFound = () => {
-  UseTitleName("Page Not Found | OCU Engineering Club");
+  UseTitleName("Page Not Found");
 
   const navigate = useNavigate();
 

@@ -15,7 +15,7 @@ const EditCategory = () => {
   // Check id to find the category
   const c = category.find((c) => c.id === Number(idSlug));
 
-  UseTitleName(c?.name + " | OCU Engineering Club");
+  UseTitleName(c?.name);
 
   const [isPending, setIsPending] = useState(false);
   const [name, setName] = useState(c?.name);

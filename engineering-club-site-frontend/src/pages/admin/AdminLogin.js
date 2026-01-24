@@ -7,7 +7,7 @@ import { useAuth } from "../../utils/AuthContext";
 import { useData } from "../../utils/DataContext";
 
 const AdminLogin = () => {
-  UseTitleName("Admin Login | OCU Engineering Club");
+  UseTitleName("Admin Login");
   const auth = useAuth();
   const { admin } = useData();
   const navigate = useNavigate();

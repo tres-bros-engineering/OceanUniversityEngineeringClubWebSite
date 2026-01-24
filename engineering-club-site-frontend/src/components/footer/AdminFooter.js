@@ -24,7 +24,7 @@ const AdminFooter = ({ styleType }) => {
           <div className="col-lg-6 mb-2 d-flex justify-content-center align-items-end">
             <div className="text-center text-black fst-italic footer-text mt-lg-0">
               <div>© {currentYear} - All Rights Reserved</div>
-              <div>Design & Development by Tres Bros Website Makers</div>
+              <div>Design & Development by <a style={{color: "#000000"}} href="https://www.linkedin.com/in/diniduatapattu/" target="_blank">Dinidu Atapattu</a> & <a style={{color: "#000000"}} href="https://www.linkedin.com/in/lahiru-madhuka/" target="_blank">Lahiru Madhuka</a></div>
             </div>
           </div>
           <div className="col-lg text-center my-3 d-none d-lg-block">

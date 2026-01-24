@@ -10,7 +10,7 @@ import DeleteModal from "../../components/modal/DeleteModal";
 import { toast } from "react-toastify";
 
 const AdminManage = () => {
-  UseTitleName("Admin Manage | OCU Engineering Club");
+  UseTitleName("Admin Manage");
   const { admin, getAdmin } = useData();
   const naviagate = useNavigate();
 

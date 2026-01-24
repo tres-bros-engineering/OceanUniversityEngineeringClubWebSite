@@ -9,7 +9,7 @@ const ArticleCategory = () => {
 
   const c = category.find((c) => c.name.toLowerCase().trim().replace(/\s+/g, "-") === categorySlug)
 
-  UseTitleName(c?.name + " | OCU Engineering Club");
+  UseTitleName(c?.name);
 
   // Filter posts by category
   const categoryPost = articles.filter(post => post.category === c.name && post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));

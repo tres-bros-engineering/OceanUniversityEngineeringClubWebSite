@@ -7,7 +7,7 @@ import { useAuth } from "../../utils/AuthContext";
 import { useData } from "../../utils/DataContext";
 
 const SuperAdminLogin = () => {
-  UseTitleName("Super Admin Login | OCU Engineering Club");
+  UseTitleName("Super Admin Login");
   const auth = useAuth();
   const { superadmin } = useData();
   const navigate = useNavigate();

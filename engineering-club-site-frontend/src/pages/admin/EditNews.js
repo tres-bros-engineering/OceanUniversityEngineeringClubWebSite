@@ -18,7 +18,7 @@ const EditNews = () => {
   // Check id to find the post
   const n = news.find((n) => n.id === Number(idSlug));
 
-  UseTitleName(n?.title + " | OCU Engineering Club");
+  UseTitleName(n?.title);
 
   const [isPending, setIsPending] = useState(false);
 

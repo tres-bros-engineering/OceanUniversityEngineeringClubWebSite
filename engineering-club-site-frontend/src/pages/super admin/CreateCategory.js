@@ -8,7 +8,7 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 
 const CreateCategory = () => {
-  UseTitleName("Create Category | OCU Engineering Club");
+  UseTitleName("Create Category");
   const navigate = useNavigate();
   const { category, getCategory } = useData();
 

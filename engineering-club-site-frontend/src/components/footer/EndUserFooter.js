@@ -93,7 +93,7 @@ const EndUserFooter = () => {
         <Row>
           <div className="text-center text-white mb-1 fst-italic footer-text mt-3 mt-lg-0">
             <div>© {currentYear} - All Rights Reserved</div>
-            <div>Design & Development by Tres Bros Website Makers</div>
+            <div>Design & Development by <a style={{color: "#ffffff"}} href="https://www.linkedin.com/in/diniduatapattu/" target="_blank">Dinidu Atapattu</a> & <a style={{color: "#ffffff"}} href="https://www.linkedin.com/in/lahiru-madhuka/" target="_blank">Lahiru Madhuka</a></div>
           </div>
         </Row>
       </Container>

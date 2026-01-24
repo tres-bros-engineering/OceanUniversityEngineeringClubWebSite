@@ -30,7 +30,7 @@ const AdminHome = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Title name
-  searchTerm.trim() === "" ? UseTitleName("Home | OCU Engineering Club") : UseTitleName("'" + searchTerm + "'" + " | OCU Engineering Club");
+  searchTerm.trim() === "" ? UseTitleName("Home") : UseTitleName("'" + searchTerm + "'");
 
   // Filter posts
   const latestNewsPosts = news.filter(post => post.publish && post.admin_id === user?.id).sort(

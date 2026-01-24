@@ -12,7 +12,7 @@ import DeleteModal from "../../components/modal/DeleteModal";
 import { toast } from 'react-toastify';
 
 const ArticleManage = () => {
-  UseTitleName("Article Manage | OCU Engineering Club");
+  UseTitleName("Article Manage");
   const { articles, getArticle, admin } = useData();
   const auth = useAuth();
   const navigate = useNavigate();

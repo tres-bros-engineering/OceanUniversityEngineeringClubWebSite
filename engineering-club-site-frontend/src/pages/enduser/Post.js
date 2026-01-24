@@ -17,7 +17,7 @@ const Post = () => {
   const post = articles.find((p) => p.title.toLowerCase().replace(/[^\p{L}\p{N}\s]+/gu, "").replace(/\s+/g, "-") === titleSlug)
     || news.find((p) => p.title.toLowerCase().replace(/[^\p{L}\p{N}\s]+/gu, "").replace(/\s+/g, "-") === titleSlug);
 
-  UseTitleName(post?.title + " | OCU Engineering Club");
+  UseTitleName(post?.title);
 
   // Find post admin
   const adminExist = admin.find((a) => a.id === post?.admin_id);

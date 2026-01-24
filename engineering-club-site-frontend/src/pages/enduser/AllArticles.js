@@ -4,7 +4,7 @@ import { useData } from "../../utils/DataContext";
 
 const AllArticles = () => {
   const { articles } = useData();
-  UseTitleName("All Articles | OCU Engineering Club");
+  UseTitleName("All Articles");
 
   // Filter posts by category
   const allArticles = articles.filter(post => post.publish).sort((a, b) => new Date(b.date) - new Date(a.date));

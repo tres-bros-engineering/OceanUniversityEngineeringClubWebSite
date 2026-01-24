@@ -8,7 +8,7 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 
 const CreateAdmin = () => {
-  UseTitleName("Create Admin | OCU Engineering Club");
+  UseTitleName("Create Admin");
   const navigate = useNavigate();
   const { admin, getAdmin } = useData();
 

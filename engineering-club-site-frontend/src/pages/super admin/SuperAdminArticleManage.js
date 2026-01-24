@@ -10,7 +10,7 @@ import DeleteModal from "../../components/modal/DeleteModal";
 import { toast } from "react-toastify";
 
 const SuperAdminArticleManage = () => {
-  UseTitleName("Article Manage | OCU Engineering Club");
+  UseTitleName("Article Manage");
   const { articles, getArticle, admin } = useData();
 
   const [isPending, setIsPending] = useState(false);

@@ -15,8 +15,8 @@ const SearchResults = () => {
   const [postResults, setPostResults] = useState([]);
 
   searchResult
-    ? UseTitleName("'" + searchResult + "'" + " | OCU Engineering Club")
-    : UseTitleName("'' | OCU Engineering Club");
+    ? UseTitleName("'" + searchResult + "'")
+    : UseTitleName("Search Results");
 
   // Filter posts by search result
   useEffect(() => {

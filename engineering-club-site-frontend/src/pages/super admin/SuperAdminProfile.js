@@ -9,7 +9,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const SuperAdminProfile = () => {
-  UseTitleName("Profile | OCU Engineering Club");
+  UseTitleName("Profile");
   const auth = useAuth();
   const navigate = useNavigate();
   const { superadmin, getSuperAdmin } = useData();

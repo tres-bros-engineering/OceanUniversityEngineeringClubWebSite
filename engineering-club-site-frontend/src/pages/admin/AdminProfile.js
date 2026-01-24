@@ -11,7 +11,7 @@ import { useEffect } from "react";
 
 
 const AdminProfile = () => {
-  UseTitleName("Profile | OCU Engineering Club");
+  UseTitleName("Profile");
   const auth = useAuth();
   const navigate = useNavigate();
   const { admin, getAdmin } = useData();

@@ -12,7 +12,7 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 
 const CreateArticle = () => {
-  UseTitleName("Create Article | OCU Engineering Club");
+  UseTitleName("Create Article");
   const navigate = useNavigate();
   const { articles, getArticle, admin, category } = useData();
   const auth = useAuth();
