@@ -35,13 +35,15 @@ router.delete('/deletecomments/:id',comment_controller.deleteComments);
 
 router.get('/superadmin',superadmin_controller.getSuperAdmin);
 router.patch('/updatesuperadmin/:id',superadmin_controller.updateSuperAdmin);
-router.post('/forgotsuperadmin',superadmin_controller.forgotPassword);
+router.post('/sendotpsuperadmin',superadmin_controller.sendSuperAdminOTP);
+router.patch('/resetpasswordsuperadmin/:email',superadmin_controller.resetSuperAdminPassword);
 
 router.get('/admin',admin_controller.getAdmin);
 router.post('/addadmin',admin_controller.addAdmin);
 router.patch('/updateadmin/:id',admin_controller.updateAdmin);
 router.delete('/deleteadmin/:id',admin_controller.deleteAdmin);
-router.post('/forgotadmin',admin_controller.forgotPassword);
+router.post('/sendotpadmin',admin_controller.sendAdminOTP);
+router.patch('/resetpasswordadmin/:email',admin_controller.resetAdminPassword);
 
 router.get('/category',category_controller.getCategory);
 router.post('/addcategory',category_controller.addCategory);

@@ -1,8 +1,11 @@
 const Admin = require('../model/admin_model');
 const { sendMail } = require('./mail');
+const { generateOTP, verifyOTP } = require('./otp');
 const hash = require('./passwordHashing');
 const reset_password_template = require('./reset_password_template');
 const welcome_admin_template = require('./welcome_admin_template');
+
+let generate_OTP;
 
 const getAdmin = async (req, res, next) => {
   try {
@@ -118,7 +121,7 @@ const deleteAdmin = async (req, res, next) => {
   }
 };
 
-const forgotPassword = async (req, res, next) => {
+const sendAdminOTP = async (req, res, next) => {
   try {
     const { email } = req.body;
     const adminExist = await Admin.findOne({ email: email });
@@ -126,17 +129,46 @@ const forgotPassword = async (req, res, next) => {
       return res.status(404).json({ message: "Email not found." });
     }
 
-    // Send the reset link as an email
+    generate_OTP = generateOTP();
+
+    // Send the OTP as an email
     await sendMail(
       adminExist.email,
       "Reset Admin Password",
       reset_password_template({
         userName: adminExist.name,
-        resetLink: "http://localhost:3000/admin",
+        otp: generate_OTP,
       }),
     );
-    res.status(200).json({ message: "Reset link sent to your email." });
-    console.log("Reset link sent to your email.");
+    res.status(200).json({ message: "OTP sent to your email." });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error." });
+  }
+};
+
+const resetAdminPassword = async (req, res, next) => {
+  try {
+    const email = req.params.email;
+    const { user_OTP, password } = req.body;
+
+    const verify_OTP = verifyOTP(user_OTP, generate_OTP);
+
+    if(verify_OTP.success === false) {
+      return res.status(404).json({ message: verify_OTP.message });
+    }
+
+    const updatedAdmin = await Admin.findOneAndUpdate(
+      { email: email },
+      {
+        $set: {
+          password: hash.hashPasswordBcrypt(password),
+        },
+      },
+    );
+    res.status(200).json({
+      response: updatedAdmin,
+      message: "Password changed successfully.",
+    });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error." });
   }
@@ -146,4 +178,5 @@ exports.getAdmin = getAdmin;
 exports.addAdmin = addAdmin;
 exports.updateAdmin = updateAdmin;
 exports.deleteAdmin = deleteAdmin;
-exports.forgotPassword = forgotPassword;
+exports.sendAdminOTP = sendAdminOTP;
+exports.resetAdminPassword = resetAdminPassword;

@@ -1,17 +1,16 @@
 import UseTitleName from "../../utils/UseTitleName";
 import logo from "../../assets/logo.png";
 import "./Admin.css";
-import { NavLink} from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../utils/AuthContext";
-// import { useData } from "../../utils/DataContext";
-
-const hash = require("../../utils/hashing");
+import { useData } from "../../utils/DataContext";
 
 const AdminLogin = () => {
   UseTitleName("Admin Login | OCU Engineering Club");
   const auth = useAuth();
-  // const { admin } = useData();
+  const { admin } = useData();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,12 +18,25 @@ const AdminLogin = () => {
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
 
-  const [invalidUser, setInvalidUser] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+
+  // Get admin attributes
+  const isuser = admin?.find(
+    (a) =>
+      a.email === auth.getLocalStorageWithExpiry("admin")?.[2] ||
+      a.email === auth.user
+  );
+
+  useEffect(() => {
+    if (isuser) {
+      navigate("/admin/home");
+    }
+  }, [isuser, navigate]);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    //set islogin variable 
-    var isLogin = false
+    setIsPending(true);
+
     // set user as input
     const user = {
       email: email,
@@ -32,6 +44,10 @@ const AdminLogin = () => {
     }
     //check admin in database
     auth.adminlogin(user);
+    setTimeout(() => {
+      setIsPending(false);
+    }, 5000);
+
   };
 
   return (
@@ -48,7 +64,7 @@ const AdminLogin = () => {
       <form className="mt-2" onSubmit={handleLogin}>
         <div className="form-group">
           <label className="d-flex justify-content-start ms-1">
-            <i className="bi bi-person-fill me-1"></i>Email Address
+            <i className="bi bi-envelope-fill me-1"></i>Email Address
           </label>
           <input
             type="email"
@@ -62,7 +78,6 @@ const AdminLogin = () => {
             }}
             onInput={() => {
               setErrorEmail(false);
-              setInvalidUser(false);
             }}
             required
           />
@@ -89,7 +104,6 @@ const AdminLogin = () => {
             }}
             onInput={() => {
               setErrorPassword(false);
-              setInvalidUser(false);
             }}
             required
           />
@@ -108,8 +122,20 @@ const AdminLogin = () => {
             type="submit"
             className="btn btn-primary"
             style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
+            disabled={isPending}
           >
-            Login
+            {isPending ? (
+              <>
+                <span className="me-1">
+                  <i className="spinner-border spinner-border-sm"></i>
+                </span>
+                <span>Logining...</span>
+              </>
+            ) : (
+              <>
+                <span>Login</span>
+              </>
+            )}
           </button>
         </div>
       </form>
