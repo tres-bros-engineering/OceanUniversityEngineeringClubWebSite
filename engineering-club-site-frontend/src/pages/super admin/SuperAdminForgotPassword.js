@@ -170,7 +170,7 @@ const SuperAdminForgotPassword = () => {
             )}
           </button>
         </div>
-        <div className="d-flex justify-content-center mt-2">
+        <div className="d-flex justify-content-center mt-2 mb-4">
           <button
             type="button"
             className="btn btn-primary"
