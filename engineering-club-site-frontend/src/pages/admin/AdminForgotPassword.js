@@ -6,23 +6,39 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
+import OTP from "../../components/modal/OTP";
 
 const AdminForgotPassword = () => {
   UseTitleName("Forgot Password | OCU Engineering Club");
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
-  const [isPending, setIsPending] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPW, setConfirmPW] = useState("");
+
   const [errorEmail, setErrorEmail] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
+  const [errorConfirmPW, setErrorConfirmPW] = useState(false);
+
+  const [openOtpModal, setOpenOtpModal] = useState(false);
+
+  const [isPending, setIsPending] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsPending(true);
 
+    if (password !== confirmPW) {
+      setErrorConfirmPW(true);
+      setIsPending(false);
+      return;
+    }
+
     await axios
       .post(ApiRoutes.ADMIN.FORGOT, { email: email })
       .then((res) => {
         toast.success(res.data?.message);
+        setOpenOtpModal(true);
       })
       .catch((error) => {
         toast.error(error.response.data?.message || error.response.data?.error);
@@ -41,13 +57,17 @@ const AdminForgotPassword = () => {
         <h1>Forgot Password</h1>
       </div>
 
+      {openOtpModal && <OTP email={email} password={password} />}
+
       {/* Forgot password form */}
       <form className="mt-2" onSubmit={handleSubmit}>
         <div className="form-group">
+          <label className="d-flex justify-content-start ms-1">
+            <i className="bi bi-envelope-fill me-1"></i>Email Address
+          </label>
           <input
             type="email"
             className="form-control"
-            id="adminInputEmail"
             placeholder="Enter Your Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -67,7 +87,59 @@ const AdminForgotPassword = () => {
             </label>
           )}
         </div>
-        <div className="d-flex justify-content-center mt-3">
+        <div className="form-group mt-3">
+          <label className="d-flex justify-content-start ms-1">
+            <i className="bi bi-lock-fill me-1"></i>New Password
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Enter Your Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onInvalid={(e) => {
+              e.preventDefault();
+              setErrorPassword(true);
+            }}
+            onInput={() => {
+              setErrorPassword(false);
+            }}
+            required
+          />
+          {errorPassword && (
+            <label className="text-danger d-flex justify-content-start ms-1">
+              <i className="bi bi-exclamation-circle-fill me-1"></i>Please enter
+              your new password!
+            </label>
+          )}
+        </div>
+        <div className="form-group mt-3">
+          <label className="d-flex justify-content-start ms-1">
+            <i className="bi bi-lock-fill me-1"></i>Confirm Password
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Confirm Your Password"
+            value={confirmPW}
+            onChange={(e) => setConfirmPW(e.target.value)}
+            onInvalid={(e) => {
+              e.preventDefault();
+              setErrorConfirmPW(true);
+            }}
+            onInput={() => {
+              setErrorConfirmPW(false);
+            }}
+            required
+          />
+          {errorConfirmPW && (
+            <label className="text-danger d-flex justify-content-start ms-1">
+              <i className="bi bi-exclamation-circle-fill me-1"></i>Please Confirm
+              your password!
+            </label>
+          )}
+        </div>
+        <div className="d-flex justify-content-center mt-4">
           <button
             type="submit"
             className="btn btn-primary"
@@ -79,10 +151,10 @@ const AdminForgotPassword = () => {
                 <span className="me-1">
                   <i className="spinner-border spinner-border-sm"></i>
                 </span>
-                <span>Requesting...</span>
+                <span>Reseting...</span>
               </>
             ) : (
-              "Request Reset Link"
+              "Reset Password"
             )}
           </button>
         </div>

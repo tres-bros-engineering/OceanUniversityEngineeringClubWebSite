@@ -47,7 +47,7 @@ module.exports = function resetPasswordTemplate({
 
                 <p>Please use the temporary password below to log in:</p>
 
-                <p style="background:#f4f6f8; padding:12px; font-size:16px; font-weight:bold; letter-spacing:1px;">
+                <p style="background:#f4f6f8; padding:12px; font-size:16px; font-weight:bold; letter-spacing:1px; text-align: center;">
                     ${password}
                 </p>
 

@@ -6,30 +6,17 @@ import "./EndUser.css";
 
 const Home = () => {
   UseTitleName("OCU Engineering Club");
-  const { articles, news } = useData();
+  const { articles, news, category } = useData();
 
   // Filter posts by category
   const sliderPosts = [...articles, ...news]
     .filter((post) => post.publish)
     .sort((a, b) => new Date(b.date) - new Date(a.date));
+
   const newsPosts = news
     .filter((post) => post.publish)
     .sort((a, b) => new Date(b.date) - new Date(a.date));
-  const pumpsPosts = articles
-    .filter((post) => post.category === "Pumps" && post.publish)
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-  const shipConstructionsPosts = articles
-    .filter((post) => post.category === "Ship Constructions" && post.publish)
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-  const shipStabilityPosts = articles
-    .filter((post) => post.category === "Ship Stability" && post.publish)
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-  const shipTypePosts = articles
-    .filter((post) => post.category === "Ship Type" && post.publish)
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-  const otherPosts = articles
-    .filter((post) => post.category === "Other" && post.publish)
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
   const latestArticlePosts = articles
     .filter((post) => post.publish)
     .sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -41,7 +28,7 @@ const Home = () => {
           <Slider posts={sliderPosts} />
         </div>
       </div>
-      <div className="row mt-4">
+      <div className="row my-4">
         <div className="col-lg-6" data-aos="fade-up">
           <PostGrid posts={newsPosts} category="News" />
         </div>
@@ -50,34 +37,21 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="row mt-4">
-        <div data-aos="fade-up">
-          <PostGrid posts={pumpsPosts} category="Pumps" />
-        </div>
-      </div>
+      <div className="row mb-4">
+        {category.map((c, index) => {
+          const filteredPosts = articles
+            .filter((post) => post.category === c.name && post.publish)
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-      <div className="row mt-4">
-        <div data-aos="fade-up">
-          <PostGrid
-            posts={shipConstructionsPosts}
-            category="Ship Constructions"
-          />
-        </div>
-      </div>
+          // Only render if there are posts
+          if (filteredPosts.length === 0) return null;
 
-      <div className="row mt-4">
-        <div className="col-lg-6" data-aos="fade-up">
-          <PostGrid posts={shipStabilityPosts} category="Ship Stability" />
-        </div>
-        <div className="col-lg-6 mt-4 mt-lg-0" data-aos="fade-up">
-          <PostGrid posts={shipTypePosts} category="Ship Type" />
-        </div>
-      </div>
-
-      <div className="row my-4">
-        <div data-aos="fade-up">
-          <PostGrid posts={otherPosts} category="Other" />
-        </div>
+          return (
+            <div className="mb-4" data-aos="fade-up" key={index}>
+              <PostGrid posts={filteredPosts} category={c.name} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

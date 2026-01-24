@@ -64,7 +64,7 @@ const AdminLogin = () => {
       <form className="mt-2" onSubmit={handleLogin}>
         <div className="form-group">
           <label className="d-flex justify-content-start ms-1">
-            <i className="bi bi-person-fill me-1"></i>Email Address
+            <i className="bi bi-envelope-fill me-1"></i>Email Address
           </label>
           <input
             type="email"

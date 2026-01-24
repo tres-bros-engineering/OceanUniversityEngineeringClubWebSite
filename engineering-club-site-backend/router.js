@@ -42,6 +42,7 @@ router.post('/addadmin',admin_controller.addAdmin);
 router.patch('/updateadmin/:id',admin_controller.updateAdmin);
 router.delete('/deleteadmin/:id',admin_controller.deleteAdmin);
 router.post('/forgotadmin',admin_controller.forgotPassword);
+router.patch('/resetadmin/:email',admin_controller.resetPassword);
 
 router.get('/category',category_controller.getCategory);
 router.post('/addcategory',category_controller.addCategory);

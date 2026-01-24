@@ -11,7 +11,8 @@ const ApiRoutes = {
         CREATE: `${BASE_URL}/addadmin`,
         PATCH: `${BASE_URL}/updateadmin`,
         DELETE: `${BASE_URL}/deleteadmin`,
-        FORGOT: `${BASE_URL}/forgotadmin`
+        FORGOT: `${BASE_URL}/forgotadmin`,
+        RESET: `${BASE_URL}/resetadmin`
     },
     ARTICLE : {
         GET: `${BASE_URL}/articles`,
