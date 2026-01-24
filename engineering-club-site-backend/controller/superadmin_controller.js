@@ -1,7 +1,10 @@
 const SuperAdmin = require('../model/superadmin_model');
 const { sendMail } = require('./mail');
+const { generateOTP, verifyOTP } = require('./otp');
 const hash = require('./passwordHashing');
 const reset_password_template = require('./reset_password_template');
+
+let generate_OTP;
 
 // Superadmin Controller
 const getSuperAdmin = async (req, res, next) => {
@@ -61,7 +64,7 @@ const updateSuperAdmin = async (req, res, next) => {
     }
 };
 
-const forgotPassword = async (req, res, next) => {
+const sendSuperAdminOTP = async (req, res, next) => {
   try {
     const { email } = req.body;
     const superAdminExist = await SuperAdmin.findOne({ email: email });
@@ -69,17 +72,46 @@ const forgotPassword = async (req, res, next) => {
       return res.status(404).json({ message: "Email not found." });
     }
 
-    // Send the reset link as an email
+    generate_OTP = generateOTP();
+
+    // Send the OTP as an email
     await sendMail(
       superAdminExist.email,
       "Reset Super Admin Password",
       reset_password_template({
         userName: superAdminExist.name,
-        resetLink: "http://localhost:3000/superadmin",
+        otp: generate_OTP,
       }),
     );
-    res.status(200).json({ message: "Reset link sent to your email." });
-    console.log("Reset link sent to your email.");
+    res.status(200).json({ message: "OTP sent to your email." });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error." });
+  }
+};
+
+const resetSuperAdminPassword = async (req, res, next) => {
+  try {
+    const email = req.params.email;
+    const { user_OTP, password } = req.body;
+
+    const verify_OTP = verifyOTP(user_OTP, generate_OTP);
+
+    if(verify_OTP.success === false) {
+      return res.status(404).json({ message: verify_OTP.message });
+    }
+
+    const updatedSuperAdmin = await SuperAdmin.findOneAndUpdate(
+      { email: email },
+      {
+        $set: {
+          password: hash.hashPasswordBcrypt(password),
+        },
+      },
+    );
+    res.status(200).json({
+      response: updatedSuperAdmin,
+      message: "Password changed successfully.",
+    });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error." });
   }
@@ -87,4 +119,5 @@ const forgotPassword = async (req, res, next) => {
 
 exports.getSuperAdmin = getSuperAdmin;
 exports.updateSuperAdmin = updateSuperAdmin;
-exports.forgotPassword = forgotPassword;
+exports.sendSuperAdminOTP = sendSuperAdminOTP;
+exports.resetSuperAdminPassword = resetSuperAdminPassword;

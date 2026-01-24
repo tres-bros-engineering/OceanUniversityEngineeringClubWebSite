@@ -3,12 +3,11 @@ import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import "./Modal.css";
 import "../../pages/enduser/EndUser.css";
-import ApiRoutes from "../../api/ApiRoutes";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import { useData } from "../../utils/DataContext";
 
-const OTP = ({ email, password }) => {
+const OTP = ({ email, password, api, modal_theme, setIsCompleted }) => {
   const { getAdmin } = useData();
 
   const [show, setShow] = useState(true);
@@ -36,16 +35,17 @@ const OTP = ({ email, password }) => {
     };
 
     await axios
-      .patch(ApiRoutes.ADMIN.RESET + "/" + email, adminData)
+      .patch(api + "/" + email, adminData)
       .then((res) => {
         getAdmin();
         toast.success(res.data?.message);
-        setIsPending(false);
+        setIsCompleted(true);
         handleClose();
       })
       .catch((error) => {
-        setIsPending(false);
         toast.error(error.response.data?.message || error.response.data?.error);
+      }).finally(() => {
+        setIsPending(false);
       });
   };
 
@@ -58,6 +58,7 @@ const OTP = ({ email, password }) => {
         centered
         backdrop="static"
         keyboard={false}
+        className={`${modal_theme === "#00798eff" ? "admin" : "superadmin"}-manage-posts`}
       >
         <Modal.Header closeButton>
           <Modal.Title>Verify OTP</Modal.Title>
@@ -96,7 +97,7 @@ const OTP = ({ email, password }) => {
           </Button>
           <Button
             className="btn btn-primary"
-            style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
+            style={{ backgroundColor: modal_theme, border: 0, width: 120 }}
             disabled={isPending}
             onClick={handleSubmit}
           >

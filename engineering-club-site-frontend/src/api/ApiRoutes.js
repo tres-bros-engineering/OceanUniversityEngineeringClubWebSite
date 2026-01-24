@@ -4,15 +4,16 @@ const ApiRoutes = {
     SUPERADMIN : {
         GET: `${BASE_URL}/superadmin`,
         PATCH: `${BASE_URL}/updatesuperadmin`,
-        FORGOT: `${BASE_URL}/forgotsuperadmin`
+        OTP: `${BASE_URL}/sendotpsuperadmin`,
+        RESET: `${BASE_URL}/resetpasswordsuperadmin`
     },
     ADMIN : {
         GET: `${BASE_URL}/admin`,
         CREATE: `${BASE_URL}/addadmin`,
         PATCH: `${BASE_URL}/updateadmin`,
         DELETE: `${BASE_URL}/deleteadmin`,
-        FORGOT: `${BASE_URL}/forgotadmin`,
-        RESET: `${BASE_URL}/resetadmin`
+        OTP: `${BASE_URL}/sendotpadmin`,
+        RESET: `${BASE_URL}/resetpasswordadmin`
     },
     ARTICLE : {
         GET: `${BASE_URL}/articles`,

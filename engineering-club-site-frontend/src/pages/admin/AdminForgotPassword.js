@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import ApiRoutes from "../../api/ApiRoutes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OTP from "../../components/modal/OTP";
 
 const AdminForgotPassword = () => {
@@ -21,12 +21,24 @@ const AdminForgotPassword = () => {
   const [errorConfirmPW, setErrorConfirmPW] = useState(false);
 
   const [openOtpModal, setOpenOtpModal] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const [isPending, setIsPending] = useState(false);
+
+  // Clear input fields
+  useEffect(() => {
+    if (isCompleted === true) {
+      setEmail("");
+      setPassword("");
+      setConfirmPW("");
+    }
+  }, [isCompleted]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsPending(true);
+    setOpenOtpModal(false);
+    setIsCompleted(false);
 
     if (password !== confirmPW) {
       setErrorConfirmPW(true);
@@ -35,14 +47,15 @@ const AdminForgotPassword = () => {
     }
 
     await axios
-      .post(ApiRoutes.ADMIN.FORGOT, { email: email })
+      .post(ApiRoutes.ADMIN.OTP, { email: email })
       .then((res) => {
         toast.success(res.data?.message);
         setOpenOtpModal(true);
       })
       .catch((error) => {
         toast.error(error.response.data?.message || error.response.data?.error);
-      }).finally(() => {
+      })
+      .finally(() => {
         setIsPending(false);
       });
   };
@@ -57,7 +70,15 @@ const AdminForgotPassword = () => {
         <h1>Forgot Password</h1>
       </div>
 
-      {openOtpModal && <OTP email={email} password={password} />}
+      {openOtpModal && (
+        <OTP
+          email={email}
+          password={password}
+          api={ApiRoutes.ADMIN.RESET}
+          modal_theme={"#00798eff"}
+          setIsCompleted={setIsCompleted}
+        />
+      )}
 
       {/* Forgot password form */}
       <form className="mt-2" onSubmit={handleSubmit}>
@@ -134,8 +155,8 @@ const AdminForgotPassword = () => {
           />
           {errorConfirmPW && (
             <label className="text-danger d-flex justify-content-start ms-1">
-              <i className="bi bi-exclamation-circle-fill me-1"></i>Please Confirm
-              your password!
+              <i className="bi bi-exclamation-circle-fill me-1"></i>Please
+              Confirm your password!
             </label>
           )}
         </div>
@@ -171,6 +192,6 @@ const AdminForgotPassword = () => {
       </form>
     </div>
   );
-};
+};;
 
 export default AdminForgotPassword;

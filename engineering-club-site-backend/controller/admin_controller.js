@@ -121,7 +121,7 @@ const deleteAdmin = async (req, res, next) => {
   }
 };
 
-const forgotPassword = async (req, res, next) => {
+const sendAdminOTP = async (req, res, next) => {
   try {
     const { email } = req.body;
     const adminExist = await Admin.findOne({ email: email });
@@ -146,7 +146,7 @@ const forgotPassword = async (req, res, next) => {
   }
 };
 
-const resetPassword = async (req, res, next) => {
+const resetAdminPassword = async (req, res, next) => {
   try {
     const email = req.params.email;
     const { user_OTP, password } = req.body;
@@ -178,5 +178,5 @@ exports.getAdmin = getAdmin;
 exports.addAdmin = addAdmin;
 exports.updateAdmin = updateAdmin;
 exports.deleteAdmin = deleteAdmin;
-exports.forgotPassword = forgotPassword;
-exports.resetPassword =resetPassword;
+exports.sendAdminOTP = sendAdminOTP;
+exports.resetAdminPassword = resetAdminPassword;
