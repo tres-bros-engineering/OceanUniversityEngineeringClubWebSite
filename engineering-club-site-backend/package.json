@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "backend of the ocean university engineering club website",
   "license": "ISC",
-  "author": "Tres Bros",
+  "author": "Dos Bros Engineering",
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
