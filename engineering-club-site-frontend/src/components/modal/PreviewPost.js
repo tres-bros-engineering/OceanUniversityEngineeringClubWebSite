@@ -62,7 +62,7 @@ const PreviewPost = ({ title, body, category, author }) => {
               </span>
             ) : (
               <span>
-                <i className="bi bi-tags"></i> News
+                <i className="bi bi-tags-fill"></i> News
               </span>
             )}
           </div>

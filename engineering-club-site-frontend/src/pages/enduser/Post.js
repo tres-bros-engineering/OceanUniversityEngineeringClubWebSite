@@ -47,7 +47,7 @@ const Post = () => {
                 </div>}
                 {/* Author name */}
                 {adminExist && <span className="me-4"> {adminExist?.name}</span>}
-                {post.category ? (<span><i className="bi bi-tags-fill"></i> {post.category}</span>) : (<span><i className="bi bi-tags"></i> News</span>)}
+                {post.category ? (<span><i className="bi bi-tags-fill"></i> {post.category}</span>) : (<span><i className="bi bi-tags-fill"></i> News</span>)}
               </div>
               <div className="mt-1 mb-4 fw-bold">
                 <PostStats key={post.id} views={post.views || 0} like={post.like || 0} dislike={post.dislike || 0} postId={post.id} category={post.category} />
