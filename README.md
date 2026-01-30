@@ -65,5 +65,3 @@ It supports **three user roles**, integrates **Dropbox** as a cloud bucket servi
 ## 📌 Future Improvements
 
 - Chatbot implementation
-
----
